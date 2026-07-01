@@ -83,11 +83,9 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         html {
             scroll-behavior: smooth;
         }
-
         body {
             font-family: 'Poppins', 'Inter', sans-serif;
             background: var(--bg);
@@ -96,8 +94,6 @@
             overflow-x: hidden;
             transition: background 0.5s ease, color 0.5s ease;
         }
-
-        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -110,7 +106,6 @@
             border-radius: 10px;
         }
 
-        /* Particle Canvas */
         #particlesCanvas {
             position: fixed;
             top: 0;
@@ -125,7 +120,6 @@
             opacity: 0;
         }
 
-        /* Loading Overlay */
         #loadingOverlay {
             position: fixed;
             top: 0;
@@ -146,7 +140,6 @@
             visibility: hidden;
             pointer-events: none;
         }
-
         .loader-ring {
             width: 80px;
             height: 80px;
@@ -226,7 +219,6 @@
             }
         }
 
-        /* Main Content */
         #mainContent {
             position: relative;
             z-index: 1;
@@ -239,15 +231,14 @@
             transform: translateY(0);
         }
 
-        /* Top Bar */
         .top-bar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 24px;
+            padding: 10px 20px;
             background: var(--nav-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border-bottom: 1px solid var(--glass-border);
             position: sticky;
             top: 0;
@@ -272,15 +263,49 @@
             filter: brightness(1.3);
             transform: scale(1.04);
         }
+
+        .speed-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 6px 14px;
+            border-radius: 25px;
+            border: 1px solid var(--glass-border);
+            color: var(--text);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            font-family: 'Orbitron', sans-serif;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+        }
+        .speed-indicator .icon {
+            font-size: 1.2rem;
+            animation: pulseSpeed 1.5s infinite;
+        }
+        @keyframes pulseSpeed {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.25);
+                filter: drop-shadow(0 0 6px #22c55e);
+            }
+        }
+
         .top-actions {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
         .panic-icon {
             background: transparent;
             border: none;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             cursor: pointer;
             color: var(--danger);
             filter: drop-shadow(0 0 6px var(--danger-glow));
@@ -324,7 +349,6 @@
             box-shadow: 0 0 20px rgba(168, 85, 247, 0.35);
         }
 
-        /* Settings Dropdown */
         .settings-dropdown {
             position: absolute;
             top: 55px;
@@ -357,7 +381,7 @@
             }
         }
         .settings-dropdown label {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             letter-spacing: 0.5px;
             color: var(--text-secondary);
@@ -375,12 +399,6 @@
             transition: all 0.3s ease;
             width: 100%;
         }
-        .settings-dropdown input[type="text"]:focus,
-        .settings-dropdown select:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.25);
-        }
         .settings-dropdown button {
             padding: 8px 16px;
             border-radius: 20px;
@@ -391,9 +409,6 @@
             font-weight: 600;
             letter-spacing: 1px;
             transition: all 0.3s ease;
-        }
-        .settings-dropdown button:hover {
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.5);
         }
         .toggle-switch-wrapper {
             display: flex;
@@ -438,7 +453,6 @@
             transform: translateX(22px);
         }
 
-        /* Main Content Area */
         .container {
             max-width: 1000px;
             margin: 0 auto;
@@ -446,7 +460,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Home View (Search Engine) */
         .home-view {
             display: flex;
             flex-direction: column;
@@ -471,7 +484,6 @@
             font-size: 1.1rem;
             color: var(--text-secondary);
             margin-bottom: 30px;
-            letter-spacing: 0.5px;
         }
         .search-wrapper {
             position: relative;
@@ -485,12 +497,10 @@
             border: 2px solid var(--glass-border);
             background: var(--input-bg);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             color: var(--text);
             font-size: 1.1rem;
             font-family: 'Poppins', sans-serif;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
         .search-input:focus {
             outline: none;
@@ -517,7 +527,6 @@
             box-shadow: 0 0 30px rgba(168, 85, 247, 0.7);
         }
 
-        /* Browser View */
         .browser-view {
             display: none;
             flex-direction: column;
@@ -528,11 +537,10 @@
         .browser-toolbar {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
+            gap: 6px;
+            padding: 8px 12px;
             background: var(--nav-bg);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--glass-border);
             flex-wrap: wrap;
         }
@@ -540,7 +548,7 @@
             background: transparent;
             border: none;
             color: var(--text);
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             cursor: pointer;
             padding: 6px 10px;
             border-radius: 8px;
@@ -552,15 +560,15 @@
         }
         .url-bar {
             flex: 1;
-            padding: 8px 16px;
+            padding: 8px 14px;
             border-radius: 25px;
             border: 2px solid var(--glass-border);
             background: var(--input-bg);
             color: var(--text);
             font-family: 'Poppins', sans-serif;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
-            min-width: 200px;
+            min-width: 180px;
         }
         .url-bar:focus {
             outline: none;
@@ -572,21 +580,18 @@
             width: 100%;
             background: #fff;
             overflow: hidden;
-            position: relative;
         }
         .iframe-container iframe {
             width: 100%;
             height: 100%;
             border: none;
-            background: #fff;
         }
 
-        /* Fine Print */
         .fine-print {
             text-align: center;
             font-size: 0.7rem;
             color: var(--text-secondary);
-            margin-top: 40px;
+            margin-top: 30px;
             padding: 16px;
             border-top: 1px solid var(--glass-border);
             letter-spacing: 0.5px;
@@ -597,7 +602,6 @@
             color: #fbbf24;
         }
 
-        /* Contact Section */
         .contact-section {
             display: flex;
             gap: 16px;
@@ -628,22 +632,12 @@
             animation: neonGlowBlue 2s ease-in-out infinite;
             background: #1a1a2e;
         }
-        .contact-btn.discord:hover {
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.8);
-            transform: scale(1.05);
-            background: #1e3a5f;
-        }
         .contact-btn.whatsapp {
             color: #22c55e;
             border-color: #22c55e;
             box-shadow: 0 0 15px rgba(34, 197, 94, 0.4), inset 0 0 10px rgba(34, 197, 94, 0.1);
             animation: neonGlowGreen 2s ease-in-out infinite;
             background: #1a2e1a;
-        }
-        .contact-btn.whatsapp:hover {
-            box-shadow: 0 0 30px rgba(34, 197, 94, 0.8);
-            transform: scale(1.05);
-            background: #1a3a1a;
         }
         @keyframes neonGlowBlue {
             0%,
@@ -664,7 +658,6 @@
             }
         }
 
-        /* Responsive */
         @media (max-width: 600px) {
             .big-logo {
                 font-size: 2.8rem;
@@ -672,24 +665,18 @@
             .search-wrapper {
                 max-width: 90%;
             }
-            .search-btn {
-                padding: 10px 16px;
-                font-size: 0.8rem;
-                right: 4px;
+            .speed-indicator {
+                font-size: 0.7rem;
+                padding: 4px 10px;
             }
-            .top-bar {
-                padding: 10px 14px;
-            }
-            .settings-dropdown {
-                right: 5px;
-                min-width: 260px;
+            .browser-toolbar {
+                padding: 6px 8px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Loading Overlay -->
     <div id="loadingOverlay">
         <div class="loader-ring"></div>
         <div class="loader-text">NovaHub</div>
@@ -698,14 +685,14 @@
         </div>
     </div>
 
-    <!-- Particle Canvas -->
     <canvas id="particlesCanvas"></canvas>
 
-    <!-- Main Content -->
     <div id="mainContent">
-        <!-- Top Bar -->
         <div class="top-bar">
             <div class="logo" onclick="goHome()">◆ NovaHub</div>
+            <div class="speed-indicator" id="speedIndicator">
+                <span class="icon">📶</span> <span id="mbpsValue">98</span> Mbps
+            </div>
             <div class="top-actions" style="position:relative;">
                 <button class="panic-icon" onclick="panicRedirect()" title="Emergency Redirect">❗</button>
                 <div class="settings-gear" id="settingsGear" onclick="toggleSettings()">⚙️</div>
@@ -731,7 +718,6 @@
             </div>
         </div>
 
-        <!-- Home View (Search Engine) -->
         <div class="home-view" id="homeView">
             <div class="big-logo">NovaHub</div>
             <p class="tagline">Explore freely. Enter a link or search the web.</p>
@@ -739,10 +725,9 @@
                 <input type="text" class="search-input" id="searchInput" placeholder="Type a URL or search..." autocomplete="off">
                 <button class="search-btn" onclick="navigateTo()">→</button>
             </div>
-            <p style="margin-top:20px;color:var(--text-secondary);font-size:0.9rem;">Example: https://example.com or any web address</p>
+            <p style="margin-top:20px;color:var(--text-secondary);font-size:0.9rem;">Powered by proxy — works with most websites.</p>
         </div>
 
-        <!-- Browser View -->
         <div class="browser-view" id="browserView">
             <div class="browser-toolbar">
                 <button class="nav-btn" onclick="goBack()">◀</button>
@@ -753,35 +738,35 @@
                 <button class="nav-btn" onclick="navigateToUrl()" style="font-size:1.2rem;">🔍</button>
             </div>
             <div class="iframe-container" id="iframeContainer">
-                <iframe id="browserFrame" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" loading="lazy"></iframe>
+                <iframe id="browserFrame" sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals allow-top-navigation" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
             </div>
         </div>
 
-        <!-- Contact Section -->
-        <div style="text-align:center;margin-top:30px;">
+        <div style="text-align:center;margin-top:25px;">
             <div class="contact-section">
                 <a class="contact-btn discord" href="https://discord.com/users/N0_0bidity" target="_blank">💬 Discord: N0_0bidity</a>
                 <a class="contact-btn whatsapp" href="https://wa.me/6588223457" target="_blank">📱 WhatsApp: +65 8822 3457</a>
             </div>
         </div>
 
-        <!-- Fine Print -->
         <div class="fine-print">
-            <p>⚠️ <strong>Note:</strong> Some websites may not load correctly due to frame restrictions or security policies. Performance may vary on small screens (PLD). For best experience, use a desktop device.</p>
-            <p style="margin-top:6px;">© 2024 NovaHub · All features demonstrated are included.</p>
+            <p>⚠️ <strong>Note:</strong> Some websites may not load perfectly due to strict security headers. Performance may vary on small screens (PLD). For best experience, use a desktop device.</p>
+            <p style="margin-top:6px;">© 2024 NovaHub · Built for seamless browsing.</p>
         </div>
     </div>
 
     <script>
-        // ==================== LOADING & PARTICLES ====================
+        // ==================== LOADING ====================
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loadingOverlay').classList.add('hidden');
                 document.getElementById('mainContent').classList.add('visible');
                 initParticles();
-            }, 2000);
+                startSpeedSimulation();
+            }, 1800);
         });
 
+        // ==================== PARTICLES ====================
         const canvas = document.getElementById('particlesCanvas');
         const ctx = canvas.getContext('2d');
         let particlesArray = [];
@@ -875,25 +860,30 @@
         function initParticles() {
             resizeCanvas();
             initParticlesArray();
-            if (!animationId) {
-                animateParticles();
-            }
+            if (!animationId) animateParticles();
         }
 
         function toggleParticles() {
             particlesEnabled = document.getElementById('particleToggle').checked;
-            if (!particlesEnabled) {
-                canvas.classList.add('hidden-particles');
-            } else {
-                canvas.classList.remove('hidden-particles');
-                if (particlesArray.length === 0) initParticlesArray();
-            }
+            if (!particlesEnabled) canvas.classList.add('hidden-particles');
+            else canvas.classList.remove('hidden-particles');
+            if (particlesArray.length === 0 && particlesEnabled) initParticlesArray();
         }
 
-        // ==================== PANIC REDIRECT ====================
+        // ==================== SPEED INDICATOR (Mbps simulation) ====================
+        function startSpeedSimulation() {
+            const mbpsSpan = document.getElementById('mbpsValue');
+            setInterval(() => {
+                const speed = Math.floor(Math.random() * 40 + 75); // 75-115 Mbps
+                mbpsSpan.textContent = speed;
+            }, 1500);
+        }
+
+        // ==================== PANIC ====================
         function panicRedirect() {
             const overlay = document.createElement('div');
-            overlay.style.cssText = 'position:fixed;inset:0;background:#ef4444;z-index:99999;opacity:0;transition:opacity 0.15s ease;pointer-events:none;';
+            overlay.style.cssText =
+                'position:fixed;inset:0;background:#ef4444;z-index:99999;opacity:0;transition:opacity 0.15s ease;pointer-events:none;';
             document.body.appendChild(overlay);
             requestAnimationFrame(() => { overlay.style.opacity = '0.7'; });
             setTimeout(() => {
@@ -904,8 +894,8 @@
         // ==================== SETTINGS DROPDOWN ====================
         function toggleSettings() {
             const dropdown = document.getElementById('settingsDropdown');
-            dropdown.classList.toggle('active');
             const gear = document.getElementById('settingsGear');
+            dropdown.classList.toggle('active');
             if (dropdown.classList.contains('active')) {
                 gear.style.transform = 'rotate(60deg)';
                 gear.style.borderColor = 'var(--accent)';
@@ -916,7 +906,6 @@
                 gear.style.boxShadow = 'none';
             }
         }
-
         document.addEventListener('click', (e) => {
             const dropdown = document.getElementById('settingsDropdown');
             const gear = document.getElementById('settingsGear');
@@ -928,7 +917,6 @@
             }
         });
 
-        // ==================== CLOAK ====================
         function applyCloak() {
             const newTitle = document.getElementById('cloakInput').value.trim();
             if (newTitle) {
@@ -953,12 +941,10 @@
                 font-family:'Poppins',sans-serif;font-size:0.9rem;font-weight:600;
                 border:1px solid var(--accent);box-shadow:0 0 25px rgba(168,85,247,0.5);
                 animation: toastIn 0.4s ease, toastOut 0.4s ease 1.8s forwards;
-                letter-spacing:0.5px;
             `;
             document.body.appendChild(toast);
             setTimeout(() => toast.remove(), 2400);
         }
-
         const toastStyle = document.createElement('style');
         toastStyle.textContent = `
             @keyframes toastIn { from{opacity:0;transform:translateX(-50%) translateY(30px);} to{opacity:1;transform:translateX(-50%) translateY(0);} }
@@ -966,7 +952,6 @@
         `;
         document.head.appendChild(toastStyle);
 
-        // ==================== THEME ====================
         function changeTheme(theme) {
             document.body.classList.remove('theme-light', 'theme-green', 'theme-crimson');
             if (theme === 'light') document.body.classList.add('theme-light');
@@ -975,14 +960,13 @@
             particlesArray.forEach(p => p.reset());
             localStorage.setItem('novahub-theme', theme);
         }
-
         const savedTheme = localStorage.getItem('novahub-theme');
         if (savedTheme) {
             document.getElementById('themeSelect').value = savedTheme;
             changeTheme(savedTheme);
         }
 
-        // ==================== BROWSER FUNCTIONALITY ====================
+        // ==================== BROWSER LOGIC (PROXY-BASED UNBLOCKER) ====================
         const homeView = document.getElementById('homeView');
         const browserView = document.getElementById('browserView');
         const iframe = document.getElementById('browserFrame');
@@ -991,12 +975,22 @@
         let historyStack = [];
         let currentHistoryIndex = -1;
 
-        function showBrowser(url) {
+        // Use a public CORS proxy to bypass iframe restrictions
+        const PROXY_URL = 'https://corsproxy.io/?'; // reliable proxy
+
+        function getProxiedUrl(originalUrl) {
+            // If already proxied, return as is
+            if (originalUrl.startsWith(PROXY_URL)) return originalUrl;
+            return PROXY_URL + encodeURIComponent(originalUrl);
+        }
+
+        function showBrowser(originalUrl) {
             homeView.style.display = 'none';
             browserView.style.display = 'flex';
-            urlBar.value = url;
-            iframe.src = url;
-            addToHistory(url);
+            const proxied = getProxiedUrl(originalUrl);
+            urlBar.value = originalUrl; // display the clean URL
+            iframe.src = proxied;
+            addToHistory(originalUrl, proxied);
         }
 
         function goHome() {
@@ -1033,50 +1027,50 @@
                     url = 'https://www.google.com/search?q=' + encodeURIComponent(url);
                 }
             }
-            iframe.src = url;
-            urlBar.value = url;
-            addToHistory(url);
+            const proxied = getProxiedUrl(url);
+            iframe.src = proxied;
+            urlBar.value = url; // keep clean URL visible
+            addToHistory(url, proxied);
         }
 
-        function addToHistory(url) {
+        function addToHistory(cleanUrl, proxiedUrl) {
             if (currentHistoryIndex < historyStack.length - 1) {
                 historyStack = historyStack.slice(0, currentHistoryIndex + 1);
             }
-            historyStack.push(url);
+            historyStack.push({ cleanUrl, proxiedUrl });
             currentHistoryIndex = historyStack.length - 1;
         }
 
         function goBack() {
             if (currentHistoryIndex > 0) {
                 currentHistoryIndex--;
-                const url = historyStack[currentHistoryIndex];
-                iframe.src = url;
-                urlBar.value = url;
+                const entry = historyStack[currentHistoryIndex];
+                iframe.src = entry.proxiedUrl;
+                urlBar.value = entry.cleanUrl;
             }
         }
 
         function goForward() {
             if (currentHistoryIndex < historyStack.length - 1) {
                 currentHistoryIndex++;
-                const url = historyStack[currentHistoryIndex];
-                iframe.src = url;
-                urlBar.value = url;
+                const entry = historyStack[currentHistoryIndex];
+                iframe.src = entry.proxiedUrl;
+                urlBar.value = entry.cleanUrl;
             }
         }
 
         function reloadFrame() {
-            iframe.src = iframe.src;
+            if (iframe.src && iframe.src !== 'about:blank') {
+                iframe.src = iframe.src;
+            }
         }
 
-        // Enter key in search
         searchInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') navigateTo();
         });
 
-        // Allow opening the browser with the search input if home is visible
-        window.addEventListener('load', () => {
-            goHome(); // start on home
-        });
+        // Start on home
+        goHome();
     </script>
 </body>
 </html>
