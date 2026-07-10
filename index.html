@@ -4,14 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VG Solutions – Premium Valorant Boosting</title>
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
-    /* ─────────── RESET & VARIABLES ─────────── */
     * {
       margin: 0;
       padding: 0;
@@ -26,7 +23,7 @@
       --warning: #FFC857;
       --bg: #0A0D14;
       --card-bg: #111827;
-      --border: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.07);
       --text-white: #ffffff;
       --text-gray: #d1d5db;
       --text-muted: #9ca3af;
@@ -34,7 +31,7 @@
       --shadow: 0 20px 60px rgba(0,0,0,0.6);
       --font-heading: 'Space Grotesk', sans-serif;
       --font-body: 'Inter', sans-serif;
-      --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     html { scroll-behavior: smooth; font-size: 16px; }
     body {
@@ -70,7 +67,6 @@
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
-
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
@@ -477,11 +473,46 @@
     }
     .calc-join { text-align: center; margin-top: 24px; }
 
-    .custom-input {
-      display: none;
-      margin-top: 8px;
-    }
+    .custom-input { display: none; margin-top: 8px; }
     .custom-input.visible { display: block; }
+
+    /* ─── COACHING INSTRUCTOR CARDS ─── */
+    .instructor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 14px;
+      margin: 16px 0 8px;
+    }
+    .instructor-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px 12px;
+      text-align: center;
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+    .instructor-card:hover { border-color: var(--primary); background: rgba(109,94,247,0.06); }
+    .instructor-card.active {
+      border-color: var(--primary);
+      background: rgba(109,94,247,0.10);
+      box-shadow: 0 0 30px rgba(109,94,247,0.10);
+    }
+    .instructor-card .avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      margin: 0 auto 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+    .instructor-card .name { font-weight: 600; font-size: 0.9rem; }
+    .instructor-card .spec { font-size: 0.75rem; color: var(--text-muted); }
 
     /* ─── LIVE STATUS PANEL ─── */
     .live-panel {
@@ -783,6 +814,7 @@
       .chat-window { width: calc(100vw - 32px); right: 16px; bottom: 90px; max-height: 460px; }
       .calculator-tabs { gap: 8px; }
       .tab-btn { padding: 10px 20px; font-size: 0.85rem; }
+      .instructor-grid { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); }
     }
     @media (max-width: 480px) {
       .hero h1 { font-size: 2.2rem; }
@@ -856,7 +888,7 @@
     </div>
   </section>
 
-  <!-- ─── BOOSTING (CALCULATOR) ─── -->
+  <!-- ─── BOOSTING ─── -->
   <section id="boosting" class="container" style="padding: 40px 0;">
     <h2 class="section-title fade-up">Boosting Services</h2>
     <p class="section-sub fade-up">Select your service, configure your boost, and join Discord to start.</p>
@@ -907,46 +939,17 @@
             <h4>Server</h4>
             <select id="rankServer" class="rank-select">
               <option>EU</option>
-              <option selected>NA</option>
-              <option>AP</option>
-              <option>BATAM</option>
-              <option>SEA</option>
-              <option>OCE</option>
-              <option>SA</option>
+              <option selected>AP</option>
             </select>
           </div>
         </div>
         <div class="calc-options">
-          <div class="switch-item" data-tooltip="Priority queue, faster start">
-            <span class="switch-label">Priority</span>
-            <div class="switch active" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">Priority queue, faster start</span>
-          </div>
-          <div class="switch-item" data-tooltip="Play while we boost">
-            <span class="switch-label">Offline Mode</span>
-            <div class="switch" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">Play while we boost</span>
-          </div>
-          <div class="switch-item" data-tooltip="Stream while we boost">
-            <span class="switch-label">Stream</span>
-            <div class="switch" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">Stream while we boost</span>
-          </div>
-          <div class="switch-item" data-tooltip="Play alongside a booster">
-            <span class="switch-label">Duo Queue</span>
-            <div class="switch" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">Play alongside a booster</span>
-          </div>
-          <div class="switch-item" data-tooltip="VPN protection included">
-            <span class="switch-label">VPN Protection</span>
-            <div class="switch active" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">VPN protection included</span>
-          </div>
-          <div class="switch-item" data-tooltip="Hide your in-game name">
-            <span class="switch-label">Hidden Name</span>
-            <div class="switch" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">Hide your in‑game name</span>
-          </div>
+          <div class="switch-item" data-tooltip="Priority queue, faster start"><span class="switch-label">Priority</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">Priority queue, faster start</span></div>
+          <div class="switch-item" data-tooltip="Play while we boost"><span class="switch-label">Offline Mode</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Play while we boost</span></div>
+          <div class="switch-item" data-tooltip="Stream while we boost"><span class="switch-label">Stream</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Stream while we boost</span></div>
+          <div class="switch-item" data-tooltip="Play alongside a booster"><span class="switch-label">Duo Queue</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Play alongside a booster</span></div>
+          <div class="switch-item" data-tooltip="VPN protection included"><span class="switch-label">VPN Protection</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">VPN protection included</span></div>
+          <div class="switch-item" data-tooltip="Hide your in-game name"><span class="switch-label">Hidden Name</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Hide your in‑game name</span></div>
         </div>
         <div class="calc-status">
           <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeRank">~2 Days</div></div>
@@ -979,49 +982,23 @@
           <div class="calc-col">
             <h4>Matches</h4>
             <select id="placementMatches" class="rank-select">
-              <option value="1">1 Match</option>
-              <option value="5" selected>5 Matches</option>
+              <option value="1">1 Match</option><option value="5" selected>5 Matches</option>
             </select>
           </div>
           <div class="calc-col">
             <h4>Server</h4>
             <select id="placementServer" class="rank-select">
               <option>EU</option>
-              <option selected>NA</option>
-              <option>AP</option>
-              <option>BATAM</option>
-              <option>SEA</option>
-              <option>OCE</option>
-              <option>SA</option>
+              <option selected>AP</option>
             </select>
           </div>
         </div>
         <div class="calc-options">
-          <div class="switch-item" data-tooltip="Priority queue, faster start">
-            <span class="switch-label">Priority</span>
-            <div class="switch active" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">Priority queue, faster start</span>
-          </div>
-          <div class="switch-item" data-tooltip="Stream while we boost">
-            <span class="switch-label">Stream</span>
-            <div class="switch" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">Stream while we boost</span>
-          </div>
-          <div class="switch-item" data-tooltip="Play alongside a booster">
-            <span class="switch-label">Duo Queue</span>
-            <div class="switch" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">Play alongside a booster</span>
-          </div>
-          <div class="switch-item" data-tooltip="VPN protection included">
-            <span class="switch-label">VPN Protection</span>
-            <div class="switch active" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">VPN protection included</span>
-          </div>
-          <div class="switch-item" data-tooltip="Hide your in-game name">
-            <span class="switch-label">Hidden Name</span>
-            <div class="switch" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">Hide your in‑game name</span>
-          </div>
+          <div class="switch-item" data-tooltip="Priority queue, faster start"><span class="switch-label">Priority</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">Priority queue, faster start</span></div>
+          <div class="switch-item" data-tooltip="Stream while we boost"><span class="switch-label">Stream</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Stream while we boost</span></div>
+          <div class="switch-item" data-tooltip="Play alongside a booster"><span class="switch-label">Duo Queue</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Play alongside a booster</span></div>
+          <div class="switch-item" data-tooltip="VPN protection included"><span class="switch-label">VPN Protection</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">VPN protection included</span></div>
+          <div class="switch-item" data-tooltip="Hide your in-game name"><span class="switch-label">Hidden Name</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Hide your in‑game name</span></div>
         </div>
         <div class="calc-status">
           <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimePlacement">~4 Hours</div></div>
@@ -1054,12 +1031,9 @@
           <div class="calc-col">
             <h4>Number of Wins</h4>
             <select id="winsCount" class="rank-select" onchange="toggleCustomInput(this, 'customWinsDiv')">
-              <option value="1">1 Win</option>
-              <option value="3">3 Wins</option>
-              <option value="5" selected>5 Wins</option>
-              <option value="10">10 Wins</option>
-              <option value="15">15 Wins</option>
-              <option value="20">20 Wins</option>
+              <option value="1">1 Win</option><option value="3">3 Wins</option>
+              <option value="5" selected>5 Wins</option><option value="10">10 Wins</option>
+              <option value="15">15 Wins</option><option value="20">20 Wins</option>
               <option value="custom">Custom</option>
             </select>
             <div id="customWinsDiv" class="custom-input">
@@ -1070,41 +1044,16 @@
             <h4>Server</h4>
             <select id="winsServer" class="rank-select">
               <option>EU</option>
-              <option selected>NA</option>
-              <option>AP</option>
-              <option>BATAM</option>
-              <option>SEA</option>
-              <option>OCE</option>
-              <option>SA</option>
+              <option selected>AP</option>
             </select>
           </div>
         </div>
         <div class="calc-options">
-          <div class="switch-item" data-tooltip="Priority queue, faster start">
-            <span class="switch-label">Priority</span>
-            <div class="switch active" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">Priority queue, faster start</span>
-          </div>
-          <div class="switch-item" data-tooltip="Stream while we boost">
-            <span class="switch-label">Stream</span>
-            <div class="switch" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">Stream while we boost</span>
-          </div>
-          <div class="switch-item" data-tooltip="Play alongside a booster">
-            <span class="switch-label">Duo Queue</span>
-            <div class="switch" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">Play alongside a booster</span>
-          </div>
-          <div class="switch-item" data-tooltip="VPN protection included">
-            <span class="switch-label">VPN Protection</span>
-            <div class="switch active" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">VPN protection included</span>
-          </div>
-          <div class="switch-item" data-tooltip="Hide your in-game name">
-            <span class="switch-label">Hidden Name</span>
-            <div class="switch" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">Hide your in‑game name</span>
-          </div>
+          <div class="switch-item" data-tooltip="Priority queue, faster start"><span class="switch-label">Priority</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">Priority queue, faster start</span></div>
+          <div class="switch-item" data-tooltip="Stream while we boost"><span class="switch-label">Stream</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Stream while we boost</span></div>
+          <div class="switch-item" data-tooltip="Play alongside a booster"><span class="switch-label">Duo Queue</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Play alongside a booster</span></div>
+          <div class="switch-item" data-tooltip="VPN protection included"><span class="switch-label">VPN Protection</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">VPN protection included</span></div>
+          <div class="switch-item" data-tooltip="Hide your in-game name"><span class="switch-label">Hidden Name</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Hide your in‑game name</span></div>
         </div>
         <div class="calc-status">
           <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeWins">~6 Hours</div></div>
@@ -1137,10 +1086,8 @@
           <div class="calc-col">
             <h4>Number of Games</h4>
             <select id="duoGames" class="rank-select" onchange="toggleCustomInput(this, 'customGamesDiv')">
-              <option value="1">1 Game</option>
-              <option value="3">3 Games</option>
-              <option value="5" selected>5 Games</option>
-              <option value="10">10 Games</option>
+              <option value="1">1 Game</option><option value="3">3 Games</option>
+              <option value="5" selected>5 Games</option><option value="10">10 Games</option>
               <option value="custom">Custom</option>
             </select>
             <div id="customGamesDiv" class="custom-input">
@@ -1151,36 +1098,15 @@
             <h4>Server</h4>
             <select id="duoServer" class="rank-select">
               <option>EU</option>
-              <option selected>NA</option>
-              <option>AP</option>
-              <option>BATAM</option>
-              <option>SEA</option>
-              <option>OCE</option>
-              <option>SA</option>
+              <option selected>AP</option>
             </select>
           </div>
         </div>
         <div class="calc-options">
-          <div class="switch-item" data-tooltip="Priority queue, faster start">
-            <span class="switch-label">Priority</span>
-            <div class="switch active" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">Priority queue, faster start</span>
-          </div>
-          <div class="switch-item" data-tooltip="Stream while we boost">
-            <span class="switch-label">Stream</span>
-            <div class="switch" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">Stream while we boost</span>
-          </div>
-          <div class="switch-item" data-tooltip="VPN protection included">
-            <span class="switch-label">VPN Protection</span>
-            <div class="switch active" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">VPN protection included</span>
-          </div>
-          <div class="switch-item" data-tooltip="Hide your in-game name">
-            <span class="switch-label">Hidden Name</span>
-            <div class="switch" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">Hide your in‑game name</span>
-          </div>
+          <div class="switch-item" data-tooltip="Priority queue, faster start"><span class="switch-label">Priority</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">Priority queue, faster start</span></div>
+          <div class="switch-item" data-tooltip="Stream while we boost"><span class="switch-label">Stream</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Stream while we boost</span></div>
+          <div class="switch-item" data-tooltip="VPN protection included"><span class="switch-label">VPN Protection</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">VPN protection included</span></div>
+          <div class="switch-item" data-tooltip="Hide your in-game name"><span class="switch-label">Hidden Name</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Hide your in‑game name</span></div>
         </div>
         <div class="calc-status">
           <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeDuo">~3 Hours</div></div>
@@ -1197,12 +1123,22 @@
       <div class="calc-panel" id="panel-coaching">
         <div class="calc-grid">
           <div class="calc-col">
-            <h4>Coaching Duration</h4>
+            <h4>Session Type</h4>
+            <select id="coachingSessionType" class="rank-select">
+              <option>Live 1-on-1 Coaching</option>
+              <option>VOD Review</option>
+              <option>Team Coaching</option>
+              <option>Scrim Review</option>
+            </select>
+          </div>
+          <div class="calc-col">
+            <h4>Duration</h4>
             <select id="coachingDuration" class="rank-select" onchange="toggleCustomInput(this, 'customHoursDiv')">
               <option value="1">1 Hour</option>
+              <option value="2">2 Hours</option>
               <option value="3">3 Hours</option>
               <option value="5" selected>5 Hours</option>
-              <option value="10">10 Hours</option>
+              <option value="10">10 Hours (Best Value)</option>
               <option value="custom">Custom</option>
             </select>
             <div id="customHoursDiv" class="custom-input">
@@ -1210,57 +1146,92 @@
             </div>
           </div>
           <div class="calc-col">
+            <h4>Skill Level</h4>
+            <select id="coachingSkill" class="rank-select">
+              <option>Beginner (Iron-Bronze)</option>
+              <option selected>Intermediate (Silver-Gold)</option>
+              <option>Advanced (Platinum-Diamond)</option>
+              <option>Elite (Ascendant+)</option>
+            </select>
+          </div>
+          <div class="calc-col">
             <h4>Focus Area</h4>
             <select id="coachingFocus" class="rank-select">
-              <option>Mechanics</option>
+              <option>Aim Training</option>
               <option>Game Sense</option>
-              <option>Agent Mastery</option>
-              <option selected>All-Around</option>
-              <option>Teamplay</option>
               <option>Utility Usage</option>
+              <option>Positioning</option>
               <option>Movement</option>
+              <option>Crosshair Placement</option>
+              <option selected>Agent Mastery</option>
+              <option>Teamplay</option>
               <option>Mental / Confidence</option>
-              <option>VOD Review</option>
             </select>
           </div>
           <div class="calc-col">
             <h4>Server</h4>
             <select id="coachingServer" class="rank-select">
               <option>EU</option>
-              <option selected>NA</option>
-              <option>AP</option>
-              <option>BATAM</option>
-              <option>SEA</option>
-              <option>OCE</option>
-              <option>SA</option>
+              <option selected>AP</option>
             </select>
           </div>
         </div>
-        <div class="calc-options">
-          <div class="switch-item" data-tooltip="Priority scheduling">
-            <span class="switch-label">Priority Scheduling</span>
-            <div class="switch active" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">Priority scheduling</span>
-          </div>
-          <div class="switch-item" data-tooltip="VOD review included">
-            <span class="switch-label">VOD Review</span>
-            <div class="switch" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">VOD review included</span>
-          </div>
-          <div class="switch-item" data-tooltip="Stream while we boost">
-            <span class="switch-label">Stream</span>
-            <div class="switch" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">Stream while we boost</span>
+
+        <!-- Instructor Selection -->
+        <div style="margin: 20px 0 8px;">
+          <h4 style="font-family:var(--font-heading); font-size:0.85rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:10px;">Choose Your Coach</h4>
+          <div class="instructor-grid">
+            <div class="instructor-card active">
+              <div class="avatar">AK</div>
+              <div class="name">ApexKnight</div>
+              <div class="spec">Aim • Movement</div>
+            </div>
+            <div class="instructor-card">
+              <div class="avatar">VS</div>
+              <div class="name">VexStrat</div>
+              <div class="spec">Game Sense • Utility</div>
+            </div>
+            <div class="instructor-card">
+              <div class="avatar">CR</div>
+              <div class="name">CrossRaze</div>
+              <div class="spec">Agent Mastery</div>
+            </div>
+            <div class="instructor-card">
+              <div class="avatar">NY</div>
+              <div class="name">Nyxian</div>
+              <div class="spec">Mental • Teamplay</div>
+            </div>
+            <div class="instructor-card">
+              <div class="avatar">SV</div>
+              <div class="name">SilverVoid</div>
+              <div class="spec">VOD Review</div>
+            </div>
           </div>
         </div>
+
+        <div class="calc-options">
+          <div class="switch-item" data-tooltip="Priority scheduling, faster booking"><span class="switch-label">Priority Scheduling</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">Priority scheduling, faster booking</span></div>
+          <div class="switch-item" data-tooltip="VOD review included"><span class="switch-label">VOD Review</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">VOD review included</span></div>
+          <div class="switch-item" data-tooltip="Session recording provided"><span class="switch-label">Session Recording</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">Session recording provided</span></div>
+          <div class="switch-item" data-tooltip="Custom drills & homework"><span class="switch-label">Custom Drills</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Custom drills & homework</span></div>
+        </div>
+
         <div class="calc-status">
-          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeCoaching">~5 Hours</div></div>
-          <div class="status-item"><span class="label">Availability</span><div class="value" style="color:var(--success);">Online</div></div>
-          <div class="status-item"><span class="label">Queue Size</span><div class="value" id="queueSizeCoaching">2</div></div>
+          <div class="status-item"><span class="label">Available Slots</span><div class="value" style="color:var(--accent);">3 Today</div></div>
+          <div class="status-item"><span class="label">Next Available</span><div class="value" style="color:var(--text-white);">2:30 PM EST</div></div>
+          <div class="status-item"><span class="label">Session Duration</span><div class="value" id="estTimeCoaching">5 Hours</div></div>
           <div class="status-item"><span class="label">Live Boosters</span><div class="value" id="liveBoostersCoaching">10</div></div>
         </div>
+
+        <div style="margin-top:16px; padding:16px 20px; background:rgba(109,94,247,0.06); border-radius:16px; border:1px solid rgba(109,94,247,0.12); text-align:center;">
+          <p style="color:var(--text-gray); font-size:0.95rem;">
+            <i class="fas fa-info-circle" style="color:var(--primary); margin-right:8px;"></i>
+            All coaching sessions include a personalized improvement plan. VOD review sessions require a match replay link.
+          </p>
+        </div>
+
         <div class="calc-join">
-          <a href="https://discord.gg/vgsolutions" target="_blank" class="btn-primary"><i class="fab fa-discord"></i> Join Discord</a>
+          <a href="https://discord.gg/vgsolutions" target="_blank" class="btn-primary"><i class="fab fa-discord"></i> Book Session</a>
         </div>
       </div>
 
@@ -1556,7 +1527,7 @@
         placement: { time: '~4 Hours', queue: '8', live: '14' },
         wins: { time: '~6 Hours', queue: '5', live: '16' },
         duo: { time: '~3 Hours', queue: '3', live: '22' },
-        coaching: { time: '~5 Hours', queue: '2', live: '10' }
+        coaching: { time: '5 Hours', queue: '2', live: '10' }
       };
       const data = estMap[panel] || estMap.rank;
       const idMap = {
@@ -1568,7 +1539,11 @@
       };
       const ids = idMap[panel];
       if (ids) {
-        document.getElementById(ids.time).innerText = data.time;
+        if (panel === 'coaching') {
+          document.getElementById(ids.time).innerText = data.time;
+        } else {
+          document.getElementById(ids.time).innerText = data.time;
+        }
         document.getElementById(ids.queue).innerText = data.queue;
         document.getElementById(ids.live).innerText = data.live;
       }
@@ -1591,6 +1566,15 @@
       }
     }
     window.toggleCustomInput = toggleCustomInput;
+
+    // ─── COACH INSTRUCTOR SELECT ───
+    document.querySelectorAll('.instructor-card').forEach(card => {
+      card.addEventListener('click', function() {
+        document.querySelectorAll('.instructor-card').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        playSound('click');
+      });
+    });
 
     // ─── FAQ ACCORDION ───
     function toggleFaq(el) {
@@ -1658,6 +1642,7 @@
       else if (lower.includes('play during')) botReply('Yes, you can play during the boost with Offline Mode enabled. Your booster will work while you’re offline.');
       else if (lower.includes('hide name')) botReply('Absolutely – we offer a Hidden Name option in the calculator settings.');
       else if (lower.includes('hello') || lower.includes('hi')) botReply('Hello! How can I assist you today?');
+      else if (lower.includes('coach')) botReply('Our coaching includes Live 1-on-1, VOD Review, Team Coaching, and Scrim Review. Choose a coach and focus area that fits your needs.');
       else botReply('Thanks for your message. Our team will get back to you shortly. In the meantime, you can join our Discord for faster support.');
     }
 
