@@ -333,13 +333,56 @@
       font-size: 0.95rem;
     }
 
-    /* ─────────── CALCULATOR ─────────── */
+    /* ─────────── BOOSTING (CALCULATOR) TABS ─────────── */
+    .calculator-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .tab-btn {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: var(--text-gray);
+      padding: 12px 28px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all var(--transition);
+      font-family: var(--font-body);
+    }
+    .tab-btn:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: var(--primary);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 8px 30px rgba(109,94,247,0.3);
+    }
     .calculator-section {
       background: var(--card-bg);
       border-radius: var(--radius);
       border: 1px solid var(--border);
       padding: 40px 32px;
       margin: 20px 0;
+      min-height: 420px;
+    }
+    .calc-panel {
+      display: none;
+      animation: fadeInPanel 0.4s ease;
+    }
+    .calc-panel.active {
+      display: block;
+    }
+    @keyframes fadeInPanel {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     .calc-grid {
       display: flex;
@@ -349,22 +392,22 @@
       justify-content: center;
     }
     .calc-col {
-      flex: 1 1 200px;
-      min-width: 160px;
+      flex: 1 1 180px;
+      min-width: 150px;
     }
     .calc-col h4 {
       font-family: var(--font-heading);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--text-muted);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .rank-select {
       background: rgba(255,255,255,0.04);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 8px 12px;
+      padding: 10px 14px;
       width: 100%;
       color: #fff;
       font-size: 1rem;
@@ -474,7 +517,7 @@
       text-align: center;
     }
     .status-item .label {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -924,6 +967,8 @@
       .calc-grid { flex-direction: column; }
       .calc-arrow { transform: rotate(90deg); }
       .chat-window { width: calc(100vw - 32px); right: 16px; bottom: 90px; max-height: 460px; }
+      .calculator-tabs { gap: 8px; }
+      .tab-btn { padding: 10px 20px; font-size: 0.85rem; }
     }
     @media (max-width: 480px) {
       .hero h1 { font-size: 2.2rem; }
@@ -943,7 +988,7 @@
       <div class="logo"><i class="fas fa-bolt"></i> VG Solutions</div>
       <div class="nav-links">
         <a href="#services">Services</a>
-        <a href="#calculator">Calculator</a>
+        <a href="#boosting">Boosting</a>
         <a href="#faq">FAQ</a>
         <a href="#reviews">Reviews</a>
         <a href="#contact">Contact</a>
@@ -956,7 +1001,7 @@
   <section class="hero container" id="home">
     <div class="hero-content">
       <h1>Reach Your <span>Dream Rank</span></h1>
-      <p>Premium Valorant boosting & coaching by professional reapers. Fast, safe, and undetectable.</p>
+      <p>Premium Valorant boosting & coaching by professional boosters. Fast, safe, and undetectable.</p>
       <div class="hero-btns">
         <a href="https://discord.gg/vgsolutions" target="_blank" class="btn-primary"><i class="fab fa-discord"></i> Join Discord</a>
         <a href="#services" class="btn-secondary">View Services</a>
@@ -997,82 +1042,299 @@
     </div>
   </section>
 
-  <!-- ─── CALCULATOR ─── -->
-  <section id="calculator" class="container" style="padding: 40px 0;">
-    <h2 class="section-title fade-up">Boost Calculator</h2>
-    <p class="section-sub fade-up">Select your current and desired rank, then join Discord to get started.</p>
+  <!-- ─── BOOSTING (CALCULATOR) ─── -->
+  <section id="boosting" class="container" style="padding: 40px 0;">
+    <h2 class="section-title fade-up">Boosting Services</h2>
+    <p class="section-sub fade-up">Select your service, configure your boost, and join Discord to start.</p>
+
+    <div class="calculator-tabs fade-up">
+      <button class="tab-btn active" data-tab="rank"><i class="fas fa-arrow-up"></i> Rank Boost</button>
+      <button class="tab-btn" data-tab="placement"><i class="fas fa-flag-checkered"></i> Placement</button>
+      <button class="tab-btn" data-tab="wins"><i class="fas fa-trophy"></i> Net Wins</button>
+      <button class="tab-btn" data-tab="duo"><i class="fas fa-users"></i> Duo Queue</button>
+      <button class="tab-btn" data-tab="coaching"><i class="fas fa-chalkboard-teacher"></i> Coaching</button>
+    </div>
+
     <div class="calculator-section fade-up">
-      <div class="calc-grid">
-        <div class="calc-col">
-          <h4>Current Rank</h4>
-          <select id="currentRank" class="rank-select">
-            <option>Iron I</option><option>Iron II</option><option>Iron III</option>
-            <option>Bronze I</option><option>Bronze II</option><option>Bronze III</option>
-            <option>Silver I</option><option>Silver II</option><option>Silver III</option>
-            <option>Gold I</option><option>Gold II</option><option>Gold III</option>
-            <option>Platinum I</option><option>Platinum II</option><option>Platinum III</option>
-            <option>Diamond I</option><option>Diamond II</option><option>Diamond III</option>
-            <option>Ascendant I</option><option>Ascendant II</option><option>Ascendant III</option>
-            <option>Immortal I</option><option>Immortal II</option><option>Immortal III</option>
-            <option>Radiant</option>
-          </select>
+      <!-- ─── PANEL 1: RANK BOOST ─── -->
+      <div class="calc-panel active" id="panel-rank">
+        <div class="calc-grid">
+          <div class="calc-col">
+            <h4>Current Rank</h4>
+            <select id="rankCurrent" class="rank-select">
+              <option>Iron I</option><option>Iron II</option><option>Iron III</option>
+              <option>Bronze I</option><option>Bronze II</option><option>Bronze III</option>
+              <option>Silver I</option><option>Silver II</option><option>Silver III</option>
+              <option>Gold I</option><option selected>Gold II</option><option>Gold III</option>
+              <option>Platinum I</option><option>Platinum II</option><option>Platinum III</option>
+              <option>Diamond I</option><option>Diamond II</option><option>Diamond III</option>
+              <option>Ascendant I</option><option>Ascendant II</option><option>Ascendant III</option>
+              <option>Immortal I</option><option>Immortal II</option><option>Immortal III</option>
+              <option>Radiant</option>
+            </select>
+          </div>
+          <div class="calc-arrow"><i class="fas fa-arrow-right"></i></div>
+          <div class="calc-col">
+            <h4>Desired Rank</h4>
+            <select id="rankDesired" class="rank-select">
+              <option>Iron I</option><option>Iron II</option><option>Iron III</option>
+              <option>Bronze I</option><option>Bronze II</option><option>Bronze III</option>
+              <option>Silver I</option><option>Silver II</option><option>Silver III</option>
+              <option>Gold I</option><option>Gold II</option><option>Gold III</option>
+              <option>Platinum I</option><option>Platinum II</option><option selected>Platinum III</option>
+              <option>Diamond I</option><option>Diamond II</option><option>Diamond III</option>
+              <option>Ascendant I</option><option>Ascendant II</option><option>Ascendant III</option>
+              <option>Immortal I</option><option>Immortal II</option><option>Immortal III</option>
+              <option>Radiant</option>
+            </select>
+          </div>
         </div>
-        <div class="calc-arrow"><i class="fas fa-arrow-right"></i></div>
-        <div class="calc-col">
-          <h4>Desired Rank</h4>
-          <select id="desiredRank" class="rank-select">
-            <option>Iron I</option><option>Iron II</option><option>Iron III</option>
-            <option>Bronze I</option><option>Bronze II</option><option>Bronze III</option>
-            <option>Silver I</option><option>Silver II</option><option>Silver III</option>
-            <option>Gold I</option><option>Gold II</option><option>Gold III</option>
-            <option>Platinum I</option><option>Platinum II</option><option>Platinum III</option>
-            <option>Diamond I</option><option>Diamond II</option><option>Diamond III</option>
-            <option>Ascendant I</option><option>Ascendant II</option><option>Ascendant III</option>
-            <option>Immortal I</option><option>Immortal II</option><option>Immortal III</option>
-            <option>Radiant</option>
-          </select>
+        <div class="calc-options">
+          <div class="switch-item" data-tooltip="Priority queue, faster start">
+            <span class="switch-label">Priority</span>
+            <div class="switch active" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">Priority queue, faster start</span>
+          </div>
+          <div class="switch-item" data-tooltip="Play while we boost?">
+            <span class="switch-label">Offline Mode</span>
+            <div class="switch" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">Play while we boost?</span>
+          </div>
+          <div class="switch-item" data-tooltip="Streamer-friendly mode">
+            <span class="switch-label">Streamer Mode</span>
+            <div class="switch" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">Streamer‑friendly mode</span>
+          </div>
+          <div class="switch-item" data-tooltip="VPN protection included">
+            <span class="switch-label">VPN Protection</span>
+            <div class="switch active" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">VPN protection included</span>
+          </div>
+          <div class="switch-item" data-tooltip="Hide your in-game name">
+            <span class="switch-label">Hidden Name</span>
+            <div class="switch" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">Hide your in‑game name</span>
+          </div>
+        </div>
+        <div class="calc-status">
+          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeRank">~2 Days</div></div>
+          <div class="status-item"><span class="label">Availability</span><div class="value" style="color:var(--success);">Online</div></div>
+          <div class="status-item"><span class="label">Queue Size</span><div class="value" id="queueSizeRank">12</div></div>
+          <div class="status-item"><span class="label">Live Boosters</span><div class="value" id="liveBoostersRank">18</div></div>
+        </div>
+        <div class="calc-join">
+          <a href="https://discord.gg/vgsolutions" target="_blank" class="btn-primary"><i class="fab fa-discord"></i> Join Discord</a>
         </div>
       </div>
 
-      <!-- Options Panel -->
-      <div class="calc-options">
-        <div class="switch-item" data-tooltip="Priority queue, faster start">
-          <span class="switch-label">Priority</span>
-          <div class="switch active" onclick="toggleSwitch(this)"></div>
-          <span class="tooltip">Priority queue, faster start</span>
+      <!-- ─── PANEL 2: PLACEMENT MATCHES ─── -->
+      <div class="calc-panel" id="panel-placement">
+        <div class="calc-grid">
+          <div class="calc-col">
+            <h4>Last Act Rank</h4>
+            <select id="placementRank" class="rank-select">
+              <option>Iron I</option><option>Iron II</option><option>Iron III</option>
+              <option>Bronze I</option><option>Bronze II</option><option>Bronze III</option>
+              <option>Silver I</option><option>Silver II</option><option>Silver III</option>
+              <option selected>Gold I</option><option>Gold II</option><option>Gold III</option>
+              <option>Platinum I</option><option>Platinum II</option><option>Platinum III</option>
+              <option>Diamond I</option><option>Diamond II</option><option>Diamond III</option>
+              <option>Ascendant I</option><option>Ascendant II</option><option>Ascendant III</option>
+              <option>Immortal I</option><option>Immortal II</option><option>Immortal III</option>
+              <option>Radiant</option>
+            </select>
+          </div>
+          <div class="calc-col">
+            <h4>Matches</h4>
+            <select id="placementMatches" class="rank-select">
+              <option value="1">1 Match</option>
+              <option value="5" selected>5 Matches</option>
+            </select>
+          </div>
         </div>
-        <div class="switch-item" data-tooltip="Play while we boost?">
-          <span class="switch-label">Offline Mode</span>
-          <div class="switch" onclick="toggleSwitch(this)"></div>
-          <span class="tooltip">Play while we boost?</span>
+        <div class="calc-options">
+          <div class="switch-item" data-tooltip="Priority queue, faster start">
+            <span class="switch-label">Priority</span>
+            <div class="switch active" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">Priority queue, faster start</span>
+          </div>
+          <div class="switch-item" data-tooltip="VPN protection included">
+            <span class="switch-label">VPN Protection</span>
+            <div class="switch active" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">VPN protection included</span>
+          </div>
+          <div class="switch-item" data-tooltip="Hide your in-game name">
+            <span class="switch-label">Hidden Name</span>
+            <div class="switch" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">Hide your in‑game name</span>
+          </div>
         </div>
-        <div class="switch-item" data-tooltip="Streamer-friendly mode">
-          <span class="switch-label">Streamer Mode</span>
-          <div class="switch" onclick="toggleSwitch(this)"></div>
-          <span class="tooltip">Streamer‑friendly mode</span>
+        <div class="calc-status">
+          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimePlacement">~4 Hours</div></div>
+          <div class="status-item"><span class="label">Availability</span><div class="value" style="color:var(--success);">Online</div></div>
+          <div class="status-item"><span class="label">Queue Size</span><div class="value" id="queueSizePlacement">8</div></div>
+          <div class="status-item"><span class="label">Live Boosters</span><div class="value" id="liveBoostersPlacement">14</div></div>
         </div>
-        <div class="switch-item" data-tooltip="VPN protection included">
-          <span class="switch-label">VPN Protection</span>
-          <div class="switch active" onclick="toggleSwitch(this)"></div>
-          <span class="tooltip">VPN protection included</span>
-        </div>
-        <div class="switch-item" data-tooltip="Hide your in-game name">
-          <span class="switch-label">Hidden Name</span>
-          <div class="switch" onclick="toggleSwitch(this)"></div>
-          <span class="tooltip">Hide your in‑game name</span>
+        <div class="calc-join">
+          <a href="https://discord.gg/vgsolutions" target="_blank" class="btn-primary"><i class="fab fa-discord"></i> Join Discord</a>
         </div>
       </div>
 
-      <!-- Live Status -->
-      <div class="calc-status">
-        <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTime">~2 Days</div></div>
-        <div class="status-item"><span class="label">Availability</span><div class="value" style="color:var(--success);">Online</div></div>
-        <div class="status-item"><span class="label">Queue Size</span><div class="value" id="queueSize">12</div></div>
-        <div class="status-item"><span class="label">Live Reapers</span><div class="value" id="liveReapers">18</div></div>
+      <!-- ─── PANEL 3: NET WINS ─── -->
+      <div class="calc-panel" id="panel-wins">
+        <div class="calc-grid">
+          <div class="calc-col">
+            <h4>Current Rank</h4>
+            <select id="winsRank" class="rank-select">
+              <option>Iron I</option><option>Iron II</option><option>Iron III</option>
+              <option>Bronze I</option><option>Bronze II</option><option>Bronze III</option>
+              <option>Silver I</option><option>Silver II</option><option>Silver III</option>
+              <option selected>Gold I</option><option>Gold II</option><option>Gold III</option>
+              <option>Platinum I</option><option>Platinum II</option><option>Platinum III</option>
+              <option>Diamond I</option><option>Diamond II</option><option>Diamond III</option>
+              <option>Ascendant I</option><option>Ascendant II</option><option>Ascendant III</option>
+              <option>Immortal I</option><option>Immortal II</option><option>Immortal III</option>
+              <option>Radiant</option>
+            </select>
+          </div>
+          <div class="calc-col">
+            <h4>Number of Wins</h4>
+            <select id="winsCount" class="rank-select">
+              <option value="1">1 Win</option>
+              <option value="3">3 Wins</option>
+              <option value="5" selected>5 Wins</option>
+              <option value="10">10 Wins</option>
+              <option value="15">15 Wins</option>
+              <option value="20">20 Wins</option>
+            </select>
+          </div>
+        </div>
+        <div class="calc-options">
+          <div class="switch-item" data-tooltip="Priority queue, faster start">
+            <span class="switch-label">Priority</span>
+            <div class="switch active" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">Priority queue, faster start</span>
+          </div>
+          <div class="switch-item" data-tooltip="VPN protection included">
+            <span class="switch-label">VPN Protection</span>
+            <div class="switch active" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">VPN protection included</span>
+          </div>
+          <div class="switch-item" data-tooltip="Hide your in-game name">
+            <span class="switch-label">Hidden Name</span>
+            <div class="switch" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">Hide your in‑game name</span>
+          </div>
+        </div>
+        <div class="calc-status">
+          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeWins">~6 Hours</div></div>
+          <div class="status-item"><span class="label">Availability</span><div class="value" style="color:var(--success);">Online</div></div>
+          <div class="status-item"><span class="label">Queue Size</span><div class="value" id="queueSizeWins">5</div></div>
+          <div class="status-item"><span class="label">Live Boosters</span><div class="value" id="liveBoostersWins">16</div></div>
+        </div>
+        <div class="calc-join">
+          <a href="https://discord.gg/vgsolutions" target="_blank" class="btn-primary"><i class="fab fa-discord"></i> Join Discord</a>
+        </div>
       </div>
 
-      <div class="calc-join">
-        <a href="https://discord.gg/vgsolutions" target="_blank" class="btn-primary"><i class="fab fa-discord"></i> Join Discord</a>
+      <!-- ─── PANEL 4: DUO QUEUE ─── -->
+      <div class="calc-panel" id="panel-duo">
+        <div class="calc-grid">
+          <div class="calc-col">
+            <h4>Current Rank</h4>
+            <select id="duoRank" class="rank-select">
+              <option>Iron I</option><option>Iron II</option><option>Iron III</option>
+              <option>Bronze I</option><option>Bronze II</option><option>Bronze III</option>
+              <option>Silver I</option><option>Silver II</option><option>Silver III</option>
+              <option selected>Gold I</option><option>Gold II</option><option>Gold III</option>
+              <option>Platinum I</option><option>Platinum II</option><option>Platinum III</option>
+              <option>Diamond I</option><option>Diamond II</option><option>Diamond III</option>
+              <option>Ascendant I</option><option>Ascendant II</option><option>Ascendant III</option>
+              <option>Immortal I</option><option>Immortal II</option><option>Immortal III</option>
+              <option>Radiant</option>
+            </select>
+          </div>
+          <div class="calc-col">
+            <h4>Number of Games</h4>
+            <select id="duoGames" class="rank-select">
+              <option value="1">1 Game</option>
+              <option value="3">3 Games</option>
+              <option value="5" selected>5 Games</option>
+              <option value="10">10 Games</option>
+            </select>
+          </div>
+        </div>
+        <div class="calc-options">
+          <div class="switch-item" data-tooltip="Priority queue, faster start">
+            <span class="switch-label">Priority</span>
+            <div class="switch active" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">Priority queue, faster start</span>
+          </div>
+          <div class="switch-item" data-tooltip="VPN protection included">
+            <span class="switch-label">VPN Protection</span>
+            <div class="switch active" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">VPN protection included</span>
+          </div>
+          <div class="switch-item" data-tooltip="Hide your in-game name">
+            <span class="switch-label">Hidden Name</span>
+            <div class="switch" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">Hide your in‑game name</span>
+          </div>
+        </div>
+        <div class="calc-status">
+          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeDuo">~3 Hours</div></div>
+          <div class="status-item"><span class="label">Availability</span><div class="value" style="color:var(--success);">Online</div></div>
+          <div class="status-item"><span class="label">Queue Size</span><div class="value" id="queueSizeDuo">3</div></div>
+          <div class="status-item"><span class="label">Live Boosters</span><div class="value" id="liveBoostersDuo">22</div></div>
+        </div>
+        <div class="calc-join">
+          <a href="https://discord.gg/vgsolutions" target="_blank" class="btn-primary"><i class="fab fa-discord"></i> Join Discord</a>
+        </div>
+      </div>
+
+      <!-- ─── PANEL 5: COACHING ─── -->
+      <div class="calc-panel" id="panel-coaching">
+        <div class="calc-grid">
+          <div class="calc-col">
+            <h4>Coaching Duration</h4>
+            <select id="coachingDuration" class="rank-select">
+              <option value="1">1 Hour</option>
+              <option value="3">3 Hours</option>
+              <option value="5" selected>5 Hours</option>
+              <option value="10">10 Hours</option>
+            </select>
+          </div>
+          <div class="calc-col">
+            <h4>Focus Area</h4>
+            <select id="coachingFocus" class="rank-select">
+              <option>Mechanics</option>
+              <option>Game Sense</option>
+              <option>Agent Mastery</option>
+              <option selected>All-Around</option>
+            </select>
+          </div>
+        </div>
+        <div class="calc-options">
+          <div class="switch-item" data-tooltip="Priority scheduling">
+            <span class="switch-label">Priority Scheduling</span>
+            <div class="switch active" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">Priority scheduling</span>
+          </div>
+          <div class="switch-item" data-tooltip="VOD review included">
+            <span class="switch-label">VOD Review</span>
+            <div class="switch" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">VOD review included</span>
+          </div>
+        </div>
+        <div class="calc-status">
+          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeCoaching">~5 Hours</div></div>
+          <div class="status-item"><span class="label">Availability</span><div class="value" style="color:var(--success);">Online</div></div>
+          <div class="status-item"><span class="label">Queue Size</span><div class="value" id="queueSizeCoaching">2</div></div>
+          <div class="status-item"><span class="label">Live Boosters</span><div class="value" id="liveBoostersCoaching">10</div></div>
+        </div>
+        <div class="calc-join">
+          <a href="https://discord.gg/vgsolutions" target="_blank" class="btn-primary"><i class="fab fa-discord"></i> Join Discord</a>
+        </div>
       </div>
     </div>
   </section>
@@ -1170,7 +1432,7 @@
       <div class="logo" style="justify-content:center; margin-bottom:12px;"><i class="fas fa-bolt"></i> VG Solutions</div>
       <div class="footer-links">
         <a href="#services">Services</a>
-        <a href="#calculator">Calculator</a>
+        <a href="#boosting">Boosting</a>
         <a href="#faq">FAQ</a>
         <a href="#reviews">Reviews</a>
         <a href="https://discord.gg/vgsolutions" target="_blank">Discord</a>
@@ -1262,7 +1524,6 @@
     function animateParticles() {
       ctx.clearRect(0, 0, w, h);
       particles.forEach(p => { p.update(); p.draw(); });
-      // connect nearby
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -1287,7 +1548,7 @@
       document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
     });
 
-    // ─── SCROLL ANIMATIONS (Intersection Observer) ───
+    // ─── SCROLL ANIMATIONS ───
     const fadeEls = document.querySelectorAll('.fade-up');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -1321,30 +1582,56 @@
       obs.observe(counter);
     });
 
-    // ─── CALCULATOR: Update estimated time based on rank difference ───
-    const rankOrder = ['Iron I','Iron II','Iron III','Bronze I','Bronze II','Bronze III','Silver I','Silver II','Silver III','Gold I','Gold II','Gold III','Platinum I','Platinum II','Platinum III','Diamond I','Diamond II','Diamond III','Ascendant I','Ascendant II','Ascendant III','Immortal I','Immortal II','Immortal III','Radiant'];
-    function getRankIndex(select) {
-      return rankOrder.indexOf(select.value);
+    // ─── TAB SWITCHING ───
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.calc-panel');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const target = this.dataset.tab;
+        panels.forEach(p => p.classList.remove('active'));
+        document.getElementById(`panel-${target}`).classList.add('active');
+        playSound('click');
+        updateEstimates(target);
+      });
+    });
+
+    function updateEstimates(panel) {
+      // Simulate updating estimates based on panel selection
+      const estMap = {
+        rank: { time: '~2 Days', queue: '12', live: '18' },
+        placement: { time: '~4 Hours', queue: '8', live: '14' },
+        wins: { time: '~6 Hours', queue: '5', live: '16' },
+        duo: { time: '~3 Hours', queue: '3', live: '22' },
+        coaching: { time: '~5 Hours', queue: '2', live: '10' }
+      };
+      const data = estMap[panel] || estMap.rank;
+      const panelEl = document.getElementById(`panel-${panel}`);
+      if (panelEl) {
+        const timeEl = panelEl.querySelector('.status-item .value');
+        // We'll just update the first status item which is estimated time
+        // But our IDs are specific, let's update them directly
+        const idMap = {
+          rank: { time: 'estTimeRank', queue: 'queueSizeRank', live: 'liveBoostersRank' },
+          placement: { time: 'estTimePlacement', queue: 'queueSizePlacement', live: 'liveBoostersPlacement' },
+          wins: { time: 'estTimeWins', queue: 'queueSizeWins', live: 'liveBoostersWins' },
+          duo: { time: 'estTimeDuo', queue: 'queueSizeDuo', live: 'liveBoostersDuo' },
+          coaching: { time: 'estTimeCoaching', queue: 'queueSizeCoaching', live: 'liveBoostersCoaching' }
+        };
+        const ids = idMap[panel];
+        if (ids) {
+          document.getElementById(ids.time).innerText = data.time;
+          document.getElementById(ids.queue).innerText = data.queue;
+          document.getElementById(ids.live).innerText = data.live;
+        }
+      }
     }
-    function updateEstTime() {
-      const current = document.getElementById('currentRank');
-      const desired = document.getElementById('desiredRank');
-      const diff = getRankIndex(desired) - getRankIndex(current);
-      let days = Math.max(1, Math.ceil(diff / 4));
-      if (diff <= 0) days = 1;
-      document.getElementById('estTime').innerText = `~${days} Day${days>1?'s':''}`;
-      // Queue size and live reapers random updates
-      document.getElementById('queueSize').innerText = Math.floor(Math.random() * 20 + 5);
-      document.getElementById('liveReapers').innerText = Math.floor(Math.random() * 25 + 10);
-    }
-    document.getElementById('currentRank').addEventListener('change', updateEstTime);
-    document.getElementById('desiredRank').addEventListener('change', updateEstTime);
-    updateEstTime();
 
     // ─── SWITCH TOGGLE ───
     function toggleSwitch(el) {
       el.classList.toggle('active');
-      // play soft click sound (simulated)
       playSound('click');
     }
     window.toggleSwitch = toggleSwitch;
@@ -1404,7 +1691,6 @@
 
     function handleUserMessage(msg) {
       addMessage(msg, 'user');
-      // simple bot responses
       const lower = msg.toLowerCase();
       if (lower.includes('service')) botReply('We offer Rank Boost, Placement Matches, Net Wins, Duo Queue, and Coaching. Which one interests you?');
       else if (lower.includes('time') || lower.includes('estimate')) botReply('Most boosts complete within 24-48 hours. Use our calculator for a precise estimate.');
@@ -1438,10 +1724,9 @@
       }
     });
 
-    // ─── SOUND EFFECTS (simulated with Web Audio) ───
+    // ─── SOUND EFFECTS ───
     let audioCtx = null;
     function playSound(type) {
-      // if muted, skip
       const muted = document.querySelector('#chatSettings input[type="checkbox"]:last-child');
       if (muted && muted.checked) return;
       if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -1464,8 +1749,8 @@
       osc.stop(audioCtx.currentTime + dur);
     }
 
-    // ─── BUTTON RIPPLE (on all buttons) ───
-    document.querySelectorAll('.btn-primary, .btn-secondary, .nav-btn, .btn-discord, .chat-toggle, button').forEach(btn => {
+    // ─── BUTTON RIPPLE ───
+    document.querySelectorAll('.btn-primary, .btn-secondary, .nav-btn, .chat-toggle, button').forEach(btn => {
       btn.addEventListener('click', function(e) {
         const rect = this.getBoundingClientRect();
         const ripple = document.createElement('span');
@@ -1487,25 +1772,13 @@
         setTimeout(() => ripple.remove(), 600);
       });
     });
-    // inject ripple keyframe
-    const style = document.createElement('style');
-    style.textContent = `
+    const styleEl = document.createElement('style');
+    styleEl.textContent = `
       @keyframes rippleAnim {
         to { transform: scale(4); opacity: 0; }
       }
     `;
-    document.head.appendChild(style);
-
-    // ─── HOVER FOLLOW LIGHT (optional) ───
-    document.querySelectorAll('.service-card, .feature-card, .review-card, .how-step').forEach(el => {
-      el.addEventListener('mousemove', (e) => {
-        const rect = el.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width;
-        const y = (e.clientY - rect.top) / rect.height;
-        el.style.setProperty('--mouse-x', x);
-        el.style.setProperty('--mouse-y', y);
-      });
-    });
+    document.head.appendChild(styleEl);
 
     console.log('VG Solutions – Premium Boosting Website');
   </script>
