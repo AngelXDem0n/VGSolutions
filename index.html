@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <!-- Font Awesome 6 (free) -->
+  <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
     /* ─────────── RESET & VARIABLES ─────────── */
@@ -36,10 +36,7 @@
       --font-body: 'Inter', sans-serif;
       --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
-    }
+    html { scroll-behavior: smooth; font-size: 16px; }
     body {
       font-family: var(--font-body);
       background: var(--bg);
@@ -48,15 +45,8 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
     .section-title {
       font-family: var(--font-heading);
       font-size: clamp(2.2rem, 5vw, 3.4rem);
@@ -79,17 +69,13 @@
       transform: translateY(40px);
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-    /* ─────────── SCROLLBAR ─────────── */
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 
-    /* ─────────── PARTICLES CANVAS ─────────── */
+    /* ─── PARTICLES ─── */
     #particles-canvas {
       position: fixed;
       top: 0;
@@ -100,7 +86,7 @@
       pointer-events: none;
     }
 
-    /* ─────────── NAVBAR ─────────── */
+    /* ─── NAVBAR ─── */
     nav {
       position: sticky;
       top: 0;
@@ -112,9 +98,7 @@
       border-bottom: 1px solid var(--border);
       transition: background var(--transition);
     }
-    nav.scrolled {
-      background: rgba(10, 13, 20, 0.95);
-    }
+    nav.scrolled { background: rgba(10, 13, 20, 0.95); }
     .nav-inner {
       display: flex;
       align-items: center;
@@ -134,10 +118,7 @@
       align-items: center;
       gap: 8px;
     }
-    .logo i {
-      -webkit-text-fill-color: var(--primary);
-      font-size: 1.6rem;
-    }
+    .logo i { -webkit-text-fill-color: var(--primary); font-size: 1.6rem; }
     .nav-links {
       display: flex;
       align-items: center;
@@ -161,12 +142,8 @@
       background: var(--primary);
       transition: width var(--transition);
     }
-    .nav-links a:hover {
-      color: #fff;
-    }
-    .nav-links a:hover::after {
-      width: 100%;
-    }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a:hover::after { width: 100%; }
     .nav-btn {
       background: var(--primary);
       color: #fff !important;
@@ -180,15 +157,10 @@
       align-items: center;
       gap: 8px;
     }
-    .nav-btn:hover {
-      background: var(--primary-dark);
-      transform: scale(1.04);
-    }
-    .nav-btn::after {
-      display: none !important;
-    }
+    .nav-btn:hover { background: var(--primary-dark); transform: scale(1.04); }
+    .nav-btn::after { display: none !important; }
 
-    /* ─────────── HERO ─────────── */
+    /* ─── HERO ─── */
     .hero {
       position: relative;
       z-index: 1;
@@ -211,10 +183,7 @@
       0% { transform: translate(0,0) scale(1); opacity: 0.6; }
       100% { transform: translate(40px, -30px) scale(1.1); opacity: 1; }
     }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-    }
+    .hero-content { position: relative; z-index: 2; }
     .hero h1 {
       font-family: var(--font-heading);
       font-size: clamp(3rem, 8vw, 5.5rem);
@@ -279,7 +248,7 @@
       transform: translateY(-4px);
     }
 
-    /* ─────────── SERVICES ─────────── */
+    /* ─── SERVICES GRID ─── */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -310,9 +279,7 @@
       border-color: var(--primary);
       box-shadow: 0 20px 50px rgba(0,0,0,0.4);
     }
-    .service-card:hover::before {
-      opacity: 1;
-    }
+    .service-card:hover::before { opacity: 1; }
     .service-card .icon {
       font-size: 2.8rem;
       color: var(--primary);
@@ -320,20 +287,15 @@
       display: block;
       transition: transform var(--transition);
     }
-    .service-card:hover .icon {
-      transform: scale(1.1) rotate(-4deg);
-    }
+    .service-card:hover .icon { transform: scale(1.1) rotate(-4deg); }
     .service-card h3 {
       font-family: var(--font-heading);
       font-size: 1.3rem;
       margin-bottom: 6px;
     }
-    .service-card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
+    .service-card p { color: var(--text-muted); font-size: 0.95rem; }
 
-    /* ─────────── BOOSTING (CALCULATOR) TABS ─────────── */
+    /* ─── BOOSTING TABS ─── */
     .calculator-tabs {
       display: flex;
       flex-wrap: wrap;
@@ -365,6 +327,7 @@
       border-color: transparent;
       box-shadow: 0 8px 30px rgba(109,94,247,0.3);
     }
+
     .calculator-section {
       background: var(--card-bg);
       border-radius: var(--radius);
@@ -373,35 +336,31 @@
       margin: 20px 0;
       min-height: 420px;
     }
-    .calc-panel {
-      display: none;
-      animation: fadeInPanel 0.4s ease;
-    }
-    .calc-panel.active {
-      display: block;
-    }
+    .calc-panel { display: none; animation: fadeInPanel 0.4s ease; }
+    .calc-panel.active { display: block; }
     @keyframes fadeInPanel {
       from { opacity: 0; transform: translateY(12px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
     .calc-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 40px;
-      align-items: center;
+      gap: 20px;
+      align-items: flex-end;
       justify-content: center;
     }
     .calc-col {
-      flex: 1 1 180px;
-      min-width: 150px;
+      flex: 1 1 160px;
+      min-width: 140px;
     }
     .calc-col h4 {
       font-family: var(--font-heading);
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--text-muted);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     .rank-select {
       background: rgba(255,255,255,0.04);
@@ -410,33 +369,32 @@
       padding: 10px 14px;
       width: 100%;
       color: #fff;
-      font-size: 1rem;
+      font-size: 0.95rem;
       appearance: none;
       cursor: pointer;
       transition: border-color var(--transition);
+      font-family: var(--font-body);
     }
-    .rank-select:focus {
-      outline: none;
-      border-color: var(--primary);
-    }
-    .rank-select option {
-      background: var(--bg);
-      color: #fff;
-    }
+    .rank-select:focus { outline: none; border-color: var(--primary); }
+    .rank-select option { background: var(--bg); color: #fff; }
+    .rank-select[type="number"] { appearance: textfield; }
+
     .calc-arrow {
-      font-size: 2.4rem;
+      font-size: 2rem;
       color: var(--primary);
       text-align: center;
       animation: arrowPulse 2s infinite;
+      padding-bottom: 8px;
     }
     @keyframes arrowPulse {
       0%, 100% { transform: translateX(0); opacity: 0.7; }
       50% { transform: translateX(8px); opacity: 1; }
     }
+
     .calc-options {
       display: flex;
       flex-wrap: wrap;
-      gap: 16px;
+      gap: 14px;
       justify-content: center;
       margin: 24px 0 16px;
     }
@@ -452,9 +410,7 @@
       cursor: pointer;
       position: relative;
     }
-    .switch-item:hover {
-      border-color: var(--primary);
-    }
+    .switch-item:hover { border-color: var(--primary); }
     .switch-item .tooltip {
       display: none;
       position: absolute;
@@ -465,13 +421,12 @@
       color: #fff;
       padding: 6px 14px;
       border-radius: 8px;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       white-space: nowrap;
       border: 1px solid var(--border);
     }
-    .switch-item:hover .tooltip {
-      display: block;
-    }
+    .switch-item:hover .tooltip { display: block; }
+
     .switch {
       width: 40px;
       height: 22px;
@@ -481,9 +436,7 @@
       transition: background var(--transition);
       flex-shrink: 0;
     }
-    .switch.active {
-      background: var(--primary);
-    }
+    .switch.active { background: var(--primary); }
     .switch::after {
       content: '';
       position: absolute;
@@ -495,13 +448,9 @@
       border-radius: 50%;
       transition: transform var(--transition);
     }
-    .switch.active::after {
-      transform: translateX(18px);
-    }
-    .switch-label {
-      font-size: 0.9rem;
-      color: var(--text-gray);
-    }
+    .switch.active::after { transform: translateX(18px); }
+    .switch-label { font-size: 0.85rem; color: var(--text-gray); }
+
     .calc-status {
       display: flex;
       justify-content: space-around;
@@ -513,27 +462,28 @@
       margin-top: 20px;
       border: 1px solid var(--border);
     }
-    .status-item {
-      text-align: center;
-    }
+    .status-item { text-align: center; }
     .status-item .label {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
     .status-item .value {
       font-family: var(--font-heading);
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-weight: 700;
       color: var(--primary);
     }
-    .calc-join {
-      text-align: center;
-      margin-top: 24px;
-    }
+    .calc-join { text-align: center; margin-top: 24px; }
 
-    /* ─────────── LIVE STATUS PANEL ─────────── */
+    .custom-input {
+      display: none;
+      margin-top: 8px;
+    }
+    .custom-input.visible { display: block; }
+
+    /* ─── LIVE STATUS PANEL ─── */
     .live-panel {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -544,9 +494,7 @@
       border: 1px solid var(--border);
       margin: 20px 0;
     }
-    .live-item {
-      text-align: center;
-    }
+    .live-item { text-align: center; }
     .live-item .number {
       font-family: var(--font-heading);
       font-size: 2.4rem;
@@ -556,13 +504,9 @@
       -webkit-text-fill-color: transparent;
       display: inline-block;
     }
-    .live-item .label {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-top: 4px;
-    }
+    .live-item .label { color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; }
 
-    /* ─────────── FEATURES ─────────── */
+    /* ─── FEATURES ─── */
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -577,26 +521,12 @@
       transition: transform var(--transition), border-color var(--transition);
       cursor: default;
     }
-    .feature-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--primary);
-    }
-    .feature-card i {
-      font-size: 2.2rem;
-      color: var(--primary);
-      margin-bottom: 12px;
-    }
-    .feature-card h4 {
-      font-family: var(--font-heading);
-      font-size: 1.1rem;
-      margin-bottom: 4px;
-    }
-    .feature-card p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
+    .feature-card:hover { transform: translateY(-6px); border-color: var(--primary); }
+    .feature-card i { font-size: 2.2rem; color: var(--primary); margin-bottom: 12px; }
+    .feature-card h4 { font-family: var(--font-heading); font-size: 1.1rem; margin-bottom: 4px; }
+    .feature-card p { color: var(--text-muted); font-size: 0.9rem; }
 
-    /* ─────────── HOW IT WORKS ─────────── */
+    /* ─── HOW IT WORKS ─── */
     .how-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -631,27 +561,12 @@
       font-size: 1.2rem;
       box-shadow: 0 8px 20px rgba(109,94,247,0.3);
     }
-    .how-step:hover {
-      transform: translateY(-8px);
-    }
-    .how-step h4 {
-      font-family: var(--font-heading);
-      font-size: 1.3rem;
-      margin-top: 12px;
-    }
-    .how-step p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
+    .how-step:hover { transform: translateY(-8px); }
+    .how-step h4 { font-family: var(--font-heading); font-size: 1.3rem; margin-top: 12px; }
+    .how-step p { color: var(--text-muted); font-size: 0.95rem; }
 
-    /* ─────────── FAQ ─────────── */
-    .faq-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
+    /* ─── FAQ ─── */
+    .faq-list { display: flex; flex-direction: column; gap: 12px; max-width: 800px; margin: 0 auto; }
     .faq-item {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -659,9 +574,7 @@
       overflow: hidden;
       transition: border-color var(--transition);
     }
-    .faq-item:hover {
-      border-color: var(--primary);
-    }
+    .faq-item:hover { border-color: var(--primary); }
     .faq-question {
       padding: 18px 24px;
       font-weight: 600;
@@ -671,16 +584,9 @@
       align-items: center;
       transition: background var(--transition);
     }
-    .faq-question:hover {
-      background: rgba(255,255,255,0.03);
-    }
-    .faq-question i {
-      transition: transform var(--transition);
-      color: var(--primary);
-    }
-    .faq-item.open .faq-question i {
-      transform: rotate(180deg);
-    }
+    .faq-question:hover { background: rgba(255,255,255,0.03); }
+    .faq-question i { transition: transform var(--transition); color: var(--primary); }
+    .faq-item.open .faq-question i { transform: rotate(180deg); }
     .faq-answer {
       max-height: 0;
       overflow: hidden;
@@ -688,12 +594,9 @@
       color: var(--text-gray);
       transition: max-height 0.4s ease, padding 0.4s ease;
     }
-    .faq-item.open .faq-answer {
-      max-height: 300px;
-      padding: 0 24px 20px;
-    }
+    .faq-item.open .faq-answer { max-height: 300px; padding: 0 24px 20px; }
 
-    /* ─────────── REVIEWS ─────────── */
+    /* ─── REVIEWS ─── */
     .reviews-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -706,23 +609,10 @@
       border: 1px solid var(--border);
       transition: transform var(--transition);
     }
-    .review-card:hover {
-      transform: translateY(-6px);
-    }
-    .review-card .stars {
-      color: var(--warning);
-      letter-spacing: 2px;
-    }
-    .review-card .text {
-      color: var(--text-gray);
-      font-size: 0.95rem;
-      margin: 10px 0;
-    }
-    .review-card .author {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .review-card:hover { transform: translateY(-6px); }
+    .review-card .stars { color: var(--warning); letter-spacing: 2px; }
+    .review-card .text { color: var(--text-gray); font-size: 0.95rem; margin: 10px 0; }
+    .review-card .author { display: flex; align-items: center; gap: 12px; }
     .review-card .author .avatar {
       width: 40px;
       height: 40px;
@@ -735,7 +625,7 @@
       color: #fff;
     }
 
-    /* ─────────── AI CHAT ─────────── */
+    /* ─── AI CHAT ─── */
     .chat-toggle {
       position: fixed;
       bottom: 28px;
@@ -755,10 +645,7 @@
       align-items: center;
       justify-content: center;
     }
-    .chat-toggle:hover {
-      transform: scale(1.08);
-      box-shadow: 0 12px 40px rgba(109,94,247,0.6);
-    }
+    .chat-toggle:hover { transform: scale(1.08); box-shadow: 0 12px 40px rgba(109,94,247,0.6); }
     .chat-window {
       position: fixed;
       bottom: 100px;
@@ -778,9 +665,7 @@
       overflow: hidden;
       animation: slideUp 0.3s ease;
     }
-    .chat-window.open {
-      display: flex;
-    }
+    .chat-window.open { display: flex; }
     @keyframes slideUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -792,23 +677,9 @@
       justify-content: space-between;
       align-items: center;
     }
-    .chat-header h4 {
-      font-family: var(--font-heading);
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .chat-header h4 i {
-      color: var(--primary);
-    }
-    .chat-header .close-chat {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
+    .chat-header h4 { font-family: var(--font-heading); font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+    .chat-header h4 i { color: var(--primary); }
+    .chat-header .close-chat { background: none; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; }
     .chat-messages {
       flex: 1;
       padding: 16px 20px;
@@ -826,20 +697,9 @@
       font-size: 0.95rem;
       animation: msgIn 0.3s ease;
     }
-    .chat-msg.bot {
-      background: rgba(255,255,255,0.06);
-      align-self: flex-start;
-      border-bottom-left-radius: 4px;
-    }
-    .chat-msg.user {
-      background: var(--primary);
-      align-self: flex-end;
-      border-bottom-right-radius: 4px;
-    }
-    @keyframes msgIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .chat-msg.bot { background: rgba(255,255,255,0.06); align-self: flex-start; border-bottom-left-radius: 4px; }
+    .chat-msg.user { background: var(--primary); align-self: flex-end; border-bottom-right-radius: 4px; }
+    @keyframes msgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
     .chat-typing {
       display: none;
       align-items: center;
@@ -878,41 +738,17 @@
       cursor: pointer;
       transition: background var(--transition), border-color var(--transition);
     }
-    .chat-quick-btns button:hover {
-      background: rgba(255,255,255,0.10);
-      border-color: var(--primary);
-      color: #fff;
-    }
+    .chat-quick-btns button:hover { background: rgba(255,255,255,0.10); border-color: var(--primary); color: #fff; }
     .chat-input-area {
       display: flex;
       padding: 12px 16px;
       border-top: 1px solid var(--border);
       gap: 10px;
     }
-    .chat-input-area input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      color: #fff;
-      font-size: 0.95rem;
-      outline: none;
-    }
-    .chat-input-area input::placeholder {
-      color: var(--text-muted);
-    }
-    .chat-input-area button {
-      background: var(--primary);
-      border: none;
-      color: #fff;
-      padding: 6px 16px;
-      border-radius: 30px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background var(--transition);
-    }
-    .chat-input-area button:hover {
-      background: var(--primary-dark);
-    }
+    .chat-input-area input { flex: 1; background: transparent; border: none; color: #fff; font-size: 0.95rem; outline: none; }
+    .chat-input-area input::placeholder { color: var(--text-muted); }
+    .chat-input-area button { background: var(--primary); border: none; color: #fff; padding: 6px 16px; border-radius: 30px; font-weight: 600; cursor: pointer; transition: background var(--transition); }
+    .chat-input-area button:hover { background: var(--primary-dark); }
     .chat-settings {
       display: none;
       padding: 12px 16px;
@@ -921,22 +757,11 @@
       flex-wrap: wrap;
       gap: 12px;
     }
-    .chat-settings.open {
-      display: flex;
-    }
-    .chat-settings label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.85rem;
-      color: var(--text-gray);
-      cursor: pointer;
-    }
-    .chat-settings label input[type="checkbox"] {
-      accent-color: var(--primary);
-    }
+    .chat-settings.open { display: flex; }
+    .chat-settings label { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-gray); cursor: pointer; }
+    .chat-settings label input[type="checkbox"] { accent-color: var(--primary); }
 
-    /* ─────────── FOOTER ─────────── */
+    /* ─── FOOTER ─── */
     footer {
       border-top: 1px solid var(--border);
       padding: 40px 0 24px;
@@ -944,28 +769,17 @@
       text-align: center;
       color: var(--text-muted);
     }
-    footer .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      flex-wrap: wrap;
-      margin: 16px 0;
-    }
-    footer .footer-links a {
-      color: var(--text-gray);
-      transition: color var(--transition);
-    }
-    footer .footer-links a:hover {
-      color: #fff;
-    }
+    footer .footer-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin: 16px 0; }
+    footer .footer-links a { color: var(--text-gray); transition: color var(--transition); }
+    footer .footer-links a:hover { color: #fff; }
 
-    /* ─────────── RESPONSIVE ─────────── */
+    /* ─── RESPONSIVE ─── */
     @media (max-width: 768px) {
       .nav-inner { flex-direction: column; align-items: stretch; }
       .nav-links { justify-content: center; gap: 16px; }
       .hero h1 { font-size: 2.8rem; }
-      .calc-grid { flex-direction: column; }
-      .calc-arrow { transform: rotate(90deg); }
+      .calc-grid { flex-direction: column; align-items: stretch; }
+      .calc-arrow { transform: rotate(90deg); padding: 12px 0; }
       .chat-window { width: calc(100vw - 32px); right: 16px; bottom: 90px; max-height: 460px; }
       .calculator-tabs { gap: 8px; }
       .tab-btn { padding: 10px 20px; font-size: 0.85rem; }
@@ -1056,6 +870,7 @@
     </div>
 
     <div class="calculator-section fade-up">
+
       <!-- ─── PANEL 1: RANK BOOST ─── -->
       <div class="calc-panel active" id="panel-rank">
         <div class="calc-grid">
@@ -1088,6 +903,18 @@
               <option>Radiant</option>
             </select>
           </div>
+          <div class="calc-col">
+            <h4>Server</h4>
+            <select id="rankServer" class="rank-select">
+              <option>EU</option>
+              <option selected>NA</option>
+              <option>AP</option>
+              <option>BATAM</option>
+              <option>SEA</option>
+              <option>OCE</option>
+              <option>SA</option>
+            </select>
+          </div>
         </div>
         <div class="calc-options">
           <div class="switch-item" data-tooltip="Priority queue, faster start">
@@ -1095,15 +922,20 @@
             <div class="switch active" onclick="toggleSwitch(this)"></div>
             <span class="tooltip">Priority queue, faster start</span>
           </div>
-          <div class="switch-item" data-tooltip="Play while we boost?">
+          <div class="switch-item" data-tooltip="Play while we boost">
             <span class="switch-label">Offline Mode</span>
             <div class="switch" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">Play while we boost?</span>
+            <span class="tooltip">Play while we boost</span>
           </div>
-          <div class="switch-item" data-tooltip="Streamer-friendly mode">
-            <span class="switch-label">Streamer Mode</span>
+          <div class="switch-item" data-tooltip="Stream while we boost">
+            <span class="switch-label">Stream</span>
             <div class="switch" onclick="toggleSwitch(this)"></div>
-            <span class="tooltip">Streamer‑friendly mode</span>
+            <span class="tooltip">Stream while we boost</span>
+          </div>
+          <div class="switch-item" data-tooltip="Play alongside a booster">
+            <span class="switch-label">Duo Queue</span>
+            <div class="switch" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">Play alongside a booster</span>
           </div>
           <div class="switch-item" data-tooltip="VPN protection included">
             <span class="switch-label">VPN Protection</span>
@@ -1151,12 +983,34 @@
               <option value="5" selected>5 Matches</option>
             </select>
           </div>
+          <div class="calc-col">
+            <h4>Server</h4>
+            <select id="placementServer" class="rank-select">
+              <option>EU</option>
+              <option selected>NA</option>
+              <option>AP</option>
+              <option>BATAM</option>
+              <option>SEA</option>
+              <option>OCE</option>
+              <option>SA</option>
+            </select>
+          </div>
         </div>
         <div class="calc-options">
           <div class="switch-item" data-tooltip="Priority queue, faster start">
             <span class="switch-label">Priority</span>
             <div class="switch active" onclick="toggleSwitch(this)"></div>
             <span class="tooltip">Priority queue, faster start</span>
+          </div>
+          <div class="switch-item" data-tooltip="Stream while we boost">
+            <span class="switch-label">Stream</span>
+            <div class="switch" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">Stream while we boost</span>
+          </div>
+          <div class="switch-item" data-tooltip="Play alongside a booster">
+            <span class="switch-label">Duo Queue</span>
+            <div class="switch" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">Play alongside a booster</span>
           </div>
           <div class="switch-item" data-tooltip="VPN protection included">
             <span class="switch-label">VPN Protection</span>
@@ -1199,13 +1053,29 @@
           </div>
           <div class="calc-col">
             <h4>Number of Wins</h4>
-            <select id="winsCount" class="rank-select">
+            <select id="winsCount" class="rank-select" onchange="toggleCustomInput(this, 'customWinsDiv')">
               <option value="1">1 Win</option>
               <option value="3">3 Wins</option>
               <option value="5" selected>5 Wins</option>
               <option value="10">10 Wins</option>
               <option value="15">15 Wins</option>
               <option value="20">20 Wins</option>
+              <option value="custom">Custom</option>
+            </select>
+            <div id="customWinsDiv" class="custom-input">
+              <input type="number" class="rank-select" placeholder="Enter wins..." min="1" />
+            </div>
+          </div>
+          <div class="calc-col">
+            <h4>Server</h4>
+            <select id="winsServer" class="rank-select">
+              <option>EU</option>
+              <option selected>NA</option>
+              <option>AP</option>
+              <option>BATAM</option>
+              <option>SEA</option>
+              <option>OCE</option>
+              <option>SA</option>
             </select>
           </div>
         </div>
@@ -1214,6 +1084,16 @@
             <span class="switch-label">Priority</span>
             <div class="switch active" onclick="toggleSwitch(this)"></div>
             <span class="tooltip">Priority queue, faster start</span>
+          </div>
+          <div class="switch-item" data-tooltip="Stream while we boost">
+            <span class="switch-label">Stream</span>
+            <div class="switch" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">Stream while we boost</span>
+          </div>
+          <div class="switch-item" data-tooltip="Play alongside a booster">
+            <span class="switch-label">Duo Queue</span>
+            <div class="switch" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">Play alongside a booster</span>
           </div>
           <div class="switch-item" data-tooltip="VPN protection included">
             <span class="switch-label">VPN Protection</span>
@@ -1256,11 +1136,27 @@
           </div>
           <div class="calc-col">
             <h4>Number of Games</h4>
-            <select id="duoGames" class="rank-select">
+            <select id="duoGames" class="rank-select" onchange="toggleCustomInput(this, 'customGamesDiv')">
               <option value="1">1 Game</option>
               <option value="3">3 Games</option>
               <option value="5" selected>5 Games</option>
               <option value="10">10 Games</option>
+              <option value="custom">Custom</option>
+            </select>
+            <div id="customGamesDiv" class="custom-input">
+              <input type="number" class="rank-select" placeholder="Enter games..." min="1" />
+            </div>
+          </div>
+          <div class="calc-col">
+            <h4>Server</h4>
+            <select id="duoServer" class="rank-select">
+              <option>EU</option>
+              <option selected>NA</option>
+              <option>AP</option>
+              <option>BATAM</option>
+              <option>SEA</option>
+              <option>OCE</option>
+              <option>SA</option>
             </select>
           </div>
         </div>
@@ -1269,6 +1165,11 @@
             <span class="switch-label">Priority</span>
             <div class="switch active" onclick="toggleSwitch(this)"></div>
             <span class="tooltip">Priority queue, faster start</span>
+          </div>
+          <div class="switch-item" data-tooltip="Stream while we boost">
+            <span class="switch-label">Stream</span>
+            <div class="switch" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">Stream while we boost</span>
           </div>
           <div class="switch-item" data-tooltip="VPN protection included">
             <span class="switch-label">VPN Protection</span>
@@ -1297,12 +1198,16 @@
         <div class="calc-grid">
           <div class="calc-col">
             <h4>Coaching Duration</h4>
-            <select id="coachingDuration" class="rank-select">
+            <select id="coachingDuration" class="rank-select" onchange="toggleCustomInput(this, 'customHoursDiv')">
               <option value="1">1 Hour</option>
               <option value="3">3 Hours</option>
               <option value="5" selected>5 Hours</option>
               <option value="10">10 Hours</option>
+              <option value="custom">Custom</option>
             </select>
+            <div id="customHoursDiv" class="custom-input">
+              <input type="number" class="rank-select" placeholder="Enter hours..." min="1" />
+            </div>
           </div>
           <div class="calc-col">
             <h4>Focus Area</h4>
@@ -1311,6 +1216,23 @@
               <option>Game Sense</option>
               <option>Agent Mastery</option>
               <option selected>All-Around</option>
+              <option>Teamplay</option>
+              <option>Utility Usage</option>
+              <option>Movement</option>
+              <option>Mental / Confidence</option>
+              <option>VOD Review</option>
+            </select>
+          </div>
+          <div class="calc-col">
+            <h4>Server</h4>
+            <select id="coachingServer" class="rank-select">
+              <option>EU</option>
+              <option selected>NA</option>
+              <option>AP</option>
+              <option>BATAM</option>
+              <option>SEA</option>
+              <option>OCE</option>
+              <option>SA</option>
             </select>
           </div>
         </div>
@@ -1325,6 +1247,11 @@
             <div class="switch" onclick="toggleSwitch(this)"></div>
             <span class="tooltip">VOD review included</span>
           </div>
+          <div class="switch-item" data-tooltip="Stream while we boost">
+            <span class="switch-label">Stream</span>
+            <div class="switch" onclick="toggleSwitch(this)"></div>
+            <span class="tooltip">Stream while we boost</span>
+          </div>
         </div>
         <div class="calc-status">
           <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeCoaching">~5 Hours</div></div>
@@ -1336,6 +1263,7 @@
           <a href="https://discord.gg/vgsolutions" target="_blank" class="btn-primary"><i class="fab fa-discord"></i> Join Discord</a>
         </div>
       </div>
+
     </div>
   </section>
 
@@ -1582,6 +1510,30 @@
       obs.observe(counter);
     });
 
+    // ─── LIVE COUNTER AUTO-UPDATE ───
+    function startLiveUpdates() {
+      setInterval(() => {
+        const boosters = Math.floor(Math.random() * 30) + 15;
+        document.querySelectorAll('.live-panel .number')[0].innerText = boosters;
+        const orders = Math.floor(Math.random() * 40) + 30;
+        document.querySelectorAll('.live-panel .number')[1].innerText = orders;
+        const queue = Math.floor(Math.random() * 10) + 2;
+        document.querySelectorAll('.live-panel .number')[2].innerText = queue;
+        const success = Math.floor(Math.random() * 5) + 94;
+        document.querySelectorAll('.live-panel .number')[3].innerText = success;
+        const members = Math.floor(Math.random() * 200) + 1400;
+        document.querySelectorAll('.live-panel .number')[4].innerText = members;
+
+        ['rank', 'placement', 'wins', 'duo', 'coaching'].forEach(panel => {
+          const liveId = document.getElementById(`liveBoosters${panel.charAt(0).toUpperCase() + panel.slice(1)}`);
+          if (liveId) {
+            liveId.innerText = Math.floor(Math.random() * 30) + 10;
+          }
+        });
+      }, 5000);
+    }
+    document.addEventListener('DOMContentLoaded', startLiveUpdates);
+
     // ─── TAB SWITCHING ───
     const tabBtns = document.querySelectorAll('.tab-btn');
     const panels = document.querySelectorAll('.calc-panel');
@@ -1599,7 +1551,6 @@
     });
 
     function updateEstimates(panel) {
-      // Simulate updating estimates based on panel selection
       const estMap = {
         rank: { time: '~2 Days', queue: '12', live: '18' },
         placement: { time: '~4 Hours', queue: '8', live: '14' },
@@ -1608,24 +1559,18 @@
         coaching: { time: '~5 Hours', queue: '2', live: '10' }
       };
       const data = estMap[panel] || estMap.rank;
-      const panelEl = document.getElementById(`panel-${panel}`);
-      if (panelEl) {
-        const timeEl = panelEl.querySelector('.status-item .value');
-        // We'll just update the first status item which is estimated time
-        // But our IDs are specific, let's update them directly
-        const idMap = {
-          rank: { time: 'estTimeRank', queue: 'queueSizeRank', live: 'liveBoostersRank' },
-          placement: { time: 'estTimePlacement', queue: 'queueSizePlacement', live: 'liveBoostersPlacement' },
-          wins: { time: 'estTimeWins', queue: 'queueSizeWins', live: 'liveBoostersWins' },
-          duo: { time: 'estTimeDuo', queue: 'queueSizeDuo', live: 'liveBoostersDuo' },
-          coaching: { time: 'estTimeCoaching', queue: 'queueSizeCoaching', live: 'liveBoostersCoaching' }
-        };
-        const ids = idMap[panel];
-        if (ids) {
-          document.getElementById(ids.time).innerText = data.time;
-          document.getElementById(ids.queue).innerText = data.queue;
-          document.getElementById(ids.live).innerText = data.live;
-        }
+      const idMap = {
+        rank: { time: 'estTimeRank', queue: 'queueSizeRank', live: 'liveBoostersRank' },
+        placement: { time: 'estTimePlacement', queue: 'queueSizePlacement', live: 'liveBoostersPlacement' },
+        wins: { time: 'estTimeWins', queue: 'queueSizeWins', live: 'liveBoostersWins' },
+        duo: { time: 'estTimeDuo', queue: 'queueSizeDuo', live: 'liveBoostersDuo' },
+        coaching: { time: 'estTimeCoaching', queue: 'queueSizeCoaching', live: 'liveBoostersCoaching' }
+      };
+      const ids = idMap[panel];
+      if (ids) {
+        document.getElementById(ids.time).innerText = data.time;
+        document.getElementById(ids.queue).innerText = data.queue;
+        document.getElementById(ids.live).innerText = data.live;
       }
     }
 
@@ -1635,6 +1580,17 @@
       playSound('click');
     }
     window.toggleSwitch = toggleSwitch;
+
+    // ─── CUSTOM INPUT TOGGLE ───
+    function toggleCustomInput(select, divId) {
+      const div = document.getElementById(divId);
+      if (select.value === 'custom') {
+        div.classList.add('visible');
+      } else {
+        div.classList.remove('visible');
+      }
+    }
+    window.toggleCustomInput = toggleCustomInput;
 
     // ─── FAQ ACCORDION ───
     function toggleFaq(el) {
