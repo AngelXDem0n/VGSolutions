@@ -939,7 +939,7 @@
           <div class="calc-col">
             <h4>Desired Rank</h4>
             <select id="rankDesired" class="rank-select" onchange="calculateRankPrice();">
-              <!-- Options populated by JavaScript -->
+              <!-- populated by JS -->
             </select>
           </div>
           <div class="calc-col">
@@ -1391,116 +1391,83 @@
   </div>
 
   <script>
-    // ─── EXACT PRICES FROM USER ───
-    const rankPrices = {
-      // Iron tier — only Iron I → Iron III is priced
-      'Iron I→Iron III': { price: 4.00, eta: '3h' },
-      // Bronze tier — only Bronze I → Bronze III is priced
-      'Bronze I→Bronze III': { price: 4.00, eta: '3h' },
-      // Silver tier — only Silver I → Silver III is priced
-      'Silver I→Silver III': { price: 5.00, eta: '5h' },
-      // Gold tier — all individually priced
-      'Gold I→Gold II': { price: 3.00, eta: '3h' },
-      'Gold II→Gold III': { price: 3.20, eta: '3h' },
-      'Gold III→Platinum I': { price: 3.50, eta: '12h' },
-      // Platinum tier — all individually priced
-      'Platinum I→Platinum II': { price: 4.00, eta: '12h' },
-      'Platinum II→Platinum III': { price: 4.50, eta: '12h' },
-      'Platinum III→Diamond I': { price: 4.80, eta: '12h' },
-      // Diamond tier — all individually priced
-      'Diamond I→Diamond II': { price: 5.00, eta: '12h' },
-      'Diamond II→Diamond III': { price: 5.50, eta: '12h' },
-      'Diamond III→Ascendant I': { price: 7.00, eta: '12h' },
-      // Ascendant tier — all individually priced
-      'Ascendant I→Ascendant II': { price: 8.00, eta: '12h' },
-      'Ascendant II→Ascendant III': { price: 10.00, eta: '12h' },
-      'Ascendant III→Immortal I': { price: 18.00, eta: '12h' },
-      // Immortal tier — all individually priced
-      'Immortal I→Immortal II': { price: 22.00, eta: '12h' },
-      'Immortal II→Immortal III': { price: 35.00, eta: '24h' },
-      // Immortal III → Radiant — special case
-    };
-
-    // Define tier groups for proportional pricing
-    const tierGroups = {
-      'Iron I→Iron II': { baseKey: 'Iron I→Iron III', steps: 2, eta: '3h' },
-      'Iron II→Iron III': { baseKey: 'Iron I→Iron III', steps: 1, eta: '3h' },
-      'Bronze I→Bronze II': { baseKey: 'Bronze I→Bronze III', steps: 2, eta: '3h' },
-      'Bronze II→Bronze III': { baseKey: 'Bronze I→Bronze III', steps: 1, eta: '3h' },
-      'Silver I→Silver II': { baseKey: 'Silver I→Silver III', steps: 2, eta: '5h' },
-      'Silver II→Silver III': { baseKey: 'Silver I→Silver III', steps: 1, eta: '5h' },
-    };
-
+    // ─── RANK ORDER ───
     const rankOrder = ['Iron I','Iron II','Iron III','Bronze I','Bronze II','Bronze III','Silver I','Silver II','Silver III','Gold I','Gold II','Gold III','Platinum I','Platinum II','Platinum III','Diamond I','Diamond II','Diamond III','Ascendant I','Ascendant II','Ascendant III','Immortal I','Immortal II','Immortal III','Radiant'];
 
-    function getPriceForRankJump(from, to) {
-      const key = `${from}→${to}`;
-      
-      // Check exact match first
-      if (rankPrices[key]) {
-        return rankPrices[key];
-      }
-      
-      // Check tier group for proportional pricing
-      if (tierGroups[key]) {
-        const group = tierGroups[key];
-        const basePrice = rankPrices[group.baseKey];
-        if (basePrice) {
-          const pricePerStep = basePrice.price / group.steps;
-          return {
-            price: Math.round(pricePerStep * 100) / 100,
-            eta: group.eta
-          };
-        }
-      }
-      
-      // For multi-rank jumps, calculate proportionally
+    // ─── PRICE PER ADJACENT STEP ───
+    // We build a map of fromRank->toRank price for each adjacent pair
+    const stepPrices = {};
+
+    // Helper: add a range with a given total price for the entire range
+    function addRange(from, to, totalPrice) {
       const fromIdx = rankOrder.indexOf(from);
       const toIdx = rankOrder.indexOf(to);
-      
-      // Find the nearest priced range that covers this jump
-      for (const [k, v] of Object.entries(rankPrices)) {
-        const [kFrom, kTo] = k.split('→');
-        const kFromIdx = rankOrder.indexOf(kFrom);
-        const kToIdx = rankOrder.indexOf(kTo);
-        
-        if (fromIdx >= kFromIdx && toIdx <= kToIdx && fromIdx < toIdx) {
-          const totalSteps = kToIdx - kFromIdx;
-          const steps = toIdx - fromIdx;
-          const pricePerStep = v.price / totalSteps;
-          return {
-            price: Math.round((pricePerStep * steps) * 100) / 100,
-            eta: v.eta
-          };
-        }
+      const steps = toIdx - fromIdx;
+      if (steps <= 0) return;
+      const perStep = totalPrice / steps;
+      for (let i = fromIdx; i < toIdx; i++) {
+        const key = `${rankOrder[i]}→${rankOrder[i+1]}`;
+        stepPrices[key] = Math.round(perStep * 100) / 100;
       }
-      
-      return null;
     }
 
+    // Add the known ranges
+    addRange('Iron I', 'Iron III', 4.00);
+    addRange('Bronze I', 'Bronze III', 4.00);
+    addRange('Silver I', 'Silver III', 5.00);
+    addRange('Gold I', 'Gold II', 3.00);
+    addRange('Gold II', 'Gold III', 3.20);
+    addRange('Gold III', 'Platinum I', 3.50);
+    addRange('Platinum I', 'Platinum II', 4.00);
+    addRange('Platinum II', 'Platinum III', 4.50);
+    addRange('Platinum III', 'Diamond I', 4.80);
+    addRange('Diamond I', 'Diamond II', 5.00);
+    addRange('Diamond II', 'Diamond III', 5.50);
+    addRange('Diamond III', 'Ascendant I', 7.00);
+    addRange('Ascendant I', 'Ascendant II', 8.00);
+    addRange('Ascendant II', 'Ascendant III', 10.00);
+    addRange('Ascendant III', 'Immortal I', 18.00);
+    addRange('Immortal I', 'Immortal II', 22.00);
+    addRange('Immortal II', 'Immortal III', 35.00);
+
+    // For Immortal III -> Radiant: special case
+    // We'll handle that in the main function.
+
+    function getPriceForJump(from, to) {
+      const fromIdx = rankOrder.indexOf(from);
+      const toIdx = rankOrder.indexOf(to);
+      if (fromIdx >= toIdx) return null;
+
+      let total = 0;
+      for (let i = fromIdx; i < toIdx; i++) {
+        const key = `${rankOrder[i]}→${rankOrder[i+1]}`;
+        if (stepPrices[key] !== undefined) {
+          total += stepPrices[key];
+        } else {
+          // Should not happen if we covered all adjacent steps
+          // but fallback: find nearest range
+          return null;
+        }
+      }
+      return Math.round(total * 100) / 100;
+    }
+
+    // ─── UI FUNCTIONS ───
     function updateDesiredOptions() {
       const current = document.getElementById('rankCurrent').value;
       const desiredSelect = document.getElementById('rankDesired');
       const currentIdx = rankOrder.indexOf(current);
 
-      // Store current selection
-      const currentDesired = desiredSelect.value;
-
-      // Clear and rebuild options
       desiredSelect.innerHTML = '';
       for (let i = currentIdx + 1; i < rankOrder.length; i++) {
         const opt = document.createElement('option');
         opt.value = rankOrder[i];
         opt.textContent = rankOrder[i];
-        if (rankOrder[i] === currentDesired) opt.selected = true;
         desiredSelect.appendChild(opt);
       }
-
-      // If no selection was made or it's no longer valid, select the first available
-      if (desiredSelect.options.length > 0 && !desiredSelect.value) {
+      if (desiredSelect.options.length > 0) {
         desiredSelect.selectedIndex = 0;
       }
-
       calculateRankPrice();
     }
 
@@ -1516,17 +1483,16 @@
       const typeDisplay = document.getElementById('rankBoostType');
       const multiplierDisplay = document.getElementById('rankMultiplierDisplay');
 
-      // Check if user selected a rank lower than current (should be prevented by dropdown)
       if (desiredIdx <= currentIdx) {
         priceDisplay.textContent = '—';
         etaDisplay.textContent = '—';
-        noteDisplay.innerHTML = '<span style="color:var(--text-muted);">Please select a rank higher than your current rank.</span>';
+        noteDisplay.innerHTML = '<span style="color:var(--text-muted);">Select a higher rank</span>';
         typeDisplay.textContent = '—';
         multiplierDisplay.innerHTML = '';
         return;
       }
 
-      // Check if it's Immortal III → Radiant (special case)
+      // Special case: Immortal III → Radiant
       if (current === 'Immortal III' && desired === 'Radiant') {
         priceDisplay.textContent = '—';
         etaDisplay.textContent = '—';
@@ -1536,53 +1502,58 @@
         return;
       }
 
-      // Check if Radiant is involved (except the above case)
+      // Any Radiant involvement (except above)
       if (current === 'Radiant' || desired === 'Radiant') {
         priceDisplay.textContent = '—';
         etaDisplay.textContent = '—';
-        noteDisplay.innerHTML = '<span class="ticket-note"><i class="fas fa-ticket-alt"></i> OPEN TICKET FOR INQUIRIES — Contact us for Radiant boosts</span>';
+        noteDisplay.innerHTML = '<span class="ticket-note"><i class="fas fa-ticket-alt"></i> OPEN TICKET — Contact for Radiant</span>';
         typeDisplay.textContent = '—';
         multiplierDisplay.innerHTML = '';
         return;
       }
 
-      // Get price for this rank jump
-      const priceData = getPriceForRankJump(current, desired);
-      
-      if (priceData) {
-        let basePrice = priceData.price;
-        const eta = priceData.eta;
-
-        // Check Duo/Party toggle
-        let isDuo = false;
-        document.querySelectorAll('#panel-rank .switch-item').forEach(item => {
-          const label = item.querySelector('.switch-label');
-          if (label && label.textContent.trim() === 'Duo/Party') {
-            const sw = item.querySelector('.switch');
-            if (sw && sw.classList.contains('active')) isDuo = true;
-          }
-        });
-
-        let finalPrice = basePrice;
-        if (isDuo) {
-          finalPrice = Math.round((basePrice * 2.5) * 100) / 100;
-          typeDisplay.textContent = 'Duo/Party 2.5×';
-        } else {
-          typeDisplay.textContent = 'Solo';
-        }
-
-        priceDisplay.textContent = finalPrice.toFixed(2);
-        etaDisplay.textContent = `~${eta}`;
-        noteDisplay.innerHTML = '';
-        multiplierDisplay.innerHTML = 'Stream: <strong>Free</strong> · Offline: <strong>Free</strong>';
-      } else {
-        // No price found — should not happen with our tiered system
+      // Get price
+      const basePrice = getPriceForJump(current, desired);
+      if (basePrice === null) {
         priceDisplay.textContent = '—';
         etaDisplay.textContent = '—';
-        noteDisplay.innerHTML = '<span style="color:var(--text-muted);">Please contact us for pricing</span>';
+        noteDisplay.innerHTML = '<span style="color:var(--text-muted);">Contact us for pricing</span>';
         typeDisplay.textContent = '—';
         multiplierDisplay.innerHTML = '';
+        return;
       }
+
+      // Estimate ETA based on number of steps
+      const steps = desiredIdx - currentIdx;
+      let eta = '12h';
+      if (steps <= 1) eta = '3h';
+      else if (steps <= 3) eta = '5h';
+      else if (steps <= 5) eta = '12h';
+      else if (steps <= 8) eta = '24h';
+      else eta = '2 Days';
+
+      // Check Duo/Party
+      let isDuo = false;
+      document.querySelectorAll('#panel-rank .switch-item').forEach(item => {
+        const label = item.querySelector('.switch-label');
+        if (label && label.textContent.trim() === 'Duo/Party') {
+          const sw = item.querySelector('.switch');
+          if (sw && sw.classList.contains('active')) isDuo = true;
+        }
+      });
+
+      let finalPrice = basePrice;
+      if (isDuo) {
+        finalPrice = Math.round((basePrice * 2.5) * 100) / 100;
+        typeDisplay.textContent = 'Duo/Party 2.5×';
+      } else {
+        typeDisplay.textContent = 'Solo';
+      }
+
+      priceDisplay.textContent = finalPrice.toFixed(2);
+      etaDisplay.textContent = `~${eta}`;
+      noteDisplay.innerHTML = '';
+      multiplierDisplay.innerHTML = 'Stream: <strong>Free</strong> · Offline: <strong>Free</strong>';
     }
 
     // ─── PARTICLES ───
