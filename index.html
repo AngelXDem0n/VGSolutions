@@ -9,40 +9,63 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
-    /* ─── All existing styles are unchanged ─── */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* ─── THEME VARIABLES ─── */
     :root {
+      /* Dark mode (default) */
+      --bg: #0A0D14;
+      --bg-secondary: #111827;
+      --bg-card: #111827;
+      --bg-nav: rgba(10, 13, 20, 0.85);
+      --bg-input: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.07);
+      --text-primary: #ffffff;
+      --text-secondary: #d1d5db;
+      --text-muted: #9ca3af;
+      --shadow: 0 20px 60px rgba(0,0,0,0.6);
+      --price-bg: rgba(109,94,247,0.06);
+      --price-border: rgba(109,94,247,0.15);
       --primary: #6D5EF7;
       --primary-dark: #5a4ad4;
       --secondary: #3FA9F5;
       --accent: #20D9B2;
       --success: #39D98A;
       --warning: #FFC857;
-      --bg: #0A0D14;
-      --card-bg: #111827;
-      --border: rgba(255,255,255,0.07);
-      --text-white: #ffffff;
-      --text-gray: #d1d5db;
-      --text-muted: #9ca3af;
-      --radius: 24px;
-      --shadow: 0 20px 60px rgba(0,0,0,0.6);
-      --font-heading: 'Space Grotesk', sans-serif;
-      --font-body: 'Inter', sans-serif;
+      --switch-bg: rgba(255,255,255,0.15);
       --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
+
+    /* Light mode */
+    [data-theme="light"] {
+      --bg: #f0f2f5;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-nav: rgba(255, 255, 255, 0.92);
+      --bg-input: rgba(0,0,0,0.04);
+      --border: rgba(0,0,0,0.08);
+      --text-primary: #111827;
+      --text-secondary: #374151;
+      --text-muted: #6b7280;
+      --shadow: 0 20px 60px rgba(0,0,0,0.1);
+      --price-bg: rgba(109,94,247,0.04);
+      --price-border: rgba(109,94,247,0.2);
+      --switch-bg: rgba(0,0,0,0.15);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; font-size: 16px; }
     body {
-      font-family: var(--font-body);
+      font-family: 'Inter', sans-serif;
       background: var(--bg);
-      color: var(--text-white);
+      color: var(--text-primary);
       overflow-x: hidden;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      transition: background var(--transition), color var(--transition);
     }
     a { text-decoration: none; color: inherit; }
     .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
     .section-title {
-      font-family: var(--font-heading);
+      font-family: 'Space Grotesk', sans-serif;
       font-size: clamp(2.2rem, 5vw, 3.4rem);
       font-weight: 700;
       text-align: center;
@@ -74,18 +97,40 @@
       pointer-events: none;
     }
 
+    /* ─── THEME TOGGLE ─── */
+    .theme-toggle {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      padding: 6px 12px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--transition);
+      font-size: 0.9rem;
+    }
+    .theme-toggle:hover {
+      border-color: var(--primary);
+      color: var(--text-primary);
+    }
+    .theme-toggle i {
+      font-size: 1.1rem;
+    }
+
     nav {
       position: sticky;
       top: 0;
       z-index: 1000;
       padding: 16px 0;
-      background: rgba(10, 13, 20, 0.6);
+      background: var(--bg-nav);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
-      transition: background var(--transition);
+      transition: background var(--transition), border-color var(--transition);
     }
-    nav.scrolled { background: rgba(10, 13, 20, 0.95); }
+    nav.scrolled { background: var(--bg-nav); }
     .nav-inner {
       display: flex;
       align-items: center;
@@ -94,7 +139,7 @@
       gap: 16px;
     }
     .logo {
-      font-family: var(--font-heading);
+      font-family: 'Space Grotesk', sans-serif;
       font-size: 1.8rem;
       font-weight: 700;
       background: linear-gradient(135deg, var(--primary), var(--accent));
@@ -115,7 +160,7 @@
     .nav-links a {
       font-weight: 500;
       font-size: 0.95rem;
-      color: var(--text-gray);
+      color: var(--text-secondary);
       transition: color var(--transition);
       position: relative;
     }
@@ -129,7 +174,7 @@
       background: var(--primary);
       transition: width var(--transition);
     }
-    .nav-links a:hover { color: #fff; }
+    .nav-links a:hover { color: var(--text-primary); }
     .nav-links a:hover::after { width: 100%; }
     .nav-btn {
       background: var(--primary);
@@ -164,6 +209,10 @@
       background: radial-gradient(ellipse at 30% 40%, rgba(109, 94, 247, 0.12) 0%, transparent 70%);
       pointer-events: none;
       animation: heroGlow 12s ease-in-out infinite alternate;
+      transition: opacity var(--transition);
+    }
+    [data-theme="light"] .hero::before {
+      background: radial-gradient(ellipse at 30% 40%, rgba(109, 94, 247, 0.06) 0%, transparent 70%);
     }
     @keyframes heroGlow {
       0% { transform: translate(0,0) scale(1); opacity: 0.6; }
@@ -171,7 +220,7 @@
     }
     .hero-content { position: relative; z-index: 2; }
     .hero h1 {
-      font-family: var(--font-heading);
+      font-family: 'Space Grotesk', sans-serif;
       font-size: clamp(3rem, 8vw, 5.5rem);
       font-weight: 800;
       line-height: 1.1;
@@ -185,7 +234,7 @@
     }
     .hero p {
       font-size: 1.3rem;
-      color: var(--text-gray);
+      color: var(--text-secondary);
       max-width: 620px;
       margin: 0 auto 36px;
     }
@@ -215,8 +264,8 @@
       box-shadow: 0 16px 50px rgba(109, 94, 247, 0.45);
     }
     .btn-secondary {
-      background: rgba(255,255,255,0.06);
-      color: #fff;
+      background: var(--bg-input);
+      color: var(--text-primary);
       border: 1px solid var(--border);
       padding: 14px 40px;
       border-radius: 60px;
@@ -241,9 +290,9 @@
       margin-top: 20px;
     }
     .service-card {
-      background: var(--card-bg);
+      background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border-radius: 24px;
       padding: 32px 20px;
       text-align: center;
       transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
@@ -273,7 +322,7 @@
       transition: transform var(--transition);
     }
     .service-card:hover .icon { transform: scale(1.1) rotate(-4deg); }
-    .service-card h3 { font-family: var(--font-heading); font-size: 1.3rem; margin-bottom: 6px; }
+    .service-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; margin-bottom: 6px; }
     .service-card p { color: var(--text-muted); font-size: 0.95rem; }
 
     .calculator-tabs {
@@ -284,21 +333,21 @@
       margin-bottom: 32px;
     }
     .tab-btn {
-      background: rgba(255,255,255,0.04);
+      background: var(--bg-input);
       border: 1px solid var(--border);
-      color: var(--text-gray);
+      color: var(--text-secondary);
       padding: 12px 28px;
       border-radius: 60px;
       font-weight: 600;
       font-size: 0.95rem;
       cursor: pointer;
       transition: all var(--transition);
-      font-family: var(--font-body);
+      font-family: 'Inter', sans-serif;
     }
     .tab-btn:hover {
       background: rgba(255,255,255,0.08);
       border-color: var(--primary);
-      color: #fff;
+      color: var(--text-primary);
       transform: translateY(-2px);
     }
     .tab-btn.active {
@@ -309,12 +358,13 @@
     }
 
     .calculator-section {
-      background: var(--card-bg);
-      border-radius: var(--radius);
+      background: var(--bg-card);
+      border-radius: 24px;
       border: 1px solid var(--border);
       padding: 40px 32px;
       margin: 20px 0;
       min-height: 420px;
+      transition: background var(--transition), border-color var(--transition);
     }
     .calc-panel { display: none; animation: fadeInPanel 0.4s ease; }
     .calc-panel.active { display: block; }
@@ -335,7 +385,7 @@
       min-width: 140px;
     }
     .calc-col h4 {
-      font-family: var(--font-heading);
+      font-family: 'Space Grotesk', sans-serif;
       font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -343,21 +393,20 @@
       margin-bottom: 8px;
     }
     .rank-select {
-      background: rgba(255,255,255,0.04);
+      background: var(--bg-input);
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 10px 14px;
       width: 100%;
-      color: #fff;
+      color: var(--text-primary);
       font-size: 0.95rem;
       appearance: none;
       cursor: pointer;
-      transition: border-color var(--transition);
-      font-family: var(--font-body);
+      transition: border-color var(--transition), background var(--transition), color var(--transition);
+      font-family: 'Inter', sans-serif;
     }
     .rank-select:focus { outline: none; border-color: var(--primary); }
-    .rank-select option { background: var(--bg); color: #fff; }
-    .rank-select[type="number"] { appearance: textfield; }
+    .rank-select option { background: var(--bg); color: var(--text-primary); }
 
     .calc-arrow {
       font-size: 2rem;
@@ -382,11 +431,11 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      background: rgba(255,255,255,0.04);
+      background: var(--bg-input);
       padding: 8px 16px;
       border-radius: 40px;
       border: 1px solid var(--border);
-      transition: border-color var(--transition);
+      transition: border-color var(--transition), background var(--transition);
       cursor: pointer;
       position: relative;
     }
@@ -398,7 +447,7 @@
       left: 50%;
       transform: translateX(-50%);
       background: var(--bg);
-      color: #fff;
+      color: var(--text-primary);
       padding: 6px 14px;
       border-radius: 8px;
       font-size: 0.75rem;
@@ -410,7 +459,7 @@
     .switch {
       width: 40px;
       height: 22px;
-      background: rgba(255,255,255,0.15);
+      background: var(--switch-bg);
       border-radius: 30px;
       position: relative;
       transition: background var(--transition);
@@ -424,23 +473,24 @@
       left: 2px;
       width: 18px;
       height: 18px;
-      background: #fff;
+      background: var(--text-primary);
       border-radius: 50%;
       transition: transform var(--transition);
     }
     .switch.active::after { transform: translateX(18px); }
-    .switch-label { font-size: 0.85rem; color: var(--text-gray); }
+    .switch-label { font-size: 0.85rem; color: var(--text-secondary); }
 
     .calc-status {
       display: flex;
       justify-content: space-around;
       flex-wrap: wrap;
       gap: 12px;
-      background: rgba(255,255,255,0.04);
+      background: var(--bg-input);
       border-radius: 16px;
       padding: 16px;
       margin-top: 20px;
       border: 1px solid var(--border);
+      transition: background var(--transition), border-color var(--transition);
     }
     .status-item { text-align: center; }
     .status-item .label {
@@ -450,7 +500,7 @@
       letter-spacing: 0.5px;
     }
     .status-item .value {
-      font-family: var(--font-heading);
+      font-family: 'Space Grotesk', sans-serif;
       font-size: 1.4rem;
       font-weight: 700;
       color: var(--primary);
@@ -458,15 +508,16 @@
     .calc-join { text-align: center; margin-top: 24px; }
 
     .price-display {
-      background: rgba(109,94,247,0.06);
-      border: 1px solid rgba(109,94,247,0.15);
+      background: var(--price-bg);
+      border: 1px solid var(--price-border);
       border-radius: 16px;
       padding: 20px 24px;
       margin: 20px 0 12px;
       text-align: center;
+      transition: background var(--transition), border-color var(--transition);
     }
     .price-display .price-main {
-      font-family: var(--font-heading);
+      font-family: 'Space Grotesk', sans-serif;
       font-size: 2.8rem;
       font-weight: 800;
       color: var(--accent);
@@ -482,7 +533,7 @@
       color: var(--text-muted);
       margin-top: 4px;
     }
-    .price-display .price-detail span { color: var(--text-gray); font-weight: 600; }
+    .price-display .price-detail span { color: var(--text-secondary); font-weight: 600; }
     .price-display .price-multiplier {
       font-size: 0.85rem;
       color: var(--warning);
@@ -490,7 +541,7 @@
     }
     .price-display .price-eta {
       font-size: 0.9rem;
-      color: var(--text-gray);
+      color: var(--text-secondary);
       margin-top: 4px;
     }
     .price-display .ticket-note {
@@ -511,7 +562,7 @@
       margin: 16px 0 8px;
     }
     .instructor-card {
-      background: rgba(255,255,255,0.04);
+      background: var(--bg-input);
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 14px 12px;
@@ -545,15 +596,16 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 20px;
-      background: var(--card-bg);
-      border-radius: var(--radius);
+      background: var(--bg-card);
+      border-radius: 24px;
       padding: 32px 24px;
       border: 1px solid var(--border);
       margin: 20px 0;
+      transition: background var(--transition), border-color var(--transition);
     }
     .live-item { text-align: center; }
     .live-item .number {
-      font-family: var(--font-heading);
+      font-family: 'Space Grotesk', sans-serif;
       font-size: 2.4rem;
       font-weight: 700;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -569,8 +621,8 @@
       gap: 24px;
     }
     .feature-card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
+      background: var(--bg-card);
+      border-radius: 24px;
       padding: 28px 20px;
       border: 1px solid var(--border);
       text-align: center;
@@ -579,7 +631,7 @@
     }
     .feature-card:hover { transform: translateY(-6px); border-color: var(--primary); }
     .feature-card i { font-size: 2.2rem; color: var(--primary); margin-bottom: 12px; }
-    .feature-card h4 { font-family: var(--font-heading); font-size: 1.1rem; margin-bottom: 4px; }
+    .feature-card h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin-bottom: 4px; }
     .feature-card p { color: var(--text-muted); font-size: 0.9rem; }
 
     .how-grid {
@@ -589,8 +641,8 @@
       counter-reset: step;
     }
     .how-step {
-      background: var(--card-bg);
-      border-radius: var(--radius);
+      background: var(--bg-card);
+      border-radius: 24px;
       padding: 32px 24px;
       border: 1px solid var(--border);
       text-align: center;
@@ -617,12 +669,12 @@
       box-shadow: 0 8px 20px rgba(109,94,247,0.3);
     }
     .how-step:hover { transform: translateY(-8px); }
-    .how-step h4 { font-family: var(--font-heading); font-size: 1.3rem; margin-top: 12px; }
+    .how-step h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; margin-top: 12px; }
     .how-step p { color: var(--text-muted); font-size: 0.95rem; }
 
     .faq-list { display: flex; flex-direction: column; gap: 12px; max-width: 800px; margin: 0 auto; }
     .faq-item {
-      background: var(--card-bg);
+      background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 16px;
       overflow: hidden;
@@ -645,7 +697,7 @@
       max-height: 0;
       overflow: hidden;
       padding: 0 24px;
-      color: var(--text-gray);
+      color: var(--text-secondary);
       transition: max-height 0.4s ease, padding 0.4s ease;
     }
     .faq-item.open .faq-answer { max-height: 300px; padding: 0 24px 20px; }
@@ -656,15 +708,15 @@
       gap: 24px;
     }
     .review-card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
+      background: var(--bg-card);
+      border-radius: 24px;
       padding: 24px;
       border: 1px solid var(--border);
       transition: transform var(--transition);
     }
     .review-card:hover { transform: translateY(-6px); }
     .review-card .stars { color: var(--warning); letter-spacing: 2px; }
-    .review-card .text { color: var(--text-gray); font-size: 0.95rem; margin: 10px 0; }
+    .review-card .text { color: var(--text-secondary); font-size: 0.95rem; margin: 10px 0; }
     .review-card .author { display: flex; align-items: center; gap: 12px; }
     .review-card .author .avatar {
       width: 40px;
@@ -705,9 +757,9 @@
       width: 380px;
       max-width: calc(100vw - 56px);
       max-height: 520px;
-      background: var(--card-bg);
+      background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border-radius: 24px;
       box-shadow: var(--shadow);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
@@ -729,7 +781,7 @@
       justify-content: space-between;
       align-items: center;
     }
-    .chat-header h4 { font-family: var(--font-heading); font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+    .chat-header h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
     .chat-header h4 i { color: var(--primary); }
     .chat-header .close-chat { background: none; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; }
     .chat-messages {
@@ -749,8 +801,8 @@
       font-size: 0.95rem;
       animation: msgIn 0.3s ease;
     }
-    .chat-msg.bot { background: rgba(255,255,255,0.06); align-self: flex-start; border-bottom-left-radius: 4px; }
-    .chat-msg.user { background: var(--primary); align-self: flex-end; border-bottom-right-radius: 4px; }
+    .chat-msg.bot { background: var(--bg-input); align-self: flex-start; border-bottom-left-radius: 4px; }
+    .chat-msg.user { background: var(--primary); align-self: flex-end; border-bottom-right-radius: 4px; color: #fff; }
     @keyframes msgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
     .chat-typing {
       display: none;
@@ -781,23 +833,23 @@
       padding: 8px 16px 0;
     }
     .chat-quick-btns button {
-      background: rgba(255,255,255,0.06);
+      background: var(--bg-input);
       border: 1px solid var(--border);
       border-radius: 40px;
       padding: 6px 16px;
-      color: var(--text-gray);
+      color: var(--text-secondary);
       font-size: 0.8rem;
       cursor: pointer;
       transition: background var(--transition), border-color var(--transition);
     }
-    .chat-quick-btns button:hover { background: rgba(255,255,255,0.10); border-color: var(--primary); color: #fff; }
+    .chat-quick-btns button:hover { background: rgba(255,255,255,0.10); border-color: var(--primary); color: var(--text-primary); }
     .chat-input-area {
       display: flex;
       padding: 12px 16px;
       border-top: 1px solid var(--border);
       gap: 10px;
     }
-    .chat-input-area input { flex: 1; background: transparent; border: none; color: #fff; font-size: 0.95rem; outline: none; }
+    .chat-input-area input { flex: 1; background: transparent; border: none; color: var(--text-primary); font-size: 0.95rem; outline: none; }
     .chat-input-area input::placeholder { color: var(--text-muted); }
     .chat-input-area button { background: var(--primary); border: none; color: #fff; padding: 6px 16px; border-radius: 30px; font-weight: 600; cursor: pointer; transition: background var(--transition); }
     .chat-input-area button:hover { background: var(--primary-dark); }
@@ -810,7 +862,7 @@
       gap: 12px;
     }
     .chat-settings.open { display: flex; }
-    .chat-settings label { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-gray); cursor: pointer; }
+    .chat-settings label { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-secondary); cursor: pointer; }
     .chat-settings label input[type="checkbox"] { accent-color: var(--primary); }
 
     footer {
@@ -821,8 +873,8 @@
       color: var(--text-muted);
     }
     footer .footer-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin: 16px 0; }
-    footer .footer-links a { color: var(--text-gray); transition: color var(--transition); }
-    footer .footer-links a:hover { color: #fff; }
+    footer .footer-links a { color: var(--text-secondary); transition: color var(--transition); }
+    footer .footer-links a:hover { color: var(--text-primary); }
 
     @media (max-width: 768px) {
       .nav-inner { flex-direction: column; align-items: stretch; }
@@ -855,6 +907,10 @@
         <a href="#faq">FAQ</a>
         <a href="#reviews">Reviews</a>
         <a href="#contact">Contact</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <i class="fas fa-moon" id="themeIcon"></i>
+          <span id="themeLabel">Dark</span>
+        </button>
         <a href="https://discord.gg/vgsolutions" target="_blank" class="nav-btn"><i class="fab fa-discord"></i> Discord</a>
       </div>
     </div>
@@ -917,7 +973,7 @@
 
     <div class="calculator-section fade-up">
 
-      <!-- ─── PANEL 1: RANK BOOST (unchanged) ─── -->
+      <!-- ─── RANK BOOST ─── -->
       <div class="calc-panel active" id="panel-rank">
         <div class="calc-grid">
           <div class="calc-col">
@@ -951,7 +1007,7 @@
 
         <div class="price-display" id="rankPriceDisplay">
           <div class="price-main"><span class="currency">$</span><span id="rankPriceAmount">3.20</span></div>
-          <div class="price-detail"><span id="rankBoostType">Solo</span> · <span id="rankPriceETA">~3h</span> estimated</div>
+          <div class="price-detail"><span id="rankBoostType">Solo</span> · <span id="rankPriceETA">3h+</span> estimated</div>
           <div class="price-multiplier" id="rankMultiplierDisplay">Stream: <strong>Free</strong> · Offline: <strong>Free</strong></div>
           <div class="price-eta" id="rankPriceNote"></div>
         </div>
@@ -966,7 +1022,7 @@
         </div>
 
         <div class="calc-status">
-          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeRank">~2 Days</div></div>
+          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeRank">2 Days+</div></div>
           <div class="status-item"><span class="label">Availability</span><div class="value" style="color:var(--success);">Online</div></div>
           <div class="status-item"><span class="label">Queue Size</span><div class="value" id="queueSizeRank">12</div></div>
           <div class="status-item"><span class="label">Live Boosters</span><div class="value" id="liveBoostersRank">18</div></div>
@@ -976,7 +1032,7 @@
         </div>
       </div>
 
-      <!-- ─── PANEL 2: PLACEMENT MATCHES (unchanged) ─── -->
+      <!-- ─── PLACEMENT MATCHES ─── -->
       <div class="calc-panel" id="panel-placement">
         <div class="calc-grid">
           <div class="calc-col">
@@ -1014,7 +1070,7 @@
           <div class="switch-item" data-tooltip="Hide your in-game name"><span class="switch-label">Hidden Name</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Hide your in‑game name</span></div>
         </div>
         <div class="calc-status">
-          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimePlacement">~4 Hours</div></div>
+          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimePlacement">4h+</div></div>
           <div class="status-item"><span class="label">Availability</span><div class="value" style="color:var(--success);">Online</div></div>
           <div class="status-item"><span class="label">Queue Size</span><div class="value" id="queueSizePlacement">8</div></div>
           <div class="status-item"><span class="label">Live Boosters</span><div class="value" id="liveBoostersPlacement">14</div></div>
@@ -1024,12 +1080,12 @@
         </div>
       </div>
 
-      <!-- ─── PANEL 3: NET WINS (updated with config) ─── -->
+      <!-- ─── NET WINS ─── -->
       <div class="calc-panel" id="panel-wins">
         <div class="calc-grid">
           <div class="calc-col">
             <h4>Current Rank</h4>
-            <select id="winsRank" class="rank-select" onchange="updateNetWinsEstimate();">
+            <select id="winsRank" class="rank-select" onchange="updateNetWins();">
               <option>Iron I</option><option>Iron II</option><option>Iron III</option>
               <option>Bronze I</option><option>Bronze II</option><option>Bronze III</option>
               <option>Silver I</option><option>Silver II</option><option>Silver III</option>
@@ -1043,14 +1099,14 @@
           </div>
           <div class="calc-col">
             <h4>Number of Wins</h4>
-            <select id="winsCount" class="rank-select" onchange="toggleCustomInput(this, 'customWinsDiv'); updateNetWinsEstimate();">
+            <select id="winsCount" class="rank-select" onchange="toggleCustomInput(this, 'customWinsDiv'); updateNetWins();">
               <option value="1">1 Win</option><option value="3">3 Wins</option>
               <option value="5" selected>5 Wins</option><option value="10">10 Wins</option>
               <option value="15">15 Wins</option><option value="20">20 Wins</option>
               <option value="custom">Custom</option>
             </select>
             <div id="customWinsDiv" class="custom-input">
-              <input type="number" class="rank-select" placeholder="Enter wins..." min="1" onchange="updateNetWinsEstimate();" />
+              <input type="number" class="rank-select" placeholder="Enter wins..." min="1" onchange="updateNetWins();" />
             </div>
           </div>
           <div class="calc-col">
@@ -1060,15 +1116,24 @@
             </select>
           </div>
         </div>
+
+        <div class="price-display" id="winsPriceDisplay">
+          <div class="price-main"><span class="currency">$</span><span id="winsPriceAmount">10.00</span></div>
+          <div class="price-detail"><span id="winsBoostType">Solo</span> · <span id="winsPriceETA">10h+</span> estimated</div>
+          <div class="price-multiplier" id="winsMultiplierDisplay">Stream: <strong>Free</strong> · Offline: <strong>Free</strong></div>
+          <div class="price-eta" id="winsPriceNote"></div>
+        </div>
+
         <div class="calc-options">
           <div class="switch-item" data-tooltip="Priority queue, faster start"><span class="switch-label">Priority</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">Priority queue, faster start</span></div>
           <div class="switch-item" data-tooltip="Stream while we boost"><span class="switch-label">Stream</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Stream while we boost — free</span></div>
-          <div class="switch-item" data-tooltip="2.5× multiplier for duo/party"><span class="switch-label">Duo/Party</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">2.5× multiplier for duo/party</span></div>
+          <div class="switch-item" data-tooltip="2.5× multiplier for duo/party"><span class="switch-label">Duo/Party</span><div class="switch" onclick="toggleSwitch(this); updateNetWins();"></div><span class="tooltip">2.5× multiplier for duo/party</span></div>
           <div class="switch-item" data-tooltip="VPN protection included"><span class="switch-label">VPN Protection</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">VPN protection included</span></div>
           <div class="switch-item" data-tooltip="Hide your in-game name"><span class="switch-label">Hidden Name</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Hide your in‑game name</span></div>
         </div>
+
         <div class="calc-status">
-          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeWins">~6 Hours</div></div>
+          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeWins">10h+</div></div>
           <div class="status-item"><span class="label">Availability</span><div class="value" style="color:var(--success);">Online</div></div>
           <div class="status-item"><span class="label">Queue Size</span><div class="value" id="queueSizeWins">5</div></div>
           <div class="status-item"><span class="label">Live Boosters</span><div class="value" id="liveBoostersWins">16</div></div>
@@ -1078,7 +1143,7 @@
         </div>
       </div>
 
-      <!-- ─── PANEL 4: DUO/PARTY QUEUE (unchanged) ─── -->
+      <!-- ─── DUO/PARTY QUEUE ─── -->
       <div class="calc-panel" id="panel-duo">
         <div class="calc-grid">
           <div class="calc-col">
@@ -1120,7 +1185,7 @@
           <div class="switch-item" data-tooltip="Hide your in-game name"><span class="switch-label">Hidden Name</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Hide your in‑game name</span></div>
         </div>
         <div class="calc-status">
-          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeDuo">~3 Hours</div></div>
+          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeDuo">3h+</div></div>
           <div class="status-item"><span class="label">Availability</span><div class="value" style="color:var(--success);">Online</div></div>
           <div class="status-item"><span class="label">Queue Size</span><div class="value" id="queueSizeDuo">3</div></div>
           <div class="status-item"><span class="label">Live Boosters</span><div class="value" id="liveBoostersDuo">22</div></div>
@@ -1130,7 +1195,7 @@
         </div>
       </div>
 
-      <!-- ─── PANEL 5: COACHING (updated with config) ─── -->
+      <!-- ─── COACHING ─── -->
       <div class="calc-panel" id="panel-coaching">
         <div class="calc-grid">
           <div class="calc-col">
@@ -1144,7 +1209,7 @@
           </div>
           <div class="calc-col">
             <h4>Duration</h4>
-            <select id="coachingDuration" class="rank-select" onchange="toggleCustomInput(this, 'customHoursDiv'); updateCoachingEstimate();">
+            <select id="coachingDuration" class="rank-select" onchange="toggleCustomInput(this, 'customHoursDiv'); updateCoaching();">
               <option value="1">1 Hour</option>
               <option value="2">2 Hours</option>
               <option value="3">3 Hours</option>
@@ -1153,12 +1218,12 @@
               <option value="custom">Custom</option>
             </select>
             <div id="customHoursDiv" class="custom-input">
-              <input type="number" class="rank-select" placeholder="Enter hours..." min="1" onchange="updateCoachingEstimate();" />
+              <input type="number" class="rank-select" placeholder="Enter hours..." min="1" onchange="updateCoaching();" />
             </div>
           </div>
           <div class="calc-col">
             <h4>Skill Level</h4>
-            <select id="coachingSkill" class="rank-select" onchange="updateCoachingEstimate();">
+            <select id="coachingSkill" class="rank-select" onchange="updateCoaching();">
               <option>Beginner (Iron-Bronze)</option>
               <option selected>Intermediate (Silver-Gold)</option>
               <option>Advanced (Platinum-Diamond)</option>
@@ -1187,34 +1252,38 @@
           </div>
         </div>
 
-        <div style="margin: 20px 0 8px;">
-          <h4 style="font-family:var(--font-heading); font-size:0.85rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:10px;">Choose Your Coach</h4>
-          <div class="instructor-grid">
-            <div class="instructor-card active">
-              <div class="avatar">AK</div>
-              <div class="name">ApexKnight</div>
-              <div class="spec">Aim • Movement</div>
-            </div>
-            <div class="instructor-card">
-              <div class="avatar">VS</div>
-              <div class="name">VexStrat</div>
-              <div class="spec">Game Sense • Utility</div>
-            </div>
-            <div class="instructor-card">
-              <div class="avatar">CR</div>
-              <div class="name">CrossRaze</div>
-              <div class="spec">Agent Mastery</div>
-            </div>
-            <div class="instructor-card">
-              <div class="avatar">NY</div>
-              <div class="name">Nyxian</div>
-              <div class="spec">Mental • Teamplay</div>
-            </div>
-            <div class="instructor-card">
-              <div class="avatar">SV</div>
-              <div class="name">SilverVoid</div>
-              <div class="spec">VOD Review</div>
-            </div>
+        <div class="price-display" id="coachingPriceDisplay">
+          <div class="price-main"><span class="currency">$</span><span id="coachingPriceAmount">10.00</span></div>
+          <div class="price-detail"><span id="coachingBoostType">Solo</span> · <span id="coachingPriceETA">5h+</span> estimated</div>
+          <div class="price-multiplier" id="coachingMultiplierDisplay">Priority: <strong>Free</strong> · VOD: <strong>Free</strong></div>
+          <div class="price-eta" id="coachingPriceNote"></div>
+        </div>
+
+        <div class="instructor-grid">
+          <div class="instructor-card active">
+            <div class="avatar">AK</div>
+            <div class="name">ApexKnight</div>
+            <div class="spec">Aim • Movement</div>
+          </div>
+          <div class="instructor-card">
+            <div class="avatar">VS</div>
+            <div class="name">VexStrat</div>
+            <div class="spec">Game Sense • Utility</div>
+          </div>
+          <div class="instructor-card">
+            <div class="avatar">CR</div>
+            <div class="name">CrossRaze</div>
+            <div class="spec">Agent Mastery</div>
+          </div>
+          <div class="instructor-card">
+            <div class="avatar">NY</div>
+            <div class="name">Nyxian</div>
+            <div class="spec">Mental • Teamplay</div>
+          </div>
+          <div class="instructor-card">
+            <div class="avatar">SV</div>
+            <div class="name">SilverVoid</div>
+            <div class="spec">VOD Review</div>
           </div>
         </div>
 
@@ -1227,13 +1296,13 @@
 
         <div class="calc-status">
           <div class="status-item"><span class="label">Available Slots</span><div class="value" style="color:var(--accent);">3 Today</div></div>
-          <div class="status-item"><span class="label">Next Available</span><div class="value" style="color:var(--text-white);">2:30 PM EST</div></div>
-          <div class="status-item"><span class="label">Session Duration</span><div class="value" id="estTimeCoaching">5 Hours</div></div>
+          <div class="status-item"><span class="label">Next Available</span><div class="value" style="color:var(--text-secondary);">2:30 PM EST</div></div>
+          <div class="status-item"><span class="label">Session Duration</span><div class="value" id="estTimeCoaching">5h+</div></div>
           <div class="status-item"><span class="label">Live Boosters</span><div class="value" id="liveBoostersCoaching">10</div></div>
         </div>
 
-        <div style="margin-top:16px; padding:16px 20px; background:rgba(109,94,247,0.06); border-radius:16px; border:1px solid rgba(109,94,247,0.12); text-align:center;">
-          <p style="color:var(--text-gray); font-size:0.95rem;">
+        <div style="margin-top:16px; padding:16px 20px; background:var(--price-bg); border-radius:16px; border:1px solid var(--price-border); text-align:center;">
+          <p style="color:var(--text-secondary); font-size:0.95rem;">
             <i class="fas fa-info-circle" style="color:var(--primary); margin-right:8px;"></i>
             All coaching sessions include a personalized improvement plan. VOD review sessions require a match replay link.
           </p>
@@ -1389,7 +1458,7 @@
   </div>
 
   <script>
-    // ─── CONFIGURATION (Backend defaults – not displayed) ───
+    // ─── CONFIGURATION ───
     const config = {
       coaching: {
         tiers: ['Iron','Bronze','Silver','Gold','Platinum','Diamond','Ascendant','Immortal','Radiant'],
@@ -1400,73 +1469,90 @@
         tiers: ['Iron','Bronze','Silver','Gold','Platinum','Diamond','Ascendant','Immortal','Radiant'],
         costPerWin: [1,1,2,2,2,3,4,7,30],
         hoursPerWin: [1,2,2,2,2,2,2,2,2]
-      }
+      },
+      showPrices: true // Toggle this to false to hide prices
     };
 
-    // Helper: get tier index from a rank string (e.g. "Gold I" → "Gold")
     function getTierFromRank(rank) {
       const parts = rank.split(' ');
       return parts[0];
     }
 
-    // ─── NET WINS ESTIMATE ───
-    function updateNetWinsEstimate() {
+    function getTierIndex(rank) {
+      const tier = getTierFromRank(rank);
+      return config.netWins.tiers.indexOf(tier);
+    }
+
+    // ─── NET WINS ───
+    function updateNetWins() {
       const rankSelect = document.getElementById('winsRank');
       const rank = rankSelect.value;
-      const tier = getTierFromRank(rank);
-      const tierIndex = config.netWins.tiers.indexOf(tier);
+      const tierIndex = getTierIndex(rank);
       if (tierIndex === -1) return;
 
-      // Get number of wins
       let wins = parseInt(document.getElementById('winsCount').value);
       if (isNaN(wins) || wins < 1) {
         const customInput = document.querySelector('#customWinsDiv input');
-        if (customInput) {
-          wins = parseInt(customInput.value) || 0;
-        }
+        if (customInput) wins = parseInt(customInput.value) || 1;
       }
       if (wins < 1) wins = 1;
 
+      const costPerWin = config.netWins.costPerWin[tierIndex];
       const hoursPerWin = config.netWins.hoursPerWin[tierIndex];
+      const totalCost = wins * costPerWin;
       const totalHours = wins * hoursPerWin;
-      let displayTime;
-      if (totalHours < 1) displayTime = '~1 Hour';
-      else if (totalHours <= 24) displayTime = `~${totalHours} Hours`;
-      else displayTime = `~${Math.ceil(totalHours / 24)} Days`;
 
-      document.getElementById('estTimeWins').innerText = displayTime;
+      // Check Duo/Party
+      let isDuo = false;
+      document.querySelectorAll('#panel-wins .switch-item').forEach(item => {
+        const label = item.querySelector('.switch-label');
+        if (label && label.textContent.trim() === 'Duo/Party') {
+          const sw = item.querySelector('.switch');
+          if (sw && sw.classList.contains('active')) isDuo = true;
+        }
+      });
+
+      let finalPrice = totalCost;
+      if (isDuo) {
+        finalPrice = Math.round((totalCost * 2.5) * 100) / 100;
+        document.getElementById('winsBoostType').textContent = 'Duo/Party 2.5×';
+      } else {
+        document.getElementById('winsBoostType').textContent = 'Solo';
+      }
+
+      const hoursDisplay = totalHours < 1 ? '1h+' : `${totalHours}h+`;
+      document.getElementById('winsPriceAmount').textContent = finalPrice.toFixed(2);
+      document.getElementById('winsPriceETA').textContent = hoursDisplay;
+      document.getElementById('estTimeWins').textContent = hoursDisplay;
     }
 
-    // ─── COACHING ESTIMATE ───
-    function updateCoachingEstimate() {
-      // Get duration
+    // ─── COACHING ───
+    function updateCoaching() {
       let hours = parseInt(document.getElementById('coachingDuration').value);
       if (isNaN(hours) || hours < 1) {
         const customInput = document.querySelector('#customHoursDiv input');
-        if (customInput) {
-          hours = parseInt(customInput.value) || 0;
-        }
+        if (customInput) hours = parseInt(customInput.value) || 1;
       }
       if (hours < 1) hours = 1;
 
-      // Optionally adjust based on skill level (just for realism)
       const skillSelect = document.getElementById('coachingSkill');
       const skill = skillSelect.value;
-      let multiplier = 1;
-      if (skill.includes('Elite')) multiplier = 1.2;
-      else if (skill.includes('Advanced')) multiplier = 1.1;
-      else if (skill.includes('Beginner')) multiplier = 0.9;
+      let tierIndex = 0;
+      if (skill.includes('Elite')) tierIndex = 7; // Immortal+
+      else if (skill.includes('Advanced')) tierIndex = 5; // Diamond
+      else if (skill.includes('Intermediate')) tierIndex = 3; // Gold
+      else tierIndex = 0; // Iron
 
-      const totalHours = Math.round(hours * multiplier * 10) / 10;
-      let displayTime;
-      if (totalHours < 1) displayTime = '~1 Hour';
-      else if (totalHours <= 24) displayTime = `~${totalHours} Hours`;
-      else displayTime = `~${Math.ceil(totalHours / 24)} Days`;
+      const costPerHour = config.coaching.costPerGame[tierIndex];
+      const totalCost = hours * costPerHour;
+      const hoursDisplay = `${hours}h+`;
 
-      document.getElementById('estTimeCoaching').innerText = displayTime;
+      document.getElementById('coachingPriceAmount').textContent = totalCost.toFixed(2);
+      document.getElementById('coachingPriceETA').textContent = hoursDisplay;
+      document.getElementById('estTimeCoaching').textContent = hoursDisplay;
     }
 
-    // ─── RANK ORDER & PRICE CALC (unchanged) ───
+    // ─── RANK PRICE LOGIC ───
     const rankOrder = ['Iron I','Iron II','Iron III','Bronze I','Bronze II','Bronze III','Silver I','Silver II','Silver III','Gold I','Gold II','Gold III','Platinum I','Platinum II','Platinum III','Diamond I','Diamond II','Diamond III','Ascendant I','Ascendant II','Ascendant III','Immortal I','Immortal II','Immortal III','Radiant'];
 
     const stepPrices = {
@@ -1570,12 +1656,12 @@
       }
 
       const steps = desiredIdx - currentIdx;
-      let eta = '12h';
-      if (steps <= 1) eta = '3h';
-      else if (steps <= 3) eta = '5h';
-      else if (steps <= 5) eta = '12h';
-      else if (steps <= 8) eta = '24h';
-      else eta = '2 Days';
+      let eta = '12h+';
+      if (steps <= 1) eta = '3h+';
+      else if (steps <= 3) eta = '5h+';
+      else if (steps <= 5) eta = '12h+';
+      else if (steps <= 8) eta = '24h+';
+      else eta = '2 Days+';
 
       let isDuo = false;
       document.querySelectorAll('#panel-rank .switch-item').forEach(item => {
@@ -1595,10 +1681,46 @@
       }
 
       priceDisplay.textContent = finalPrice.toFixed(2);
-      etaDisplay.textContent = `~${eta}`;
+      etaDisplay.textContent = eta;
       noteDisplay.innerHTML = '';
       multiplierDisplay.innerHTML = 'Stream: <strong>Free</strong> · Offline: <strong>Free</strong>';
     }
+
+    // ─── THEME TOGGLE ───
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', newTheme);
+      
+      const icon = document.getElementById('themeIcon');
+      const label = document.getElementById('themeLabel');
+      if (newTheme === 'light') {
+        icon.className = 'fas fa-sun';
+        label.textContent = 'Light';
+        localStorage.setItem('theme', 'light');
+      } else {
+        icon.className = 'fas fa-moon';
+        label.textContent = 'Dark';
+        localStorage.setItem('theme', 'dark');
+      }
+      playSound('click');
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    const icon = document.getElementById('themeIcon');
+    const label = document.getElementById('themeLabel');
+    if (savedTheme === 'light') {
+      icon.className = 'fas fa-sun';
+      label.textContent = 'Light';
+    } else {
+      icon.className = 'fas fa-moon';
+      label.textContent = 'Dark';
+    }
+
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
 
     // ─── PARTICLES ───
     const canvas = document.getElementById('particles-canvas');
@@ -1735,21 +1857,21 @@
           calculateRankPrice();
         }
         if (target === 'wins') {
-          updateNetWinsEstimate();
+          updateNetWins();
         }
         if (target === 'coaching') {
-          updateCoachingEstimate();
+          updateCoaching();
         }
       });
     });
 
     function updateEstimates(panel) {
       const estMap = {
-        rank: { time: '~2 Days', queue: '12', live: '18' },
-        placement: { time: '~4 Hours', queue: '8', live: '14' },
-        wins: { time: '~6 Hours', queue: '5', live: '16' },
-        duo: { time: '~3 Hours', queue: '3', live: '22' },
-        coaching: { time: '5 Hours', queue: '2', live: '10' }
+        rank: { time: '2 Days+', queue: '12', live: '18' },
+        placement: { time: '4h+', queue: '8', live: '14' },
+        wins: { time: '10h+', queue: '5', live: '16' },
+        duo: { time: '3h+', queue: '3', live: '22' },
+        coaching: { time: '5h+', queue: '2', live: '10' }
       };
       const data = estMap[panel] || estMap.rank;
       const idMap = {
@@ -1761,14 +1883,11 @@
       };
       const ids = idMap[panel];
       if (ids) {
-        // Only set queue and live from static map; time is updated by dynamic functions if applicable
         document.getElementById(ids.queue).innerText = data.queue;
         document.getElementById(ids.live).innerText = data.live;
-        // For panels with dynamic time, skip overwriting
-        if (panel !== 'wins' && panel !== 'coaching') {
+        if (panel !== 'wins' && panel !== 'coaching' && panel !== 'rank') {
           document.getElementById(ids.time).innerText = data.time;
         }
-        // For placement and duo, keep static
         if (panel === 'placement' || panel === 'duo') {
           document.getElementById(ids.time).innerText = data.time;
         }
@@ -1780,8 +1899,10 @@
       el.classList.toggle('active');
       playSound('click');
       const panel = el.closest('.calc-panel');
-      if (panel && panel.id === 'panel-rank') {
-        setTimeout(calculateRankPrice, 50);
+      if (panel) {
+        if (panel.id === 'panel-rank') setTimeout(calculateRankPrice, 50);
+        if (panel.id === 'panel-wins') setTimeout(updateNetWins, 50);
+        if (panel.id === 'panel-coaching') setTimeout(updateCoaching, 50);
       }
     }
     window.toggleSwitch = toggleSwitch;
@@ -1956,8 +2077,8 @@
     setTimeout(() => {
       updateDesiredOptions();
       calculateRankPrice();
-      updateNetWinsEstimate();
-      updateCoachingEstimate();
+      updateNetWins();
+      updateCoaching();
     }, 300);
 
     console.log('VG Solutions – Premium Boosting Website');
