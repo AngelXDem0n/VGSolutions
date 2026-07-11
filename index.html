@@ -9,11 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --primary: #6D5EF7;
       --primary-dark: #5a4ad4;
@@ -61,17 +57,12 @@
       max-width: 600px;
       margin: 0 auto 48px;
     }
-    .fade-up {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
+    .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 
-    /* ─── PARTICLES ─── */
     #particles-canvas {
       position: fixed;
       top: 0;
@@ -82,7 +73,6 @@
       pointer-events: none;
     }
 
-    /* ─── NAVBAR ─── */
     nav {
       position: sticky;
       top: 0;
@@ -156,7 +146,6 @@
     .nav-btn:hover { background: var(--primary-dark); transform: scale(1.04); }
     .nav-btn::after { display: none !important; }
 
-    /* ─── HERO ─── */
     .hero {
       position: relative;
       z-index: 1;
@@ -244,7 +233,6 @@
       transform: translateY(-4px);
     }
 
-    /* ─── SERVICES GRID ─── */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -284,14 +272,9 @@
       transition: transform var(--transition);
     }
     .service-card:hover .icon { transform: scale(1.1) rotate(-4deg); }
-    .service-card h3 {
-      font-family: var(--font-heading);
-      font-size: 1.3rem;
-      margin-bottom: 6px;
-    }
+    .service-card h3 { font-family: var(--font-heading); font-size: 1.3rem; margin-bottom: 6px; }
     .service-card p { color: var(--text-muted); font-size: 0.95rem; }
 
-    /* ─── BOOSTING TABS ─── */
     .calculator-tabs {
       display: flex;
       flex-wrap: wrap;
@@ -473,8 +456,50 @@
     }
     .calc-join { text-align: center; margin-top: 24px; }
 
-    .custom-input { display: none; margin-top: 8px; }
-    .custom-input.visible { display: block; }
+    /* ─── PRICE DISPLAY ─── */
+    .price-display {
+      background: rgba(109,94,247,0.06);
+      border: 1px solid rgba(109,94,247,0.15);
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin: 20px 0 12px;
+      text-align: center;
+    }
+    .price-display .price-main {
+      font-family: var(--font-heading);
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -0.5px;
+    }
+    .price-display .price-main .currency {
+      font-size: 1.6rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .price-display .price-detail {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .price-display .price-detail span { color: var(--text-gray); font-weight: 600; }
+    .price-display .price-multiplier {
+      font-size: 0.85rem;
+      color: var(--warning);
+      margin-top: 6px;
+    }
+    .price-display .price-eta {
+      font-size: 0.9rem;
+      color: var(--text-gray);
+      margin-top: 4px;
+    }
+    .price-display .ticket-note {
+      font-size: 0.95rem;
+      color: var(--warning);
+      font-weight: 600;
+      margin-top: 6px;
+    }
+    .price-display .ticket-note i { color: var(--primary); margin-right: 6px; }
 
     /* ─── COACHING INSTRUCTOR CARDS ─── */
     .instructor-grid {
@@ -514,7 +539,6 @@
     .instructor-card .name { font-weight: 600; font-size: 0.9rem; }
     .instructor-card .spec { font-size: 0.75rem; color: var(--text-muted); }
 
-    /* ─── LIVE STATUS PANEL ─── */
     .live-panel {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -537,7 +561,6 @@
     }
     .live-item .label { color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; }
 
-    /* ─── FEATURES ─── */
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -557,7 +580,6 @@
     .feature-card h4 { font-family: var(--font-heading); font-size: 1.1rem; margin-bottom: 4px; }
     .feature-card p { color: var(--text-muted); font-size: 0.9rem; }
 
-    /* ─── HOW IT WORKS ─── */
     .how-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -596,7 +618,6 @@
     .how-step h4 { font-family: var(--font-heading); font-size: 1.3rem; margin-top: 12px; }
     .how-step p { color: var(--text-muted); font-size: 0.95rem; }
 
-    /* ─── FAQ ─── */
     .faq-list { display: flex; flex-direction: column; gap: 12px; max-width: 800px; margin: 0 auto; }
     .faq-item {
       background: var(--card-bg);
@@ -627,7 +648,6 @@
     }
     .faq-item.open .faq-answer { max-height: 300px; padding: 0 24px 20px; }
 
-    /* ─── REVIEWS ─── */
     .reviews-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -656,7 +676,9 @@
       color: #fff;
     }
 
-    /* ─── AI CHAT ─── */
+    .custom-input { display: none; margin-top: 8px; }
+    .custom-input.visible { display: block; }
+
     .chat-toggle {
       position: fixed;
       bottom: 28px;
@@ -792,7 +814,6 @@
     .chat-settings label { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-gray); cursor: pointer; }
     .chat-settings label input[type="checkbox"] { accent-color: var(--primary); }
 
-    /* ─── FOOTER ─── */
     footer {
       border-top: 1px solid var(--border);
       padding: 40px 0 24px;
@@ -804,7 +825,6 @@
     footer .footer-links a { color: var(--text-gray); transition: color var(--transition); }
     footer .footer-links a:hover { color: #fff; }
 
-    /* ─── RESPONSIVE ─── */
     @media (max-width: 768px) {
       .nav-inner { flex-direction: column; align-items: stretch; }
       .nav-links { justify-content: center; gap: 16px; }
@@ -825,10 +845,8 @@
 </head>
 <body>
 
-  <!-- ─── PARTICLES CANVAS ─── -->
   <canvas id="particles-canvas"></canvas>
 
-  <!-- ─── NAVBAR ─── -->
   <nav id="navbar">
     <div class="container nav-inner">
       <div class="logo"><i class="fas fa-bolt"></i> VG Solutions</div>
@@ -843,7 +861,6 @@
     </div>
   </nav>
 
-  <!-- ─── HERO ─── -->
   <section class="hero container" id="home">
     <div class="hero-content">
       <h1>Reach Your <span>Dream Rank</span></h1>
@@ -855,7 +872,6 @@
     </div>
   </section>
 
-  <!-- ─── SERVICES ─── -->
   <section id="services" class="container" style="padding: 40px 0;">
     <h2 class="section-title fade-up">Our Services</h2>
     <p class="section-sub fade-up">Choose the perfect boost for your needs, all handled by top‑tier players.</p>
@@ -877,8 +893,8 @@
       </div>
       <div class="service-card fade-up">
         <span class="icon"><i class="fas fa-users"></i></span>
-        <h3>Duo Queue</h3>
-        <p>Team up with a pro for a duo boost session.</p>
+        <h3>Duo/Party Queue</h3>
+        <p>Team up with a pro for a duo or party boost session.</p>
       </div>
       <div class="service-card fade-up">
         <span class="icon"><i class="fas fa-chalkboard-teacher"></i></span>
@@ -888,7 +904,6 @@
     </div>
   </section>
 
-  <!-- ─── BOOSTING ─── -->
   <section id="boosting" class="container" style="padding: 40px 0;">
     <h2 class="section-title fade-up">Boosting Services</h2>
     <p class="section-sub fade-up">Select your service, configure your boost, and join Discord to start.</p>
@@ -897,7 +912,7 @@
       <button class="tab-btn active" data-tab="rank"><i class="fas fa-arrow-up"></i> Rank Boost</button>
       <button class="tab-btn" data-tab="placement"><i class="fas fa-flag-checkered"></i> Placement</button>
       <button class="tab-btn" data-tab="wins"><i class="fas fa-trophy"></i> Net Wins</button>
-      <button class="tab-btn" data-tab="duo"><i class="fas fa-users"></i> Duo Queue</button>
+      <button class="tab-btn" data-tab="duo"><i class="fas fa-users"></i> Duo/Party</button>
       <button class="tab-btn" data-tab="coaching"><i class="fas fa-chalkboard-teacher"></i> Coaching</button>
     </div>
 
@@ -908,7 +923,7 @@
         <div class="calc-grid">
           <div class="calc-col">
             <h4>Current Rank</h4>
-            <select id="rankCurrent" class="rank-select">
+            <select id="rankCurrent" class="rank-select" onchange="calculateRankPrice()">
               <option>Iron I</option><option>Iron II</option><option>Iron III</option>
               <option>Bronze I</option><option>Bronze II</option><option>Bronze III</option>
               <option>Silver I</option><option>Silver II</option><option>Silver III</option>
@@ -923,7 +938,7 @@
           <div class="calc-arrow"><i class="fas fa-arrow-right"></i></div>
           <div class="calc-col">
             <h4>Desired Rank</h4>
-            <select id="rankDesired" class="rank-select">
+            <select id="rankDesired" class="rank-select" onchange="calculateRankPrice()">
               <option>Iron I</option><option>Iron II</option><option>Iron III</option>
               <option>Bronze I</option><option>Bronze II</option><option>Bronze III</option>
               <option>Silver I</option><option>Silver II</option><option>Silver III</option>
@@ -937,20 +952,29 @@
           </div>
           <div class="calc-col">
             <h4>Server</h4>
-            <select id="rankServer" class="rank-select">
-              <option>EU</option>
-              <option selected>AP</option>
+            <select id="rankServer" class="rank-select" onchange="calculateRankPrice()">
+              <option>EU</option><option selected>AP</option>
             </select>
           </div>
         </div>
+
+        <!-- ─── PRICE DISPLAY ─── -->
+        <div class="price-display" id="rankPriceDisplay">
+          <div class="price-main"><span class="currency">$</span><span id="rankPriceAmount">3.20</span></div>
+          <div class="price-detail">Solo boost · <span id="rankPriceETA">~3h</span> estimated</div>
+          <div class="price-multiplier" id="rankMultiplierDisplay">Duo/Party: <strong>2.5×</strong> · Stream: <strong>Free</strong> · Offline: <strong>Free</strong></div>
+          <div class="price-eta" id="rankPriceNote"></div>
+        </div>
+
         <div class="calc-options">
           <div class="switch-item" data-tooltip="Priority queue, faster start"><span class="switch-label">Priority</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">Priority queue, faster start</span></div>
-          <div class="switch-item" data-tooltip="Play while we boost"><span class="switch-label">Offline Mode</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Play while we boost</span></div>
-          <div class="switch-item" data-tooltip="Stream while we boost"><span class="switch-label">Stream</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Stream while we boost</span></div>
-          <div class="switch-item" data-tooltip="Play alongside a booster"><span class="switch-label">Duo Queue</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Play alongside a booster</span></div>
+          <div class="switch-item" data-tooltip="Play while we boost"><span class="switch-label">Offline Mode</span><div class="switch" onclick="toggleSwitch(this); calculateRankPrice();"></div><span class="tooltip">Play while we boost — free</span></div>
+          <div class="switch-item" data-tooltip="Stream while we boost"><span class="switch-label">Stream</span><div class="switch" onclick="toggleSwitch(this); calculateRankPrice();"></div><span class="tooltip">Stream while we boost — free</span></div>
+          <div class="switch-item" data-tooltip="2.5× multiplier for duo/party"><span class="switch-label">Duo/Party</span><div class="switch" onclick="toggleSwitch(this); calculateRankPrice();"></div><span class="tooltip">2.5× multiplier for duo/party</span></div>
           <div class="switch-item" data-tooltip="VPN protection included"><span class="switch-label">VPN Protection</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">VPN protection included</span></div>
           <div class="switch-item" data-tooltip="Hide your in-game name"><span class="switch-label">Hidden Name</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Hide your in‑game name</span></div>
         </div>
+
         <div class="calc-status">
           <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeRank">~2 Days</div></div>
           <div class="status-item"><span class="label">Availability</span><div class="value" style="color:var(--success);">Online</div></div>
@@ -988,15 +1012,14 @@
           <div class="calc-col">
             <h4>Server</h4>
             <select id="placementServer" class="rank-select">
-              <option>EU</option>
-              <option selected>AP</option>
+              <option>EU</option><option selected>AP</option>
             </select>
           </div>
         </div>
         <div class="calc-options">
           <div class="switch-item" data-tooltip="Priority queue, faster start"><span class="switch-label">Priority</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">Priority queue, faster start</span></div>
-          <div class="switch-item" data-tooltip="Stream while we boost"><span class="switch-label">Stream</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Stream while we boost</span></div>
-          <div class="switch-item" data-tooltip="Play alongside a booster"><span class="switch-label">Duo Queue</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Play alongside a booster</span></div>
+          <div class="switch-item" data-tooltip="Stream while we boost"><span class="switch-label">Stream</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Stream while we boost — free</span></div>
+          <div class="switch-item" data-tooltip="2.5× multiplier for duo/party"><span class="switch-label">Duo/Party</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">2.5× multiplier for duo/party</span></div>
           <div class="switch-item" data-tooltip="VPN protection included"><span class="switch-label">VPN Protection</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">VPN protection included</span></div>
           <div class="switch-item" data-tooltip="Hide your in-game name"><span class="switch-label">Hidden Name</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Hide your in‑game name</span></div>
         </div>
@@ -1043,15 +1066,14 @@
           <div class="calc-col">
             <h4>Server</h4>
             <select id="winsServer" class="rank-select">
-              <option>EU</option>
-              <option selected>AP</option>
+              <option>EU</option><option selected>AP</option>
             </select>
           </div>
         </div>
         <div class="calc-options">
           <div class="switch-item" data-tooltip="Priority queue, faster start"><span class="switch-label">Priority</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">Priority queue, faster start</span></div>
-          <div class="switch-item" data-tooltip="Stream while we boost"><span class="switch-label">Stream</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Stream while we boost</span></div>
-          <div class="switch-item" data-tooltip="Play alongside a booster"><span class="switch-label">Duo Queue</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Play alongside a booster</span></div>
+          <div class="switch-item" data-tooltip="Stream while we boost"><span class="switch-label">Stream</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Stream while we boost — free</span></div>
+          <div class="switch-item" data-tooltip="2.5× multiplier for duo/party"><span class="switch-label">Duo/Party</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">2.5× multiplier for duo/party</span></div>
           <div class="switch-item" data-tooltip="VPN protection included"><span class="switch-label">VPN Protection</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">VPN protection included</span></div>
           <div class="switch-item" data-tooltip="Hide your in-game name"><span class="switch-label">Hidden Name</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Hide your in‑game name</span></div>
         </div>
@@ -1066,7 +1088,7 @@
         </div>
       </div>
 
-      <!-- ─── PANEL 4: DUO QUEUE ─── -->
+      <!-- ─── PANEL 4: DUO/PARTY QUEUE ─── -->
       <div class="calc-panel" id="panel-duo">
         <div class="calc-grid">
           <div class="calc-col">
@@ -1097,14 +1119,13 @@
           <div class="calc-col">
             <h4>Server</h4>
             <select id="duoServer" class="rank-select">
-              <option>EU</option>
-              <option selected>AP</option>
+              <option>EU</option><option selected>AP</option>
             </select>
           </div>
         </div>
         <div class="calc-options">
           <div class="switch-item" data-tooltip="Priority queue, faster start"><span class="switch-label">Priority</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">Priority queue, faster start</span></div>
-          <div class="switch-item" data-tooltip="Stream while we boost"><span class="switch-label">Stream</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Stream while we boost</span></div>
+          <div class="switch-item" data-tooltip="Stream while we boost"><span class="switch-label">Stream</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Stream while we boost — free</span></div>
           <div class="switch-item" data-tooltip="VPN protection included"><span class="switch-label">VPN Protection</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">VPN protection included</span></div>
           <div class="switch-item" data-tooltip="Hide your in-game name"><span class="switch-label">Hidden Name</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Hide your in‑game name</span></div>
         </div>
@@ -1171,13 +1192,11 @@
           <div class="calc-col">
             <h4>Server</h4>
             <select id="coachingServer" class="rank-select">
-              <option>EU</option>
-              <option selected>AP</option>
+              <option>EU</option><option selected>AP</option>
             </select>
           </div>
         </div>
 
-        <!-- Instructor Selection -->
         <div style="margin: 20px 0 8px;">
           <h4 style="font-family:var(--font-heading); font-size:0.85rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:10px;">Choose Your Coach</h4>
           <div class="instructor-grid">
@@ -1238,7 +1257,6 @@
     </div>
   </section>
 
-  <!-- ─── LIVE STATUS PANEL ─── -->
   <section class="container" style="padding: 0 0 40px;">
     <div class="live-panel fade-up">
       <div class="live-item"><span class="number" data-count="24">0</span><div class="label">Boosters Online</div></div>
@@ -1249,7 +1267,6 @@
     </div>
   </section>
 
-  <!-- ─── FEATURES ─── -->
   <section class="container" style="padding: 40px 0;">
     <h2 class="section-title fade-up">Why VG Solutions</h2>
     <p class="section-sub fade-up">Built for players who demand the best.</p>
@@ -1263,7 +1280,6 @@
     </div>
   </section>
 
-  <!-- ─── HOW IT WORKS ─── -->
   <section class="container" style="padding: 40px 0;">
     <h2 class="section-title fade-up">How It Works</h2>
     <p class="section-sub fade-up">Three simple steps to your new rank.</p>
@@ -1274,7 +1290,6 @@
     </div>
   </section>
 
-  <!-- ─── FAQ ─── -->
   <section id="faq" class="container" style="padding: 40px 0;">
     <h2 class="section-title fade-up">Frequently Asked Questions</h2>
     <p class="section-sub fade-up">Everything you need to know before boosting.</p>
@@ -1285,7 +1300,7 @@
       </div>
       <div class="faq-item">
         <div class="faq-question" onclick="toggleFaq(this)">Can I duo with my booster? <i class="fas fa-chevron-down"></i></div>
-        <div class="faq-answer">Yes, we offer Duo Queue services. You'll play alongside a professional booster to rank up together.</div>
+        <div class="faq-answer">Yes, we offer Duo/Party Queue services. You'll play alongside a professional booster to rank up together.</div>
       </div>
       <div class="faq-item">
         <div class="faq-question" onclick="toggleFaq(this)">How long does a boost take? <i class="fas fa-chevron-down"></i></div>
@@ -1293,7 +1308,7 @@
       </div>
       <div class="faq-item">
         <div class="faq-question" onclick="toggleFaq(this)">Can I stream during the boost? <i class="fas fa-chevron-down"></i></div>
-        <div class="faq-answer">Yes, but we recommend using Streamer Mode to avoid exposing your account details. You can also play offline while we boost.</div>
+        <div class="faq-answer">Yes, streaming is free and supported. Just toggle the Stream option in the calculator.</div>
       </div>
       <div class="faq-item">
         <div class="faq-question" onclick="toggleFaq(this)">What is your refund policy? <i class="fas fa-chevron-down"></i></div>
@@ -1302,7 +1317,6 @@
     </div>
   </section>
 
-  <!-- ─── REVIEWS ─── -->
   <section id="reviews" class="container" style="padding: 40px 0;">
     <h2 class="section-title fade-up">What Our Clients Say</h2>
     <p class="section-sub fade-up">Real feedback from players who reached their dream rank.</p>
@@ -1325,7 +1339,6 @@
     </div>
   </section>
 
-  <!-- ─── FOOTER ─── -->
   <footer id="contact">
     <div class="container">
       <div class="logo" style="justify-content:center; margin-bottom:12px;"><i class="fas fa-bolt"></i> VG Solutions</div>
@@ -1342,7 +1355,6 @@
     </div>
   </footer>
 
-  <!-- ─── AI CHAT ─── -->
   <button class="chat-toggle" id="chatToggle" aria-label="Open chat">
     <i class="fas fa-comment-dots"></i>
   </button>
@@ -1386,8 +1398,131 @@
     </div>
   </div>
 
-  <!-- ─── JAVASCRIPT ─── -->
   <script>
+    // ─── RANK PRICE DATA ───
+    const rankPrices = {
+      'Iron I→Iron III': { price: 4.00, eta: '3h' },
+      'Bronze I→Bronze III': { price: 4.00, eta: '3h' },
+      'Silver I→Silver III': { price: 5.00, eta: '5h' },
+      'Gold I→Gold II': { price: 3.00, eta: '3h' },
+      'Gold II→Gold III': { price: 3.20, eta: '3h' },
+      'Gold III→Platinum I': { price: 3.50, eta: '12h' },
+      'Platinum I→Platinum II': { price: 4.00, eta: '12h' },
+      'Platinum II→Platinum III': { price: 4.50, eta: '12h' },
+      'Platinum III→Diamond I': { price: 4.80, eta: '12h' },
+      'Diamond I→Diamond II': { price: 5.00, eta: '12h' },
+      'Diamond II→Diamond III': { price: 5.50, eta: '12h' },
+      'Diamond III→Ascendant I': { price: 7.00, eta: '12h' },
+      'Ascendant I→Ascendant II': { price: 8.00, eta: '12h' },
+      'Ascendant II→Ascendant III': { price: 10.00, eta: '12h' },
+      'Ascendant III→Immortal I': { price: 18.00, eta: '12h' },
+      'Immortal I→Immortal II': { price: 22.00, eta: '12h' },
+      'Immortal II→Immortal III': { price: 35.00, eta: '24h' },
+    };
+    const radiantMessage = 'OPEN TICKET FOR INQUIRIES';
+
+    const rankOrder = ['Iron I','Iron II','Iron III','Bronze I','Bronze II','Bronze III','Silver I','Silver II','Silver III','Gold I','Gold II','Gold III','Platinum I','Platinum II','Platinum III','Diamond I','Diamond II','Diamond III','Ascendant I','Ascendant II','Ascendant III','Immortal I','Immortal II','Immortal III','Radiant'];
+
+    function calculateRankPrice() {
+      const current = document.getElementById('rankCurrent').value;
+      const desired = document.getElementById('rankDesired').value;
+      const currentIdx = rankOrder.indexOf(current);
+      const desiredIdx = rankOrder.indexOf(desired);
+
+      const key = `${current}→${desired}`;
+      let basePrice = null;
+      let eta = null;
+
+      // Check exact match
+      if (rankPrices[key]) {
+        basePrice = rankPrices[key].price;
+        eta = rankPrices[key].eta;
+      } else {
+        // Check if it's a valid range
+        for (const [k, v] of Object.entries(rankPrices)) {
+          const [from, to] = k.split('→');
+          const fromIdx = rankOrder.indexOf(from);
+          const toIdx = rankOrder.indexOf(to);
+          if (currentIdx >= fromIdx && desiredIdx <= toIdx && currentIdx < desiredIdx) {
+            // Calculate proportional price
+            const totalSteps = toIdx - fromIdx;
+            const steps = desiredIdx - currentIdx;
+            const pricePerStep = v.price / totalSteps;
+            basePrice = Math.round((pricePerStep * steps) * 100) / 100;
+            eta = v.eta;
+            break;
+          }
+        }
+        // If still no match, use tier-based estimation
+        if (basePrice === null && currentIdx < desiredIdx) {
+          const diff = desiredIdx - currentIdx;
+          // Base price per tier roughly
+          let tier = Math.floor(currentIdx / 3);
+          let base = 3 + tier * 0.8;
+          basePrice = Math.round((base * diff) * 100) / 100;
+          eta = diff <= 2 ? '3h' : diff <= 4 ? '5h' : '12h';
+        }
+      }
+
+      // Check if Radiant is involved
+      let isRadiant = current === 'Radiant' || desired === 'Radiant';
+      let radiantNote = false;
+
+      // Special case: Immortal III → Radiant
+      if (current === 'Immortal III' && desired === 'Radiant') {
+        document.getElementById('rankPriceAmount').innerHTML = '—';
+        document.getElementById('rankPriceETA').innerText = '—';
+        document.getElementById('rankPriceNote').innerHTML = '<span class="ticket-note"><i class="fas fa-ticket-alt"></i> OPEN TICKET FOR INQUIRIES</span>';
+        document.getElementById('rankMultiplierDisplay').style.display = 'none';
+        return;
+      }
+
+      // Any other Radiant-related
+      if (isRadiant && current !== 'Immortal III') {
+        document.getElementById('rankPriceAmount').innerHTML = '—';
+        document.getElementById('rankPriceETA').innerText = '—';
+        document.getElementById('rankPriceNote').innerHTML = '<span class="ticket-note"><i class="fas fa-ticket-alt"></i> OPEN TICKET FOR INQUIRIES — Contact us for Radiant boosts</span>';
+        document.getElementById('rankMultiplierDisplay').style.display = 'none';
+        return;
+      }
+
+      // Check duo/party toggle
+      const duoSwitch = document.querySelector('#panel-rank .switch-item .switch-label')?.parentElement?.querySelector('.switch');
+      let isDuo = false;
+      document.querySelectorAll('#panel-rank .switch-item').forEach(item => {
+        const label = item.querySelector('.switch-label');
+        if (label && label.textContent.trim() === 'Duo/Party') {
+          const sw = item.querySelector('.switch');
+          if (sw && sw.classList.contains('active')) isDuo = true;
+        }
+      });
+
+      let finalPrice = basePrice;
+      if (isDuo && basePrice !== null) {
+        finalPrice = Math.round((basePrice * 2.5) * 100) / 100;
+      }
+
+      // Show price
+      if (basePrice !== null) {
+        document.getElementById('rankPriceAmount').innerHTML = finalPrice.toFixed(2);
+        document.getElementById('rankPriceETA').innerText = `~${eta}`;
+        document.getElementById('rankPriceNote').innerHTML = '';
+        document.getElementById('rankMultiplierDisplay').style.display = 'block';
+
+        let multiplierText = '';
+        if (isDuo) multiplierText += 'Duo/Party: <strong>2.5×</strong> · ';
+        else multiplierText += 'Duo/Party: <strong>1×</strong> · ';
+        multiplierText += 'Stream: <strong>Free</strong> · Offline: <strong>Free</strong>';
+        document.getElementById('rankMultiplierDisplay').innerHTML = multiplierText;
+      } else if (currentIdx >= desiredIdx) {
+        document.getElementById('rankPriceAmount').innerHTML = '0.00';
+        document.getElementById('rankPriceETA').innerText = '—';
+        document.getElementById('rankPriceNote').innerHTML = '<span style="color:var(--text-muted);">Please select a higher desired rank</span>';
+        document.getElementById('rankMultiplierDisplay').style.display = 'block';
+        document.getElementById('rankMultiplierDisplay').innerHTML = 'Duo/Party: <strong>1×</strong> · Stream: <strong>Free</strong> · Offline: <strong>Free</strong>';
+      }
+    }
+
     // ─── PARTICLES ───
     const canvas = document.getElementById('particles-canvas');
     const ctx = canvas.getContext('2d');
@@ -1518,6 +1653,7 @@
         document.getElementById(`panel-${target}`).classList.add('active');
         playSound('click');
         updateEstimates(target);
+        if (target === 'rank') calculateRankPrice();
       });
     });
 
@@ -1539,11 +1675,7 @@
       };
       const ids = idMap[panel];
       if (ids) {
-        if (panel === 'coaching') {
-          document.getElementById(ids.time).innerText = data.time;
-        } else {
-          document.getElementById(ids.time).innerText = data.time;
-        }
+        document.getElementById(ids.time).innerText = data.time;
         document.getElementById(ids.queue).innerText = data.queue;
         document.getElementById(ids.live).innerText = data.live;
       }
@@ -1553,6 +1685,11 @@
     function toggleSwitch(el) {
       el.classList.toggle('active');
       playSound('click');
+      // Recalculate price if in rank panel
+      const panel = el.closest('.calc-panel');
+      if (panel && panel.id === 'panel-rank') {
+        setTimeout(calculateRankPrice, 50);
+      }
     }
     window.toggleSwitch = toggleSwitch;
 
@@ -1632,7 +1769,7 @@
     function handleUserMessage(msg) {
       addMessage(msg, 'user');
       const lower = msg.toLowerCase();
-      if (lower.includes('service')) botReply('We offer Rank Boost, Placement Matches, Net Wins, Duo Queue, and Coaching. Which one interests you?');
+      if (lower.includes('service')) botReply('We offer Rank Boost, Placement Matches, Net Wins, Duo/Party Queue, and Coaching. Which one interests you?');
       else if (lower.includes('time') || lower.includes('estimate')) botReply('Most boosts complete within 24-48 hours. Use our calculator for a precise estimate.');
       else if (lower.includes('how does') || lower.includes('work')) botReply('After you join our Discord, our team will set up your order, assign a booster, and you’ll see progress in real-time.');
       else if (lower.includes('safe')) botReply('Yes! We use VPN, offline mode, and hidden name to keep your account 100% safe and undetectable.');
@@ -1643,6 +1780,7 @@
       else if (lower.includes('hide name')) botReply('Absolutely – we offer a Hidden Name option in the calculator settings.');
       else if (lower.includes('hello') || lower.includes('hi')) botReply('Hello! How can I assist you today?');
       else if (lower.includes('coach')) botReply('Our coaching includes Live 1-on-1, VOD Review, Team Coaching, and Scrim Review. Choose a coach and focus area that fits your needs.');
+      else if (lower.includes('price') || lower.includes('cost')) botReply('Use our Rank Boost calculator to get an instant price. Duo/Party is 2.5×, while Stream and Offline Mode are free!');
       else botReply('Thanks for your message. Our team will get back to you shortly. In the meantime, you can join our Discord for faster support.');
     }
 
@@ -1720,6 +1858,9 @@
       }
     `;
     document.head.appendChild(styleEl);
+
+    // ─── INITIAL PRICE CALC ───
+    setTimeout(calculateRankPrice, 300);
 
     console.log('VG Solutions – Premium Boosting Website');
   </script>
