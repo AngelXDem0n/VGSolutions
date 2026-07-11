@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
-    /* ─── All styles are identical to the previous working version ─── */
+    /* ─── All existing styles are unchanged ─── */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --primary: #6D5EF7;
@@ -917,7 +917,7 @@
 
     <div class="calculator-section fade-up">
 
-      <!-- ─── PANEL 1: RANK BOOST ─── -->
+      <!-- ─── PANEL 1: RANK BOOST (unchanged) ─── -->
       <div class="calc-panel active" id="panel-rank">
         <div class="calc-grid">
           <div class="calc-col">
@@ -949,7 +949,6 @@
           </div>
         </div>
 
-        <!-- ─── PRICE DISPLAY ─── -->
         <div class="price-display" id="rankPriceDisplay">
           <div class="price-main"><span class="currency">$</span><span id="rankPriceAmount">3.20</span></div>
           <div class="price-detail"><span id="rankBoostType">Solo</span> · <span id="rankPriceETA">~3h</span> estimated</div>
@@ -977,7 +976,7 @@
         </div>
       </div>
 
-      <!-- ─── PANEL 2: PLACEMENT MATCHES ─── -->
+      <!-- ─── PANEL 2: PLACEMENT MATCHES (unchanged) ─── -->
       <div class="calc-panel" id="panel-placement">
         <div class="calc-grid">
           <div class="calc-col">
@@ -1025,12 +1024,12 @@
         </div>
       </div>
 
-      <!-- ─── PANEL 3: NET WINS ─── -->
+      <!-- ─── PANEL 3: NET WINS (updated with config) ─── -->
       <div class="calc-panel" id="panel-wins">
         <div class="calc-grid">
           <div class="calc-col">
             <h4>Current Rank</h4>
-            <select id="winsRank" class="rank-select">
+            <select id="winsRank" class="rank-select" onchange="updateNetWinsEstimate();">
               <option>Iron I</option><option>Iron II</option><option>Iron III</option>
               <option>Bronze I</option><option>Bronze II</option><option>Bronze III</option>
               <option>Silver I</option><option>Silver II</option><option>Silver III</option>
@@ -1044,14 +1043,14 @@
           </div>
           <div class="calc-col">
             <h4>Number of Wins</h4>
-            <select id="winsCount" class="rank-select" onchange="toggleCustomInput(this, 'customWinsDiv')">
+            <select id="winsCount" class="rank-select" onchange="toggleCustomInput(this, 'customWinsDiv'); updateNetWinsEstimate();">
               <option value="1">1 Win</option><option value="3">3 Wins</option>
               <option value="5" selected>5 Wins</option><option value="10">10 Wins</option>
               <option value="15">15 Wins</option><option value="20">20 Wins</option>
               <option value="custom">Custom</option>
             </select>
             <div id="customWinsDiv" class="custom-input">
-              <input type="number" class="rank-select" placeholder="Enter wins..." min="1" />
+              <input type="number" class="rank-select" placeholder="Enter wins..." min="1" onchange="updateNetWinsEstimate();" />
             </div>
           </div>
           <div class="calc-col">
@@ -1079,7 +1078,7 @@
         </div>
       </div>
 
-      <!-- ─── PANEL 4: DUO/PARTY QUEUE ─── -->
+      <!-- ─── PANEL 4: DUO/PARTY QUEUE (unchanged) ─── -->
       <div class="calc-panel" id="panel-duo">
         <div class="calc-grid">
           <div class="calc-col">
@@ -1131,7 +1130,7 @@
         </div>
       </div>
 
-      <!-- ─── PANEL 5: COACHING ─── -->
+      <!-- ─── PANEL 5: COACHING (updated with config) ─── -->
       <div class="calc-panel" id="panel-coaching">
         <div class="calc-grid">
           <div class="calc-col">
@@ -1145,7 +1144,7 @@
           </div>
           <div class="calc-col">
             <h4>Duration</h4>
-            <select id="coachingDuration" class="rank-select" onchange="toggleCustomInput(this, 'customHoursDiv')">
+            <select id="coachingDuration" class="rank-select" onchange="toggleCustomInput(this, 'customHoursDiv'); updateCoachingEstimate();">
               <option value="1">1 Hour</option>
               <option value="2">2 Hours</option>
               <option value="3">3 Hours</option>
@@ -1154,12 +1153,12 @@
               <option value="custom">Custom</option>
             </select>
             <div id="customHoursDiv" class="custom-input">
-              <input type="number" class="rank-select" placeholder="Enter hours..." min="1" />
+              <input type="number" class="rank-select" placeholder="Enter hours..." min="1" onchange="updateCoachingEstimate();" />
             </div>
           </div>
           <div class="calc-col">
             <h4>Skill Level</h4>
-            <select id="coachingSkill" class="rank-select">
+            <select id="coachingSkill" class="rank-select" onchange="updateCoachingEstimate();">
               <option>Beginner (Iron-Bronze)</option>
               <option selected>Intermediate (Silver-Gold)</option>
               <option>Advanced (Platinum-Diamond)</option>
@@ -1390,26 +1389,96 @@
   </div>
 
   <script>
-    // ─── RANK ORDER ───
+    // ─── CONFIGURATION (Backend defaults – not displayed) ───
+    const config = {
+      coaching: {
+        tiers: ['Iron','Bronze','Silver','Gold','Platinum','Diamond','Ascendant','Immortal','Radiant'],
+        costPerGame: [1,1,1,2,2,2,2,5,5],
+        hoursPerGame: [1,1,1,1,1,1,1,1,1]
+      },
+      netWins: {
+        tiers: ['Iron','Bronze','Silver','Gold','Platinum','Diamond','Ascendant','Immortal','Radiant'],
+        costPerWin: [1,1,2,2,2,3,4,7,30],
+        hoursPerWin: [1,2,2,2,2,2,2,2,2]
+      }
+    };
+
+    // Helper: get tier index from a rank string (e.g. "Gold I" → "Gold")
+    function getTierFromRank(rank) {
+      const parts = rank.split(' ');
+      return parts[0];
+    }
+
+    // ─── NET WINS ESTIMATE ───
+    function updateNetWinsEstimate() {
+      const rankSelect = document.getElementById('winsRank');
+      const rank = rankSelect.value;
+      const tier = getTierFromRank(rank);
+      const tierIndex = config.netWins.tiers.indexOf(tier);
+      if (tierIndex === -1) return;
+
+      // Get number of wins
+      let wins = parseInt(document.getElementById('winsCount').value);
+      if (isNaN(wins) || wins < 1) {
+        const customInput = document.querySelector('#customWinsDiv input');
+        if (customInput) {
+          wins = parseInt(customInput.value) || 0;
+        }
+      }
+      if (wins < 1) wins = 1;
+
+      const hoursPerWin = config.netWins.hoursPerWin[tierIndex];
+      const totalHours = wins * hoursPerWin;
+      let displayTime;
+      if (totalHours < 1) displayTime = '~1 Hour';
+      else if (totalHours <= 24) displayTime = `~${totalHours} Hours`;
+      else displayTime = `~${Math.ceil(totalHours / 24)} Days`;
+
+      document.getElementById('estTimeWins').innerText = displayTime;
+    }
+
+    // ─── COACHING ESTIMATE ───
+    function updateCoachingEstimate() {
+      // Get duration
+      let hours = parseInt(document.getElementById('coachingDuration').value);
+      if (isNaN(hours) || hours < 1) {
+        const customInput = document.querySelector('#customHoursDiv input');
+        if (customInput) {
+          hours = parseInt(customInput.value) || 0;
+        }
+      }
+      if (hours < 1) hours = 1;
+
+      // Optionally adjust based on skill level (just for realism)
+      const skillSelect = document.getElementById('coachingSkill');
+      const skill = skillSelect.value;
+      let multiplier = 1;
+      if (skill.includes('Elite')) multiplier = 1.2;
+      else if (skill.includes('Advanced')) multiplier = 1.1;
+      else if (skill.includes('Beginner')) multiplier = 0.9;
+
+      const totalHours = Math.round(hours * multiplier * 10) / 10;
+      let displayTime;
+      if (totalHours < 1) displayTime = '~1 Hour';
+      else if (totalHours <= 24) displayTime = `~${totalHours} Hours`;
+      else displayTime = `~${Math.ceil(totalHours / 24)} Days`;
+
+      document.getElementById('estTimeCoaching').innerText = displayTime;
+    }
+
+    // ─── RANK ORDER & PRICE CALC (unchanged) ───
     const rankOrder = ['Iron I','Iron II','Iron III','Bronze I','Bronze II','Bronze III','Silver I','Silver II','Silver III','Gold I','Gold II','Gold III','Platinum I','Platinum II','Platinum III','Diamond I','Diamond II','Diamond III','Ascendant I','Ascendant II','Ascendant III','Immortal I','Immortal II','Immortal III','Radiant'];
 
-    // ─── STEP PRICES (adjacent rank transitions) ───
-    // Derived from your exact pricing:
-    // Iron I → Iron III = $4.00 → each step = $2.00
-    // Bronze I → Bronze III = $4.00 → each step = $2.00
-    // Silver I → Silver III = $5.00 → each step = $2.50
-    // Bronze III → Silver I and Silver III → Gold I are averages as you requested.
-    // All other steps are your exact per‑step prices.
     const stepPrices = {
       'Iron I→Iron II': 2.00,
       'Iron II→Iron III': 2.00,
-      'Iron III→Bronze I': 2.00,                // average of Iron (2.00) and Bronze (2.00)
+      'Iron III→Bronze I': 2.00,
       'Bronze I→Bronze II': 2.00,
       'Bronze II→Bronze III': 2.00,
-      'Bronze III→Silver I': 2.25,              // average of Bronze (2.00) and Silver (2.50)
+      'Bronze III→Silver I': 2.25,
       'Silver I→Silver II': 2.50,
       'Silver II→Silver III': 2.50,
-      'Silver III→Gold I': 2.75,                // average of Silver (2.50) and Gold I→II (3.00)
+      'Silver III→Gold I': 2.75,
       'Gold I→Gold II': 3.00,
       'Gold II→Gold III': 3.20,
       'Gold III→Platinum I': 3.50,
@@ -1424,35 +1493,25 @@
       'Ascendant III→Immortal I': 18.00,
       'Immortal I→Immortal II': 22.00,
       'Immortal II→Immortal III': 35.00,
-      // Immortal III → Radiant is special (handled separately)
     };
 
-    // ─── GET PRICE FOR ANY JUMP ───
     function getPriceForJump(from, to) {
       const fromIdx = rankOrder.indexOf(from);
       const toIdx = rankOrder.indexOf(to);
       if (fromIdx >= toIdx) return null;
-
       let total = 0;
       for (let i = fromIdx; i < toIdx; i++) {
         const key = `${rankOrder[i]}→${rankOrder[i+1]}`;
-        if (stepPrices[key] !== undefined) {
-          total += stepPrices[key];
-        } else {
-          // Should never happen because we covered all steps up to Immortal III
-          return null;
-        }
+        if (stepPrices[key] !== undefined) total += stepPrices[key];
+        else return null;
       }
-      // Round to two decimals to avoid floating-point issues
       return Math.round(total * 100) / 100;
     }
 
-    // ─── UI FUNCTIONS ───
     function updateDesiredOptions() {
       const current = document.getElementById('rankCurrent').value;
       const desiredSelect = document.getElementById('rankDesired');
       const currentIdx = rankOrder.indexOf(current);
-
       desiredSelect.innerHTML = '';
       for (let i = currentIdx + 1; i < rankOrder.length; i++) {
         const opt = document.createElement('option');
@@ -1460,9 +1519,7 @@
         opt.textContent = rankOrder[i];
         desiredSelect.appendChild(opt);
       }
-      if (desiredSelect.options.length > 0) {
-        desiredSelect.selectedIndex = 0;
-      }
+      if (desiredSelect.options.length > 0) desiredSelect.selectedIndex = 0;
       calculateRankPrice();
     }
 
@@ -1471,7 +1528,6 @@
       const desired = document.getElementById('rankDesired').value;
       const currentIdx = rankOrder.indexOf(current);
       const desiredIdx = rankOrder.indexOf(desired);
-
       const priceDisplay = document.getElementById('rankPriceAmount');
       const etaDisplay = document.getElementById('rankPriceETA');
       const noteDisplay = document.getElementById('rankPriceNote');
@@ -1486,8 +1542,6 @@
         multiplierDisplay.innerHTML = '';
         return;
       }
-
-      // Special: Immortal III → Radiant
       if (current === 'Immortal III' && desired === 'Radiant') {
         priceDisplay.textContent = '—';
         etaDisplay.textContent = '—';
@@ -1496,8 +1550,6 @@
         multiplierDisplay.innerHTML = '';
         return;
       }
-
-      // Any other Radiant involvement
       if (current === 'Radiant' || desired === 'Radiant') {
         priceDisplay.textContent = '—';
         etaDisplay.textContent = '—';
@@ -1507,7 +1559,6 @@
         return;
       }
 
-      // Get price
       const basePrice = getPriceForJump(current, desired);
       if (basePrice === null) {
         priceDisplay.textContent = '—';
@@ -1518,7 +1569,6 @@
         return;
       }
 
-      // Estimate ETA based on steps
       const steps = desiredIdx - currentIdx;
       let eta = '12h';
       if (steps <= 1) eta = '3h';
@@ -1527,7 +1577,6 @@
       else if (steps <= 8) eta = '24h';
       else eta = '2 Days';
 
-      // Check Duo/Party
       let isDuo = false;
       document.querySelectorAll('#panel-rank .switch-item').forEach(item => {
         const label = item.querySelector('.switch-label');
@@ -1539,7 +1588,6 @@
 
       let finalPrice = basePrice;
       if (isDuo) {
-        // Multiply by 2.5 and round to 2 decimals
         finalPrice = Math.round((basePrice * 2.5) * 100) / 100;
         typeDisplay.textContent = 'Duo/Party 2.5×';
       } else {
@@ -1552,7 +1600,7 @@
       multiplierDisplay.innerHTML = 'Stream: <strong>Free</strong> · Offline: <strong>Free</strong>';
     }
 
-    // ─── PARTICLES ─── (same as before)
+    // ─── PARTICLES ───
     const canvas = document.getElementById('particles-canvas');
     const ctx = canvas.getContext('2d');
     let w, h, particles = [];
@@ -1686,6 +1734,12 @@
           updateDesiredOptions();
           calculateRankPrice();
         }
+        if (target === 'wins') {
+          updateNetWinsEstimate();
+        }
+        if (target === 'coaching') {
+          updateCoachingEstimate();
+        }
       });
     });
 
@@ -1707,9 +1761,17 @@
       };
       const ids = idMap[panel];
       if (ids) {
-        document.getElementById(ids.time).innerText = data.time;
+        // Only set queue and live from static map; time is updated by dynamic functions if applicable
         document.getElementById(ids.queue).innerText = data.queue;
         document.getElementById(ids.live).innerText = data.live;
+        // For panels with dynamic time, skip overwriting
+        if (panel !== 'wins' && panel !== 'coaching') {
+          document.getElementById(ids.time).innerText = data.time;
+        }
+        // For placement and duo, keep static
+        if (panel === 'placement' || panel === 'duo') {
+          document.getElementById(ids.time).innerText = data.time;
+        }
       }
     }
 
@@ -1894,6 +1956,8 @@
     setTimeout(() => {
       updateDesiredOptions();
       calculateRankPrice();
+      updateNetWinsEstimate();
+      updateCoachingEstimate();
     }, 300);
 
     console.log('VG Solutions – Premium Boosting Website');
