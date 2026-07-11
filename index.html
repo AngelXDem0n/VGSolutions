@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
+    /* ─── All styles are identical to the previous working version ─── */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --primary: #6D5EF7;
@@ -1392,17 +1393,23 @@
     // ─── RANK ORDER ───
     const rankOrder = ['Iron I','Iron II','Iron III','Bronze I','Bronze II','Bronze III','Silver I','Silver II','Silver III','Gold I','Gold II','Gold III','Platinum I','Platinum II','Platinum III','Diamond I','Diamond II','Diamond III','Ascendant I','Ascendant II','Ascendant III','Immortal I','Immortal II','Immortal III','Radiant'];
 
-    // ─── PRICE PER ADJACENT STEP ───
-    // Using your exact prices for the listed ranges, and interpolating the missing transitions.
+    // ─── STEP PRICES (adjacent rank transitions) ───
+    // Derived from your exact pricing:
+    // Iron I → Iron III = $4.00 → each step = $2.00
+    // Bronze I → Bronze III = $4.00 → each step = $2.00
+    // Silver I → Silver III = $5.00 → each step = $2.50
+    // Bronze III → Silver I and Silver III → Gold I are averages as you requested.
+    // All other steps are your exact per‑step prices.
     const stepPrices = {
       'Iron I→Iron II': 2.00,
       'Iron II→Iron III': 2.00,
+      'Iron III→Bronze I': 2.00,                // average of Iron (2.00) and Bronze (2.00)
       'Bronze I→Bronze II': 2.00,
       'Bronze II→Bronze III': 2.00,
-      'Bronze III→Silver I': 2.25,    // average of Bronze (2.00) and Silver (2.50)
+      'Bronze III→Silver I': 2.25,              // average of Bronze (2.00) and Silver (2.50)
       'Silver I→Silver II': 2.50,
       'Silver II→Silver III': 2.50,
-      'Silver III→Gold I': 2.75,      // average of Silver (2.50) and Gold I→II (3.00)
+      'Silver III→Gold I': 2.75,                // average of Silver (2.50) and Gold I→II (3.00)
       'Gold I→Gold II': 3.00,
       'Gold II→Gold III': 3.20,
       'Gold III→Platinum I': 3.50,
@@ -1417,8 +1424,10 @@
       'Ascendant III→Immortal I': 18.00,
       'Immortal I→Immortal II': 22.00,
       'Immortal II→Immortal III': 35.00,
+      // Immortal III → Radiant is special (handled separately)
     };
 
+    // ─── GET PRICE FOR ANY JUMP ───
     function getPriceForJump(from, to) {
       const fromIdx = rankOrder.indexOf(from);
       const toIdx = rankOrder.indexOf(to);
@@ -1430,10 +1439,11 @@
         if (stepPrices[key] !== undefined) {
           total += stepPrices[key];
         } else {
-          // Should never happen because we filled all steps up to Immortal III
+          // Should never happen because we covered all steps up to Immortal III
           return null;
         }
       }
+      // Round to two decimals to avoid floating-point issues
       return Math.round(total * 100) / 100;
     }
 
@@ -1529,6 +1539,7 @@
 
       let finalPrice = basePrice;
       if (isDuo) {
+        // Multiply by 2.5 and round to 2 decimals
         finalPrice = Math.round((basePrice * 2.5) * 100) / 100;
         typeDisplay.textContent = 'Duo/Party 2.5×';
       } else {
@@ -1541,7 +1552,7 @@
       multiplierDisplay.innerHTML = 'Stream: <strong>Free</strong> · Offline: <strong>Free</strong>';
     }
 
-    // ─── PARTICLES ───
+    // ─── PARTICLES ─── (same as before)
     const canvas = document.getElementById('particles-canvas');
     const ctx = canvas.getContext('2d');
     let w, h, particles = [];
