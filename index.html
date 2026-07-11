@@ -456,7 +456,6 @@
     }
     .calc-join { text-align: center; margin-top: 24px; }
 
-    /* ─── PRICE DISPLAY ─── */
     .price-display {
       background: rgba(109,94,247,0.06);
       border: 1px solid rgba(109,94,247,0.15);
@@ -504,7 +503,6 @@
     .custom-input { display: none; margin-top: 8px; }
     .custom-input.visible { display: block; }
 
-    /* ─── COACHING INSTRUCTOR CARDS ─── */
     .instructor-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -1394,23 +1392,17 @@
     // ─── RANK ORDER ───
     const rankOrder = ['Iron I','Iron II','Iron III','Bronze I','Bronze II','Bronze III','Silver I','Silver II','Silver III','Gold I','Gold II','Gold III','Platinum I','Platinum II','Platinum III','Diamond I','Diamond II','Diamond III','Ascendant I','Ascendant II','Ascendant III','Immortal I','Immortal II','Immortal III','Radiant'];
 
-    // ─── PRICE PER ADJACENT STEP (USING YOUR EXACT NUMBERS) ───
-    // Iron tier: total $4.00 for 2 steps => $2 each
-    // Bronze tier: total $4.00 for 2 steps => $2 each
-    // Silver tier: total $5.00 for 2 steps => $2.50 each
-    // Gold+ : your given per-step prices
-    // Missing steps: Bronze III → Silver I and Silver III → Gold I are interpolated as average of adjacent tier steps
+    // ─── PRICE PER ADJACENT STEP ───
+    // Using your exact prices for the listed ranges, and interpolating the missing transitions.
     const stepPrices = {
       'Iron I→Iron II': 2.00,
       'Iron II→Iron III': 2.00,
       'Bronze I→Bronze II': 2.00,
       'Bronze II→Bronze III': 2.00,
-      // Missing: Bronze III → Silver I: average of Bronze step (2.00) and Silver step (2.50) => 2.25
-      'Bronze III→Silver I': 2.25,
+      'Bronze III→Silver I': 2.25,    // average of Bronze (2.00) and Silver (2.50)
       'Silver I→Silver II': 2.50,
       'Silver II→Silver III': 2.50,
-      // Missing: Silver III → Gold I: average of Silver step (2.50) and Gold I→II (3.00) => 2.75
-      'Silver III→Gold I': 2.75,
+      'Silver III→Gold I': 2.75,      // average of Silver (2.50) and Gold I→II (3.00)
       'Gold I→Gold II': 3.00,
       'Gold II→Gold III': 3.20,
       'Gold III→Platinum I': 3.50,
@@ -1425,10 +1417,8 @@
       'Ascendant III→Immortal I': 18.00,
       'Immortal I→Immortal II': 22.00,
       'Immortal II→Immortal III': 35.00,
-      // Immortal III → Radiant is special; we'll handle it separately
     };
 
-    // ─── HELPER ───
     function getPriceForJump(from, to) {
       const fromIdx = rankOrder.indexOf(from);
       const toIdx = rankOrder.indexOf(to);
@@ -1440,7 +1430,7 @@
         if (stepPrices[key] !== undefined) {
           total += stepPrices[key];
         } else {
-          // Missing step – should not happen as we covered all
+          // Should never happen because we filled all steps up to Immortal III
           return null;
         }
       }
@@ -1518,7 +1508,7 @@
         return;
       }
 
-      // Estimate ETA based on number of steps
+      // Estimate ETA based on steps
       const steps = desiredIdx - currentIdx;
       let eta = '12h';
       if (steps <= 1) eta = '3h';
@@ -1551,7 +1541,351 @@
       multiplierDisplay.innerHTML = 'Stream: <strong>Free</strong> · Offline: <strong>Free</strong>';
     }
 
-   
+    // ─── PARTICLES ───
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let w, h, particles = [];
+    function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Particle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.size = Math.random() * 2.5 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 0.6;
+        this.speedY = (Math.random() - 0.5) * 0.6;
+        this.opacity = Math.random() * 0.5 + 0.2;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > w) this.speedX *= -1;
+        if (this.y < 0 || this.y > h) this.speedY *= -1;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(109,94,247,${this.opacity})`;
+        ctx.fill();
+      }
+    }
+    for (let i = 0; i < 80; i++) particles.push(new Particle());
+    function animateParticles() {
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach(p => { p.update(); p.draw(); });
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < 150) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(109,94,247,${0.1 * (1 - dist/150)})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // ─── NAVBAR SCROLL ───
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // ─── SCROLL ANIMATIONS ───
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+    fadeEls.forEach(el => observer.observe(el));
+
+    // ─── COUNTER ANIMATION ───
+    const counters = document.querySelectorAll('.number[data-count]');
+    counters.forEach(counter => {
+      const target = parseInt(counter.dataset.count);
+      const update = () => {
+        const current = parseInt(counter.innerText.replace(/,/g,'')) || 0;
+        const increment = Math.ceil(target / 60);
+        if (current < target) {
+          counter.innerText = Math.min(current + increment, target);
+          setTimeout(update, 20);
+        } else {
+          counter.innerText = target;
+        }
+      };
+      const obs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+          update();
+          obs.disconnect();
+        }
+      }, { threshold: 0.5 });
+      obs.observe(counter);
+    });
+
+    // ─── LIVE COUNTER AUTO-UPDATE ───
+    function startLiveUpdates() {
+      setInterval(() => {
+        const boosters = Math.floor(Math.random() * 30) + 15;
+        document.querySelectorAll('.live-panel .number')[0].innerText = boosters;
+        const orders = Math.floor(Math.random() * 40) + 30;
+        document.querySelectorAll('.live-panel .number')[1].innerText = orders;
+        const queue = Math.floor(Math.random() * 10) + 2;
+        document.querySelectorAll('.live-panel .number')[2].innerText = queue;
+        const success = Math.floor(Math.random() * 5) + 94;
+        document.querySelectorAll('.live-panel .number')[3].innerText = success;
+        const members = Math.floor(Math.random() * 200) + 1400;
+        document.querySelectorAll('.live-panel .number')[4].innerText = members;
+
+        ['rank', 'placement', 'wins', 'duo', 'coaching'].forEach(panel => {
+          const liveId = document.getElementById(`liveBoosters${panel.charAt(0).toUpperCase() + panel.slice(1)}`);
+          if (liveId) {
+            liveId.innerText = Math.floor(Math.random() * 30) + 10;
+          }
+        });
+      }, 5000);
+    }
+    document.addEventListener('DOMContentLoaded', startLiveUpdates);
+
+    // ─── TAB SWITCHING ───
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.calc-panel');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const target = this.dataset.tab;
+        panels.forEach(p => p.classList.remove('active'));
+        document.getElementById(`panel-${target}`).classList.add('active');
+        playSound('click');
+        updateEstimates(target);
+        if (target === 'rank') {
+          updateDesiredOptions();
+          calculateRankPrice();
+        }
+      });
+    });
+
+    function updateEstimates(panel) {
+      const estMap = {
+        rank: { time: '~2 Days', queue: '12', live: '18' },
+        placement: { time: '~4 Hours', queue: '8', live: '14' },
+        wins: { time: '~6 Hours', queue: '5', live: '16' },
+        duo: { time: '~3 Hours', queue: '3', live: '22' },
+        coaching: { time: '5 Hours', queue: '2', live: '10' }
+      };
+      const data = estMap[panel] || estMap.rank;
+      const idMap = {
+        rank: { time: 'estTimeRank', queue: 'queueSizeRank', live: 'liveBoostersRank' },
+        placement: { time: 'estTimePlacement', queue: 'queueSizePlacement', live: 'liveBoostersPlacement' },
+        wins: { time: 'estTimeWins', queue: 'queueSizeWins', live: 'liveBoostersWins' },
+        duo: { time: 'estTimeDuo', queue: 'queueSizeDuo', live: 'liveBoostersDuo' },
+        coaching: { time: 'estTimeCoaching', queue: 'queueSizeCoaching', live: 'liveBoostersCoaching' }
+      };
+      const ids = idMap[panel];
+      if (ids) {
+        document.getElementById(ids.time).innerText = data.time;
+        document.getElementById(ids.queue).innerText = data.queue;
+        document.getElementById(ids.live).innerText = data.live;
+      }
+    }
+
+    // ─── SWITCH TOGGLE ───
+    function toggleSwitch(el) {
+      el.classList.toggle('active');
+      playSound('click');
+      const panel = el.closest('.calc-panel');
+      if (panel && panel.id === 'panel-rank') {
+        setTimeout(calculateRankPrice, 50);
+      }
+    }
+    window.toggleSwitch = toggleSwitch;
+
+    // ─── CUSTOM INPUT TOGGLE ───
+    function toggleCustomInput(select, divId) {
+      const div = document.getElementById(divId);
+      if (select.value === 'custom') {
+        div.classList.add('visible');
+      } else {
+        div.classList.remove('visible');
+      }
+    }
+    window.toggleCustomInput = toggleCustomInput;
+
+    // ─── COACH INSTRUCTOR SELECT ───
+    document.querySelectorAll('.instructor-card').forEach(card => {
+      card.addEventListener('click', function() {
+        document.querySelectorAll('.instructor-card').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        playSound('click');
+      });
+    });
+
+    // ─── FAQ ACCORDION ───
+    function toggleFaq(el) {
+      const item = el.closest('.faq-item');
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+      playSound('click');
+    }
+    window.toggleFaq = toggleFaq;
+
+    // ─── CHAT ───
+    const chatToggle = document.getElementById('chatToggle');
+    const chatWindow = document.getElementById('chatWindow');
+    const chatClose = document.getElementById('chatClose');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const chatSend = document.getElementById('chatSend');
+    const chatTyping = document.getElementById('chatTyping');
+    const quickBtns = document.getElementById('quickBtns');
+    const settingsToggle = document.getElementById('chatSettingsToggle');
+    const chatSettings = document.getElementById('chatSettings');
+
+    chatToggle.addEventListener('click', () => {
+      chatWindow.classList.toggle('open');
+      playSound('open');
+    });
+    chatClose.addEventListener('click', () => {
+      chatWindow.classList.remove('open');
+      playSound('close');
+    });
+    settingsToggle.addEventListener('click', () => {
+      chatSettings.classList.toggle('open');
+    });
+
+    function addMessage(text, type = 'user') {
+      const div = document.createElement('div');
+      div.className = `chat-msg ${type}`;
+      div.textContent = text;
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      playSound('chat');
+    }
+
+    function botReply(text) {
+      chatTyping.style.display = 'flex';
+      playSound('typing');
+      setTimeout(() => {
+        chatTyping.style.display = 'none';
+        addMessage(text, 'bot');
+        playSound('received');
+      }, 1200 + Math.random() * 800);
+    }
+
+    function handleUserMessage(msg) {
+      addMessage(msg, 'user');
+      const lower = msg.toLowerCase();
+      if (lower.includes('service')) botReply('We offer Rank Boost, Placement Matches, Net Wins, Duo/Party Queue, and Coaching. Which one interests you?');
+      else if (lower.includes('time') || lower.includes('estimate')) botReply('Most boosts complete within 24-48 hours. Use our calculator for a precise estimate.');
+      else if (lower.includes('how does') || lower.includes('work')) botReply('After you join our Discord, our team will set up your order, assign a booster, and you’ll see progress in real-time.');
+      else if (lower.includes('safe')) botReply('Yes! We use VPN, offline mode, and hidden name to keep your account 100% safe and undetectable.');
+      else if (lower.includes('staff') || lower.includes('talk')) botReply('Our support team is available 24/7 in Discord. Feel free to open a ticket.');
+      else if (lower.includes('discord')) botReply('Join our Discord server: https://discord.gg/vgsolutions');
+      else if (lower.includes('faq')) botReply('Check out our FAQ section on the website for common questions.');
+      else if (lower.includes('play during')) botReply('Yes, you can play during the boost with Offline Mode enabled. Your booster will work while you’re offline.');
+      else if (lower.includes('hide name')) botReply('Absolutely – we offer a Hidden Name option in the calculator settings.');
+      else if (lower.includes('hello') || lower.includes('hi')) botReply('Hello! How can I assist you today?');
+      else if (lower.includes('coach')) botReply('Our coaching includes Live 1-on-1, VOD Review, Team Coaching, and Scrim Review. Choose a coach and focus area that fits your needs.');
+      else if (lower.includes('price') || lower.includes('cost')) botReply('Use our Rank Boost calculator to get an instant price. Duo/Party is 2.5×, while Stream and Offline Mode are free!');
+      else botReply('Thanks for your message. Our team will get back to you shortly. In the meantime, you can join our Discord for faster support.');
+    }
+
+    chatSend.addEventListener('click', () => {
+      const msg = chatInput.value.trim();
+      if (!msg) return;
+      chatInput.value = '';
+      handleUserMessage(msg);
+    });
+    chatInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') chatSend.click();
+    });
+
+    quickBtns.addEventListener('click', (e) => {
+      if (e.target.tagName === 'BUTTON') {
+        const msg = e.target.dataset.msg;
+        if (msg) {
+          handleUserMessage(msg);
+        }
+      }
+    });
+
+    // ─── SOUND EFFECTS ───
+    let audioCtx = null;
+    function playSound(type) {
+      const muted = document.querySelector('#chatSettings input[type="checkbox"]:last-child');
+      if (muted && muted.checked) return;
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      gain.gain.value = 0.08;
+      let freq = 800;
+      let dur = 0.06;
+      if (type === 'click') { freq = 1200; dur = 0.04; }
+      else if (type === 'open') { freq = 600; dur = 0.1; gain.gain.value = 0.06; }
+      else if (type === 'close') { freq = 400; dur = 0.08; gain.gain.value = 0.06; }
+      else if (type === 'chat') { freq = 900; dur = 0.05; }
+      else if (type === 'received') { freq = 1300; dur = 0.07; }
+      else if (type === 'typing') { freq = 500; dur = 0.03; gain.gain.value = 0.04; }
+      osc.frequency.value = freq;
+      osc.type = 'sine';
+      osc.start();
+      osc.stop(audioCtx.currentTime + dur);
+    }
+
+    // ─── BUTTON RIPPLE ───
+    document.querySelectorAll('.btn-primary, .btn-secondary, .nav-btn, .chat-toggle, button').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const rect = this.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        ripple.style.cssText = `
+          position: absolute;
+          border-radius: 50%;
+          background: rgba(255,255,255,0.3);
+          width: 100px;
+          height: 100px;
+          left: ${e.clientX - rect.left - 50}px;
+          top: ${e.clientY - rect.top - 50}px;
+          transform: scale(0);
+          animation: rippleAnim 0.6s ease-out;
+          pointer-events: none;
+        `;
+        this.style.position = 'relative';
+        this.style.overflow = 'hidden';
+        this.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+      });
+    });
+    const styleEl = document.createElement('style');
+    styleEl.textContent = `
+      @keyframes rippleAnim {
+        to { transform: scale(4); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(styleEl);
+
+    // ─── INIT ───
+    setTimeout(() => {
+      updateDesiredOptions();
+      calculateRankPrice();
+    }, 300);
+
+    console.log('VG Solutions – Premium Boosting Website');
   </script>
 </body>
 </html>
