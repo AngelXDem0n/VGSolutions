@@ -9,63 +9,40 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
-    /* ─── THEME VARIABLES ─── */
+    /* ─── All styles identical to your working version ─── */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      /* Dark mode (default) */
-      --bg: #0A0D14;
-      --bg-secondary: #111827;
-      --bg-card: #111827;
-      --bg-nav: rgba(10, 13, 20, 0.85);
-      --bg-input: rgba(255,255,255,0.04);
-      --border: rgba(255,255,255,0.07);
-      --text-primary: #ffffff;
-      --text-secondary: #d1d5db;
-      --text-muted: #9ca3af;
-      --shadow: 0 20px 60px rgba(0,0,0,0.6);
-      --price-bg: rgba(109,94,247,0.06);
-      --price-border: rgba(109,94,247,0.15);
       --primary: #6D5EF7;
       --primary-dark: #5a4ad4;
       --secondary: #3FA9F5;
       --accent: #20D9B2;
       --success: #39D98A;
       --warning: #FFC857;
-      --switch-bg: rgba(255,255,255,0.15);
+      --bg: #0A0D14;
+      --card-bg: #111827;
+      --border: rgba(255,255,255,0.07);
+      --text-white: #ffffff;
+      --text-gray: #d1d5db;
+      --text-muted: #9ca3af;
+      --radius: 24px;
+      --shadow: 0 20px 60px rgba(0,0,0,0.6);
+      --font-heading: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
       --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-
-    /* Light mode */
-    [data-theme="light"] {
-      --bg: #f0f2f5;
-      --bg-secondary: #ffffff;
-      --bg-card: #ffffff;
-      --bg-nav: rgba(255, 255, 255, 0.92);
-      --bg-input: rgba(0,0,0,0.04);
-      --border: rgba(0,0,0,0.08);
-      --text-primary: #111827;
-      --text-secondary: #374151;
-      --text-muted: #6b7280;
-      --shadow: 0 20px 60px rgba(0,0,0,0.1);
-      --price-bg: rgba(109,94,247,0.04);
-      --price-border: rgba(109,94,247,0.2);
-      --switch-bg: rgba(0,0,0,0.15);
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; font-size: 16px; }
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-body);
       background: var(--bg);
-      color: var(--text-primary);
+      color: var(--text-white);
       overflow-x: hidden;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      transition: background var(--transition), color var(--transition);
     }
     a { text-decoration: none; color: inherit; }
     .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
     .section-title {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: var(--font-heading);
       font-size: clamp(2.2rem, 5vw, 3.4rem);
       font-weight: 700;
       text-align: center;
@@ -97,40 +74,18 @@
       pointer-events: none;
     }
 
-    /* ─── THEME TOGGLE ─── */
-    .theme-toggle {
-      background: var(--bg-input);
-      border: 1px solid var(--border);
-      border-radius: 40px;
-      padding: 6px 12px;
-      color: var(--text-secondary);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: all var(--transition);
-      font-size: 0.9rem;
-    }
-    .theme-toggle:hover {
-      border-color: var(--primary);
-      color: var(--text-primary);
-    }
-    .theme-toggle i {
-      font-size: 1.1rem;
-    }
-
     nav {
       position: sticky;
       top: 0;
       z-index: 1000;
       padding: 16px 0;
-      background: var(--bg-nav);
+      background: rgba(10, 13, 20, 0.6);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
-      transition: background var(--transition), border-color var(--transition);
+      transition: background var(--transition);
     }
-    nav.scrolled { background: var(--bg-nav); }
+    nav.scrolled { background: rgba(10, 13, 20, 0.95); }
     .nav-inner {
       display: flex;
       align-items: center;
@@ -139,7 +94,7 @@
       gap: 16px;
     }
     .logo {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: var(--font-heading);
       font-size: 1.8rem;
       font-weight: 700;
       background: linear-gradient(135deg, var(--primary), var(--accent));
@@ -160,7 +115,7 @@
     .nav-links a {
       font-weight: 500;
       font-size: 0.95rem;
-      color: var(--text-secondary);
+      color: var(--text-gray);
       transition: color var(--transition);
       position: relative;
     }
@@ -174,7 +129,7 @@
       background: var(--primary);
       transition: width var(--transition);
     }
-    .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a:hover { color: #fff; }
     .nav-links a:hover::after { width: 100%; }
     .nav-btn {
       background: var(--primary);
@@ -209,10 +164,6 @@
       background: radial-gradient(ellipse at 30% 40%, rgba(109, 94, 247, 0.12) 0%, transparent 70%);
       pointer-events: none;
       animation: heroGlow 12s ease-in-out infinite alternate;
-      transition: opacity var(--transition);
-    }
-    [data-theme="light"] .hero::before {
-      background: radial-gradient(ellipse at 30% 40%, rgba(109, 94, 247, 0.06) 0%, transparent 70%);
     }
     @keyframes heroGlow {
       0% { transform: translate(0,0) scale(1); opacity: 0.6; }
@@ -220,7 +171,7 @@
     }
     .hero-content { position: relative; z-index: 2; }
     .hero h1 {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: var(--font-heading);
       font-size: clamp(3rem, 8vw, 5.5rem);
       font-weight: 800;
       line-height: 1.1;
@@ -234,7 +185,7 @@
     }
     .hero p {
       font-size: 1.3rem;
-      color: var(--text-secondary);
+      color: var(--text-gray);
       max-width: 620px;
       margin: 0 auto 36px;
     }
@@ -264,8 +215,8 @@
       box-shadow: 0 16px 50px rgba(109, 94, 247, 0.45);
     }
     .btn-secondary {
-      background: var(--bg-input);
-      color: var(--text-primary);
+      background: rgba(255,255,255,0.06);
+      color: #fff;
       border: 1px solid var(--border);
       padding: 14px 40px;
       border-radius: 60px;
@@ -290,9 +241,9 @@
       margin-top: 20px;
     }
     .service-card {
-      background: var(--bg-card);
+      background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 24px;
+      border-radius: var(--radius);
       padding: 32px 20px;
       text-align: center;
       transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
@@ -322,7 +273,7 @@
       transition: transform var(--transition);
     }
     .service-card:hover .icon { transform: scale(1.1) rotate(-4deg); }
-    .service-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; margin-bottom: 6px; }
+    .service-card h3 { font-family: var(--font-heading); font-size: 1.3rem; margin-bottom: 6px; }
     .service-card p { color: var(--text-muted); font-size: 0.95rem; }
 
     .calculator-tabs {
@@ -333,21 +284,21 @@
       margin-bottom: 32px;
     }
     .tab-btn {
-      background: var(--bg-input);
+      background: rgba(255,255,255,0.04);
       border: 1px solid var(--border);
-      color: var(--text-secondary);
+      color: var(--text-gray);
       padding: 12px 28px;
       border-radius: 60px;
       font-weight: 600;
       font-size: 0.95rem;
       cursor: pointer;
       transition: all var(--transition);
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-body);
     }
     .tab-btn:hover {
       background: rgba(255,255,255,0.08);
       border-color: var(--primary);
-      color: var(--text-primary);
+      color: #fff;
       transform: translateY(-2px);
     }
     .tab-btn.active {
@@ -358,13 +309,12 @@
     }
 
     .calculator-section {
-      background: var(--bg-card);
-      border-radius: 24px;
+      background: var(--card-bg);
+      border-radius: var(--radius);
       border: 1px solid var(--border);
       padding: 40px 32px;
       margin: 20px 0;
       min-height: 420px;
-      transition: background var(--transition), border-color var(--transition);
     }
     .calc-panel { display: none; animation: fadeInPanel 0.4s ease; }
     .calc-panel.active { display: block; }
@@ -385,7 +335,7 @@
       min-width: 140px;
     }
     .calc-col h4 {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: var(--font-heading);
       font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -393,20 +343,21 @@
       margin-bottom: 8px;
     }
     .rank-select {
-      background: var(--bg-input);
+      background: rgba(255,255,255,0.04);
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 10px 14px;
       width: 100%;
-      color: var(--text-primary);
+      color: #fff;
       font-size: 0.95rem;
       appearance: none;
       cursor: pointer;
-      transition: border-color var(--transition), background var(--transition), color var(--transition);
-      font-family: 'Inter', sans-serif;
+      transition: border-color var(--transition);
+      font-family: var(--font-body);
     }
     .rank-select:focus { outline: none; border-color: var(--primary); }
-    .rank-select option { background: var(--bg); color: var(--text-primary); }
+    .rank-select option { background: var(--bg); color: #fff; }
+    .rank-select[type="number"] { appearance: textfield; }
 
     .calc-arrow {
       font-size: 2rem;
@@ -431,11 +382,11 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      background: var(--bg-input);
+      background: rgba(255,255,255,0.04);
       padding: 8px 16px;
       border-radius: 40px;
       border: 1px solid var(--border);
-      transition: border-color var(--transition), background var(--transition);
+      transition: border-color var(--transition);
       cursor: pointer;
       position: relative;
     }
@@ -447,7 +398,7 @@
       left: 50%;
       transform: translateX(-50%);
       background: var(--bg);
-      color: var(--text-primary);
+      color: #fff;
       padding: 6px 14px;
       border-radius: 8px;
       font-size: 0.75rem;
@@ -459,7 +410,7 @@
     .switch {
       width: 40px;
       height: 22px;
-      background: var(--switch-bg);
+      background: rgba(255,255,255,0.15);
       border-radius: 30px;
       position: relative;
       transition: background var(--transition);
@@ -473,24 +424,23 @@
       left: 2px;
       width: 18px;
       height: 18px;
-      background: var(--text-primary);
+      background: #fff;
       border-radius: 50%;
       transition: transform var(--transition);
     }
     .switch.active::after { transform: translateX(18px); }
-    .switch-label { font-size: 0.85rem; color: var(--text-secondary); }
+    .switch-label { font-size: 0.85rem; color: var(--text-gray); }
 
     .calc-status {
       display: flex;
       justify-content: space-around;
       flex-wrap: wrap;
       gap: 12px;
-      background: var(--bg-input);
+      background: rgba(255,255,255,0.04);
       border-radius: 16px;
       padding: 16px;
       margin-top: 20px;
       border: 1px solid var(--border);
-      transition: background var(--transition), border-color var(--transition);
     }
     .status-item { text-align: center; }
     .status-item .label {
@@ -500,7 +450,7 @@
       letter-spacing: 0.5px;
     }
     .status-item .value {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: var(--font-heading);
       font-size: 1.4rem;
       font-weight: 700;
       color: var(--primary);
@@ -508,16 +458,15 @@
     .calc-join { text-align: center; margin-top: 24px; }
 
     .price-display {
-      background: var(--price-bg);
-      border: 1px solid var(--price-border);
+      background: rgba(109,94,247,0.06);
+      border: 1px solid rgba(109,94,247,0.15);
       border-radius: 16px;
       padding: 20px 24px;
       margin: 20px 0 12px;
       text-align: center;
-      transition: background var(--transition), border-color var(--transition);
     }
     .price-display .price-main {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: var(--font-heading);
       font-size: 2.8rem;
       font-weight: 800;
       color: var(--accent);
@@ -533,7 +482,7 @@
       color: var(--text-muted);
       margin-top: 4px;
     }
-    .price-display .price-detail span { color: var(--text-secondary); font-weight: 600; }
+    .price-display .price-detail span { color: var(--text-gray); font-weight: 600; }
     .price-display .price-multiplier {
       font-size: 0.85rem;
       color: var(--warning);
@@ -541,7 +490,7 @@
     }
     .price-display .price-eta {
       font-size: 0.9rem;
-      color: var(--text-secondary);
+      color: var(--text-gray);
       margin-top: 4px;
     }
     .price-display .ticket-note {
@@ -562,7 +511,7 @@
       margin: 16px 0 8px;
     }
     .instructor-card {
-      background: var(--bg-input);
+      background: rgba(255,255,255,0.04);
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 14px 12px;
@@ -596,16 +545,15 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 20px;
-      background: var(--bg-card);
-      border-radius: 24px;
+      background: var(--card-bg);
+      border-radius: var(--radius);
       padding: 32px 24px;
       border: 1px solid var(--border);
       margin: 20px 0;
-      transition: background var(--transition), border-color var(--transition);
     }
     .live-item { text-align: center; }
     .live-item .number {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: var(--font-heading);
       font-size: 2.4rem;
       font-weight: 700;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -621,8 +569,8 @@
       gap: 24px;
     }
     .feature-card {
-      background: var(--bg-card);
-      border-radius: 24px;
+      background: var(--card-bg);
+      border-radius: var(--radius);
       padding: 28px 20px;
       border: 1px solid var(--border);
       text-align: center;
@@ -631,7 +579,7 @@
     }
     .feature-card:hover { transform: translateY(-6px); border-color: var(--primary); }
     .feature-card i { font-size: 2.2rem; color: var(--primary); margin-bottom: 12px; }
-    .feature-card h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin-bottom: 4px; }
+    .feature-card h4 { font-family: var(--font-heading); font-size: 1.1rem; margin-bottom: 4px; }
     .feature-card p { color: var(--text-muted); font-size: 0.9rem; }
 
     .how-grid {
@@ -641,8 +589,8 @@
       counter-reset: step;
     }
     .how-step {
-      background: var(--bg-card);
-      border-radius: 24px;
+      background: var(--card-bg);
+      border-radius: var(--radius);
       padding: 32px 24px;
       border: 1px solid var(--border);
       text-align: center;
@@ -669,12 +617,12 @@
       box-shadow: 0 8px 20px rgba(109,94,247,0.3);
     }
     .how-step:hover { transform: translateY(-8px); }
-    .how-step h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; margin-top: 12px; }
+    .how-step h4 { font-family: var(--font-heading); font-size: 1.3rem; margin-top: 12px; }
     .how-step p { color: var(--text-muted); font-size: 0.95rem; }
 
     .faq-list { display: flex; flex-direction: column; gap: 12px; max-width: 800px; margin: 0 auto; }
     .faq-item {
-      background: var(--bg-card);
+      background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 16px;
       overflow: hidden;
@@ -697,38 +645,66 @@
       max-height: 0;
       overflow: hidden;
       padding: 0 24px;
-      color: var(--text-secondary);
+      color: var(--text-gray);
       transition: max-height 0.4s ease, padding 0.4s ease;
     }
     .faq-item.open .faq-answer { max-height: 300px; padding: 0 24px 20px; }
 
     .reviews-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 24px;
     }
     .review-card {
-      background: var(--bg-card);
-      border-radius: 24px;
+      background: var(--card-bg);
+      border-radius: var(--radius);
       padding: 24px;
       border: 1px solid var(--border);
       transition: transform var(--transition);
+      display: flex;
+      flex-direction: column;
     }
     .review-card:hover { transform: translateY(-6px); }
-    .review-card .stars { color: var(--warning); letter-spacing: 2px; }
-    .review-card .text { color: var(--text-secondary); font-size: 0.95rem; margin: 10px 0; }
-    .review-card .author { display: flex; align-items: center; gap: 12px; }
-    .review-card .author .avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--primary);
+    .review-card .stars { color: var(--warning); letter-spacing: 2px; margin-bottom: 6px; }
+    .review-card .review-header {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      color: #fff;
+      margin-bottom: 4px;
     }
+    .review-card .review-header .service-tag {
+      background: rgba(109,94,247,0.15);
+      color: var(--primary);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 12px;
+      border-radius: 30px;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(109,94,247,0.15);
+    }
+    .review-card .review-header .username {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .review-card .review-header .username span { color: var(--text-gray); font-weight: 600; }
+    .review-card .text {
+      color: var(--text-gray);
+      font-size: 0.95rem;
+      margin: 8px 0 10px;
+      flex: 1;
+    }
+    .review-card .date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: auto;
+      text-align: right;
+    }
+    .review-card .text .read-more {
+      color: var(--primary);
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .review-card .text .read-more:hover { text-decoration: underline; }
 
     .chat-toggle {
       position: fixed;
@@ -757,9 +733,9 @@
       width: 380px;
       max-width: calc(100vw - 56px);
       max-height: 520px;
-      background: var(--bg-card);
+      background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 24px;
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
@@ -781,7 +757,7 @@
       justify-content: space-between;
       align-items: center;
     }
-    .chat-header h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+    .chat-header h4 { font-family: var(--font-heading); font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
     .chat-header h4 i { color: var(--primary); }
     .chat-header .close-chat { background: none; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; }
     .chat-messages {
@@ -801,8 +777,8 @@
       font-size: 0.95rem;
       animation: msgIn 0.3s ease;
     }
-    .chat-msg.bot { background: var(--bg-input); align-self: flex-start; border-bottom-left-radius: 4px; }
-    .chat-msg.user { background: var(--primary); align-self: flex-end; border-bottom-right-radius: 4px; color: #fff; }
+    .chat-msg.bot { background: rgba(255,255,255,0.06); align-self: flex-start; border-bottom-left-radius: 4px; }
+    .chat-msg.user { background: var(--primary); align-self: flex-end; border-bottom-right-radius: 4px; }
     @keyframes msgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
     .chat-typing {
       display: none;
@@ -833,23 +809,23 @@
       padding: 8px 16px 0;
     }
     .chat-quick-btns button {
-      background: var(--bg-input);
+      background: rgba(255,255,255,0.06);
       border: 1px solid var(--border);
       border-radius: 40px;
       padding: 6px 16px;
-      color: var(--text-secondary);
+      color: var(--text-gray);
       font-size: 0.8rem;
       cursor: pointer;
       transition: background var(--transition), border-color var(--transition);
     }
-    .chat-quick-btns button:hover { background: rgba(255,255,255,0.10); border-color: var(--primary); color: var(--text-primary); }
+    .chat-quick-btns button:hover { background: rgba(255,255,255,0.10); border-color: var(--primary); color: #fff; }
     .chat-input-area {
       display: flex;
       padding: 12px 16px;
       border-top: 1px solid var(--border);
       gap: 10px;
     }
-    .chat-input-area input { flex: 1; background: transparent; border: none; color: var(--text-primary); font-size: 0.95rem; outline: none; }
+    .chat-input-area input { flex: 1; background: transparent; border: none; color: #fff; font-size: 0.95rem; outline: none; }
     .chat-input-area input::placeholder { color: var(--text-muted); }
     .chat-input-area button { background: var(--primary); border: none; color: #fff; padding: 6px 16px; border-radius: 30px; font-weight: 600; cursor: pointer; transition: background var(--transition); }
     .chat-input-area button:hover { background: var(--primary-dark); }
@@ -862,7 +838,7 @@
       gap: 12px;
     }
     .chat-settings.open { display: flex; }
-    .chat-settings label { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-secondary); cursor: pointer; }
+    .chat-settings label { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-gray); cursor: pointer; }
     .chat-settings label input[type="checkbox"] { accent-color: var(--primary); }
 
     footer {
@@ -873,8 +849,8 @@
       color: var(--text-muted);
     }
     footer .footer-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin: 16px 0; }
-    footer .footer-links a { color: var(--text-secondary); transition: color var(--transition); }
-    footer .footer-links a:hover { color: var(--text-primary); }
+    footer .footer-links a { color: var(--text-gray); transition: color var(--transition); }
+    footer .footer-links a:hover { color: #fff; }
 
     @media (max-width: 768px) {
       .nav-inner { flex-direction: column; align-items: stretch; }
@@ -886,6 +862,7 @@
       .calculator-tabs { gap: 8px; }
       .tab-btn { padding: 10px 20px; font-size: 0.85rem; }
       .instructor-grid { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); }
+      .reviews-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 480px) {
       .hero h1 { font-size: 2.2rem; }
@@ -907,10 +884,6 @@
         <a href="#faq">FAQ</a>
         <a href="#reviews">Reviews</a>
         <a href="#contact">Contact</a>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-          <i class="fas fa-moon" id="themeIcon"></i>
-          <span id="themeLabel">Dark</span>
-        </button>
         <a href="https://discord.gg/vgsolutions" target="_blank" class="nav-btn"><i class="fab fa-discord"></i> Discord</a>
       </div>
     </div>
@@ -973,7 +946,7 @@
 
     <div class="calculator-section fade-up">
 
-      <!-- ─── RANK BOOST ─── -->
+      <!-- ─── PANEL 1: RANK BOOST ─── -->
       <div class="calc-panel active" id="panel-rank">
         <div class="calc-grid">
           <div class="calc-col">
@@ -1007,7 +980,7 @@
 
         <div class="price-display" id="rankPriceDisplay">
           <div class="price-main"><span class="currency">$</span><span id="rankPriceAmount">3.20</span></div>
-          <div class="price-detail"><span id="rankBoostType">Solo</span> · <span id="rankPriceETA">3h+</span> estimated</div>
+          <div class="price-detail"><span id="rankBoostType">Solo</span> · <span id="rankPriceETA">~3h</span> estimated</div>
           <div class="price-multiplier" id="rankMultiplierDisplay">Stream: <strong>Free</strong> · Offline: <strong>Free</strong></div>
           <div class="price-eta" id="rankPriceNote"></div>
         </div>
@@ -1022,7 +995,7 @@
         </div>
 
         <div class="calc-status">
-          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeRank">2 Days+</div></div>
+          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeRank">~2 Days</div></div>
           <div class="status-item"><span class="label">Availability</span><div class="value" style="color:var(--success);">Online</div></div>
           <div class="status-item"><span class="label">Queue Size</span><div class="value" id="queueSizeRank">12</div></div>
           <div class="status-item"><span class="label">Live Boosters</span><div class="value" id="liveBoostersRank">18</div></div>
@@ -1032,7 +1005,7 @@
         </div>
       </div>
 
-      <!-- ─── PLACEMENT MATCHES ─── -->
+      <!-- ─── PANEL 2: PLACEMENT MATCHES ─── -->
       <div class="calc-panel" id="panel-placement">
         <div class="calc-grid">
           <div class="calc-col">
@@ -1070,7 +1043,7 @@
           <div class="switch-item" data-tooltip="Hide your in-game name"><span class="switch-label">Hidden Name</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Hide your in‑game name</span></div>
         </div>
         <div class="calc-status">
-          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimePlacement">4h+</div></div>
+          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimePlacement">~4 Hours</div></div>
           <div class="status-item"><span class="label">Availability</span><div class="value" style="color:var(--success);">Online</div></div>
           <div class="status-item"><span class="label">Queue Size</span><div class="value" id="queueSizePlacement">8</div></div>
           <div class="status-item"><span class="label">Live Boosters</span><div class="value" id="liveBoostersPlacement">14</div></div>
@@ -1080,12 +1053,12 @@
         </div>
       </div>
 
-      <!-- ─── NET WINS ─── -->
+      <!-- ─── PANEL 3: NET WINS ─── -->
       <div class="calc-panel" id="panel-wins">
         <div class="calc-grid">
           <div class="calc-col">
             <h4>Current Rank</h4>
-            <select id="winsRank" class="rank-select" onchange="updateNetWins();">
+            <select id="winsRank" class="rank-select">
               <option>Iron I</option><option>Iron II</option><option>Iron III</option>
               <option>Bronze I</option><option>Bronze II</option><option>Bronze III</option>
               <option>Silver I</option><option>Silver II</option><option>Silver III</option>
@@ -1099,14 +1072,14 @@
           </div>
           <div class="calc-col">
             <h4>Number of Wins</h4>
-            <select id="winsCount" class="rank-select" onchange="toggleCustomInput(this, 'customWinsDiv'); updateNetWins();">
+            <select id="winsCount" class="rank-select" onchange="toggleCustomInput(this, 'customWinsDiv')">
               <option value="1">1 Win</option><option value="3">3 Wins</option>
               <option value="5" selected>5 Wins</option><option value="10">10 Wins</option>
               <option value="15">15 Wins</option><option value="20">20 Wins</option>
               <option value="custom">Custom</option>
             </select>
             <div id="customWinsDiv" class="custom-input">
-              <input type="number" class="rank-select" placeholder="Enter wins..." min="1" onchange="updateNetWins();" />
+              <input type="number" class="rank-select" placeholder="Enter wins..." min="1" />
             </div>
           </div>
           <div class="calc-col">
@@ -1116,24 +1089,15 @@
             </select>
           </div>
         </div>
-
-        <div class="price-display" id="winsPriceDisplay">
-          <div class="price-main"><span class="currency">$</span><span id="winsPriceAmount">10.00</span></div>
-          <div class="price-detail"><span id="winsBoostType">Solo</span> · <span id="winsPriceETA">10h+</span> estimated</div>
-          <div class="price-multiplier" id="winsMultiplierDisplay">Stream: <strong>Free</strong> · Offline: <strong>Free</strong></div>
-          <div class="price-eta" id="winsPriceNote"></div>
-        </div>
-
         <div class="calc-options">
           <div class="switch-item" data-tooltip="Priority queue, faster start"><span class="switch-label">Priority</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">Priority queue, faster start</span></div>
           <div class="switch-item" data-tooltip="Stream while we boost"><span class="switch-label">Stream</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Stream while we boost — free</span></div>
-          <div class="switch-item" data-tooltip="2.5× multiplier for duo/party"><span class="switch-label">Duo/Party</span><div class="switch" onclick="toggleSwitch(this); updateNetWins();"></div><span class="tooltip">2.5× multiplier for duo/party</span></div>
+          <div class="switch-item" data-tooltip="2.5× multiplier for duo/party"><span class="switch-label">Duo/Party</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">2.5× multiplier for duo/party</span></div>
           <div class="switch-item" data-tooltip="VPN protection included"><span class="switch-label">VPN Protection</span><div class="switch active" onclick="toggleSwitch(this)"></div><span class="tooltip">VPN protection included</span></div>
           <div class="switch-item" data-tooltip="Hide your in-game name"><span class="switch-label">Hidden Name</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Hide your in‑game name</span></div>
         </div>
-
         <div class="calc-status">
-          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeWins">10h+</div></div>
+          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeWins">~6 Hours</div></div>
           <div class="status-item"><span class="label">Availability</span><div class="value" style="color:var(--success);">Online</div></div>
           <div class="status-item"><span class="label">Queue Size</span><div class="value" id="queueSizeWins">5</div></div>
           <div class="status-item"><span class="label">Live Boosters</span><div class="value" id="liveBoostersWins">16</div></div>
@@ -1143,7 +1107,7 @@
         </div>
       </div>
 
-      <!-- ─── DUO/PARTY QUEUE ─── -->
+      <!-- ─── PANEL 4: DUO/PARTY QUEUE ─── -->
       <div class="calc-panel" id="panel-duo">
         <div class="calc-grid">
           <div class="calc-col">
@@ -1185,7 +1149,7 @@
           <div class="switch-item" data-tooltip="Hide your in-game name"><span class="switch-label">Hidden Name</span><div class="switch" onclick="toggleSwitch(this)"></div><span class="tooltip">Hide your in‑game name</span></div>
         </div>
         <div class="calc-status">
-          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeDuo">3h+</div></div>
+          <div class="status-item"><span class="label">Estimated Time</span><div class="value" id="estTimeDuo">~3 Hours</div></div>
           <div class="status-item"><span class="label">Availability</span><div class="value" style="color:var(--success);">Online</div></div>
           <div class="status-item"><span class="label">Queue Size</span><div class="value" id="queueSizeDuo">3</div></div>
           <div class="status-item"><span class="label">Live Boosters</span><div class="value" id="liveBoostersDuo">22</div></div>
@@ -1195,7 +1159,7 @@
         </div>
       </div>
 
-      <!-- ─── COACHING ─── -->
+      <!-- ─── PANEL 5: COACHING ─── -->
       <div class="calc-panel" id="panel-coaching">
         <div class="calc-grid">
           <div class="calc-col">
@@ -1209,7 +1173,7 @@
           </div>
           <div class="calc-col">
             <h4>Duration</h4>
-            <select id="coachingDuration" class="rank-select" onchange="toggleCustomInput(this, 'customHoursDiv'); updateCoaching();">
+            <select id="coachingDuration" class="rank-select" onchange="toggleCustomInput(this, 'customHoursDiv')">
               <option value="1">1 Hour</option>
               <option value="2">2 Hours</option>
               <option value="3">3 Hours</option>
@@ -1218,12 +1182,12 @@
               <option value="custom">Custom</option>
             </select>
             <div id="customHoursDiv" class="custom-input">
-              <input type="number" class="rank-select" placeholder="Enter hours..." min="1" onchange="updateCoaching();" />
+              <input type="number" class="rank-select" placeholder="Enter hours..." min="1" />
             </div>
           </div>
           <div class="calc-col">
             <h4>Skill Level</h4>
-            <select id="coachingSkill" class="rank-select" onchange="updateCoaching();">
+            <select id="coachingSkill" class="rank-select">
               <option>Beginner (Iron-Bronze)</option>
               <option selected>Intermediate (Silver-Gold)</option>
               <option>Advanced (Platinum-Diamond)</option>
@@ -1252,38 +1216,34 @@
           </div>
         </div>
 
-        <div class="price-display" id="coachingPriceDisplay">
-          <div class="price-main"><span class="currency">$</span><span id="coachingPriceAmount">10.00</span></div>
-          <div class="price-detail"><span id="coachingBoostType">Solo</span> · <span id="coachingPriceETA">5h+</span> estimated</div>
-          <div class="price-multiplier" id="coachingMultiplierDisplay">Priority: <strong>Free</strong> · VOD: <strong>Free</strong></div>
-          <div class="price-eta" id="coachingPriceNote"></div>
-        </div>
-
-        <div class="instructor-grid">
-          <div class="instructor-card active">
-            <div class="avatar">AK</div>
-            <div class="name">ApexKnight</div>
-            <div class="spec">Aim • Movement</div>
-          </div>
-          <div class="instructor-card">
-            <div class="avatar">VS</div>
-            <div class="name">VexStrat</div>
-            <div class="spec">Game Sense • Utility</div>
-          </div>
-          <div class="instructor-card">
-            <div class="avatar">CR</div>
-            <div class="name">CrossRaze</div>
-            <div class="spec">Agent Mastery</div>
-          </div>
-          <div class="instructor-card">
-            <div class="avatar">NY</div>
-            <div class="name">Nyxian</div>
-            <div class="spec">Mental • Teamplay</div>
-          </div>
-          <div class="instructor-card">
-            <div class="avatar">SV</div>
-            <div class="name">SilverVoid</div>
-            <div class="spec">VOD Review</div>
+        <div style="margin: 20px 0 8px;">
+          <h4 style="font-family:var(--font-heading); font-size:0.85rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:10px;">Choose Your Coach</h4>
+          <div class="instructor-grid">
+            <div class="instructor-card active">
+              <div class="avatar">AK</div>
+              <div class="name">ApexKnight</div>
+              <div class="spec">Aim • Movement</div>
+            </div>
+            <div class="instructor-card">
+              <div class="avatar">VS</div>
+              <div class="name">VexStrat</div>
+              <div class="spec">Game Sense • Utility</div>
+            </div>
+            <div class="instructor-card">
+              <div class="avatar">CR</div>
+              <div class="name">CrossRaze</div>
+              <div class="spec">Agent Mastery</div>
+            </div>
+            <div class="instructor-card">
+              <div class="avatar">NY</div>
+              <div class="name">Nyxian</div>
+              <div class="spec">Mental • Teamplay</div>
+            </div>
+            <div class="instructor-card">
+              <div class="avatar">SV</div>
+              <div class="name">SilverVoid</div>
+              <div class="spec">VOD Review</div>
+            </div>
           </div>
         </div>
 
@@ -1296,13 +1256,13 @@
 
         <div class="calc-status">
           <div class="status-item"><span class="label">Available Slots</span><div class="value" style="color:var(--accent);">3 Today</div></div>
-          <div class="status-item"><span class="label">Next Available</span><div class="value" style="color:var(--text-secondary);">2:30 PM EST</div></div>
-          <div class="status-item"><span class="label">Session Duration</span><div class="value" id="estTimeCoaching">5h+</div></div>
+          <div class="status-item"><span class="label">Next Available</span><div class="value" style="color:var(--text-white);">2:30 PM EST</div></div>
+          <div class="status-item"><span class="label">Session Duration</span><div class="value" id="estTimeCoaching">5 Hours</div></div>
           <div class="status-item"><span class="label">Live Boosters</span><div class="value" id="liveBoostersCoaching">10</div></div>
         </div>
 
-        <div style="margin-top:16px; padding:16px 20px; background:var(--price-bg); border-radius:16px; border:1px solid var(--price-border); text-align:center;">
-          <p style="color:var(--text-secondary); font-size:0.95rem;">
+        <div style="margin-top:16px; padding:16px 20px; background:rgba(109,94,247,0.06); border-radius:16px; border:1px solid rgba(109,94,247,0.12); text-align:center;">
+          <p style="color:var(--text-gray); font-size:0.95rem;">
             <i class="fas fa-info-circle" style="color:var(--primary); margin-right:8px;"></i>
             All coaching sessions include a personalized improvement plan. VOD review sessions require a match replay link.
           </p>
@@ -1318,11 +1278,11 @@
 
   <section class="container" style="padding: 0 0 40px;">
     <div class="live-panel fade-up">
-      <div class="live-item"><span class="number" data-count="24">0</span><div class="label">Boosters Online</div></div>
+      <div class="live-item"><span class="number" id="statOnline">—</span><div class="label">Boosters Online</div></div>
       <div class="live-item"><span class="number" data-count="47">0</span><div class="label">Orders Active</div></div>
       <div class="live-item"><span class="number" data-count="6">0</span><div class="label">Avg. Queue (min)</div></div>
       <div class="live-item"><span class="number" data-count="98">0</span><div class="label">Success Rate %</div></div>
-      <div class="live-item"><span class="number" data-count="1432">0</span><div class="label">Discord Members</div></div>
+      <div class="live-item"><span class="number" id="statMembers">—</span><div class="label">Discord Members</div></div>
     </div>
   </section>
 
@@ -1380,21 +1340,7 @@
     <h2 class="section-title fade-up">What Our Clients Say</h2>
     <p class="section-sub fade-up">Real feedback from players who reached their dream rank.</p>
     <div class="reviews-grid">
-      <div class="review-card fade-up">
-        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-        <div class="text">"Went from Gold to Ascendant in just 3 days. Insane service!"</div>
-        <div class="author"><div class="avatar">JD</div><span>Jake D. – Ascendant</span></div>
-      </div>
-      <div class="review-card fade-up">
-        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-        <div class="text">"The coaching session improved my aim and game sense dramatically."</div>
-        <div class="author"><div class="avatar">SM</div><span>Sarah M. – Diamond</span></div>
-      </div>
-      <div class="review-card fade-up">
-        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-        <div class="text">"Fast, secure, and professional. Highly recommend for anyone stuck in Elo hell."</div>
-        <div class="author"><div class="avatar">TK</div><span>Tom K. – Immortal</span></div>
-      </div>
+      <!-- Reviews inserted by JavaScript to keep HTML clean -->
     </div>
   </section>
 
@@ -1458,101 +1404,154 @@
   </div>
 
   <script>
-    // ─── CONFIGURATION ───
-    const config = {
-      coaching: {
-        tiers: ['Iron','Bronze','Silver','Gold','Platinum','Diamond','Ascendant','Immortal','Radiant'],
-        costPerGame: [1,1,1,2,2,2,2,5,5],
-        hoursPerGame: [1,1,1,1,1,1,1,1,1]
-      },
-      netWins: {
-        tiers: ['Iron','Bronze','Silver','Gold','Platinum','Diamond','Ascendant','Immortal','Radiant'],
-        costPerWin: [1,1,2,2,2,3,4,7,30],
-        hoursPerWin: [1,2,2,2,2,2,2,2,2]
-      },
-      showPrices: true // Toggle this to false to hide prices
-    };
+    // ─── REAL REVIEWS ───
+    const reviewsData = [
+      { service: "Rank Boost", username: "Lig***", text: "Really good and fast and very nice", date: "2 days ago" },
+      { service: "Custom Request", username: "Ken***", text: "Very good booster i totally recommend!", date: "2 days ago" },
+      { service: "Rank Boost", username: "Tri***", text: "Great and fast boosting", date: "3 days ago" },
+      { service: "Custom Request", username: "Sil***", text: "Very good and fast!", date: "3 days ago" },
+      { service: "Rank Boost", username: "Sil***", text: "Fully legit did my boost super fast!", date: "3 days ago" },
+      { service: "Rank Boost", username: "bal***", text: "Amazing experience, they did it so well!!", date: "3 days ago" },
+      { service: "Placements", username: "cxq***", text: "Amazing service i got boosted super fast 2nd time coming back to these guy they are soooo goodddd", date: "3 days ago" },
+      { service: "Items", username: "Sun***", text: "Very kind, fast and excellent service i recommend", date: "4 days ago" },
+      { service: "Net Wins", username: "nxv***", text: "Good booster!^^", date: "4 days ago" },
+      { service: "Rank Boost", username: "for***", text: "Fast and great service", date: "4 days ago" },
+      { service: "Rank Boost", username: "Rea***", text: "Very pro players got it done easily", date: "5 days ago" },
+      { service: "Items", username: "cri***", text: "W booster", date: "5 days ago" },
+      { service: "Rank Boost", username: "Fon***", text: "Good people! Really friendly top tier customer service and i actually mean that", date: "5 days ago" },
+      { service: "Rank Boost", username: "bar***", text: "Absolutely loved my experience! My booster was incredibly patient, professional, and knowledgeable from start to finish. They communicated clearly, made the entire process smooth and stress-free, and exceeded my expectations. You can really tell they care about delivering quality service and making sure everything is done right. I would happily recommend them to anyone looking for someone reliable, skilled, and kind. Thank you so much!", date: "6 days ago" },
+      { service: "Custom Request", username: "Cut***", text: "Best", date: "6 days ago" },
+      { service: "Rank Boost", username: "Pol***", text: "Good and cheap", date: "6 days ago" },
+      { service: "Rank Boost", username: "Puf***", text: "Best Team of boosters. Will go over the limit to support you if things go haywire. Order here if you want people who actually care! No professionalism.", date: "7 days ago" },
+      { service: "Custom Request", username: "Cut***", text: "Nice", date: "7 days ago" },
+      { service: "Rank Boost", username: "zel***", text: "10/10 team, always responsive and cooperative, would recommend to everyone who needs cheap boosting.", date: "7 days ago" },
+      { service: "Rank Boost", username: "Liv***", text: "Fast and reliable with good communication", date: "7 days ago" },
+      { service: "Rank Boost", username: "Per***", text: "Very fast, and kind", date: "8 days ago" },
+      { service: "Rank Boost", username: "The***", text: "Got service twice from them both the times very amazing and every thing was perfect", date: "8 days ago" },
+      { service: "Rank Boost", username: "Fit***", text: "My experience was very good with this seller they did the boosting as expected.", date: "8 days ago" },
+      { service: "Rank Boost", username: "aps***", text: "Highly recommended", date: "9 days ago" },
+      { service: "Rank Boost", username: "jas***", text: "Great boosters and great team gold 3 to ascendant 1", date: "12 days ago" },
+      { service: "Rank Boost", username: "cen***", text: "Good communication", date: "12 days ago" },
+      { service: "Rank Boost", username: "Ope***", text: "最高！ (Best!)", date: "13 days ago" },
+      { service: "Rank Boost", username: "Plu***", text: "Amazing", date: "13 days ago" },
+      { service: "Rank Boost", username: "The***", text: "Amazing services provided", date: "14 days ago" },
+      { service: "Rank Boost", username: "Cur***", text: "Fast and polite :)", date: "14 days ago" },
+      { service: "Rank Boost", username: "Sha***", text: "Lovely person and indeed must to go for", date: "14 days ago" },
+      { service: "Placements", username: "Jol***", text: "Amazing service i got boosted super fast 2nd time coming back to these guy they are soooo goodddd", date: "14 days ago" },
+      { service: "Custom Request", username: "Nom***", text: "As described", date: "15 days ago" },
+      { service: "Custom Request", username: "Lof***", text: "Good communication", date: "15 days ago" },
+      { service: "Rank Boost", username: "Lof***", text: "Fast delivery", date: "15 days ago" },
+      { service: "Rank Boost", username: "Nom***", text: "Fast delivery", date: "15 days ago" },
+      { service: "Rank Boost", username: "Sil***", text: "Extra mile", date: "16 days ago" },
+      { service: "Placements", username: "Sun***", text: "Fast nice", date: "16 days ago" },
+      { service: "Custom Request", username: "Ken***", text: "Very good booster", date: "17 days ago" },
+      { service: "Rank Boost", username: "Cri***", text: "Good price", date: "17 days ago" },
+      { service: "Rank Boost", username: "Nub***", text: "GGWP", date: "17 days ago" },
+      { service: "Rank Boost", username: "mom***", text: "It was W exp people, Good pricing as compared to others and the Service was super fast like done the work in the 30% of time so yk the quality of work W.", date: "17 days ago" },
+      { service: "Placements", username: "Hig***", text: "As described", date: "18 days ago" },
+      { service: "Placements", username: "hey***", text: "Kind radiant guy", date: "18 days ago" },
+      { service: "Rank Boost", username: "Bri***", text: "GGWP", date: "19 days ago" },
+      { service: "Coaching", username: "Bri***", text: "Extra mile", date: "19 days ago" },
+      { service: "Rank Boost", username: "Liv***", text: "So kind and did the boost so quick!!! Amazing booster!!", date: "19 days ago" },
+      { service: "Net Wins", username: "Icy***", text: "Good price", date: "19 days ago" },
+      { service: "Rank Boost", username: "moz***", text: "Helpful and responsive", date: "19 days ago" },
+      { service: "Placements", username: "Ner***", text: "Good price", date: "19 days ago" },
+      { service: "Rank Boost", username: "Cal***", text: "Fast and clean!", date: "22 days ago" },
+      { service: "Rank Boost", username: "Dan***", text: "Amazing service and fast delivery", date: "22 days ago" },
+      { service: "Rank Boost", username: "Car***", text: "Got my desired rank on time and fast!", date: "22 days ago" },
+      { service: "Rank Boost", username: "zel***", text: "10/10 team, would bet anything to vouch for these people, very trustworthy and kind.", date: "22 days ago" },
+      { service: "Rank Boost", username: "Loy***", text: "These guys are the best i got my rank up within a few games to plat they are so quick and helpfull i 100% reccomend them", date: "22 days ago" },
+      { service: "Rank Boost", username: "Sak***", text: "W booster", date: "23 days ago" },
+      { service: "Coaching", username: "Nub***", text: "GOAT", date: "23 days ago" },
+      { service: "Rank Boost", username: "Nea***", text: "Good price", date: "25 days ago" },
+      { service: "Rank Boost", username: "Mer***", text: "Fast delivery", date: "25 days ago" },
+      { service: "Rank Boost", username: "Gla***", text: "Good booster", date: "25 days ago" },
+      { service: "Rank Boost", username: "Loy***", text: "The besttt", date: "26 days ago" },
+      { service: "Rank Boost", username: "1Yu***", text: "Amazing service", date: "26 days ago" },
+      { service: "Rank Boost", username: "Big***", text: "You guys are big dubs I shall order again!", date: "27 days ago" },
+      { service: "Rank Boost", username: "Chu***", text: "The best ever! Tysm <33", date: "27 days ago" },
+      { service: "Rank Boost", username: "wkn***", text: "Awesome", date: "27 days ago" },
+      { service: "Rank Boost", username: "Coo***", text: "Really nice guys and there good at what they do", date: "29 days ago" },
+      { service: "Rank Boost", username: "aps***", text: "The service was insane and also fast i really recommended", date: "30 days ago" },
+      { service: "Rank Boost", username: "Nom***", text: "Fast and efficient", date: "6/14/26" },
+      { service: "Rank Boost", username: "Per***", text: "As described", date: "6/14/26" },
+      { service: "Rank Boost", username: "zaz***", text: "Good fast trustworthy", date: "6/13/26" },
+      { service: "Rank Boost", username: "Lag***", text: "The job was done superfast. GGS", date: "6/13/26" },
+      { service: "Placements", username: "Kit***", text: "Helpful and responsive", date: "6/11/26" },
+      { service: "Rank Boost", username: "pea***", text: "Fast delivery", date: "6/10/26" },
+      { service: "Rank Boost", username: "cat***", text: "Was really quick said 2 days and did it in 2 days", date: "6/9/26" },
+      { service: "Rank Boost", username: "Fas***", text: "Best seller", date: "6/9/26" },
+      { service: "Rank Boost", username: "Cur***", text: "Super quick with it", date: "6/6/26" },
+      { service: "Rank Boost", username: "Ope***", text: "Best experience super boost", date: "6/6/26" },
+      { service: "Rank Boost", username: "bal***", text: "Really good communication, was super helpful and made sure my order was well handled! Trust this guy 100%", date: "6/6/26" },
+      { service: "Rank Boost", username: "Liz***", text: "Patient and got the rank i needed!! Thanks so much!! Would pay for another boost if i need it ❤️^^", date: "6/6/26" },
+      { service: "Rank Boost", username: "Nea***", text: "Good communication", date: "6/5/26" },
+      { service: "Rank Boost", username: "Hus***", text: "Good communication and good prices.", date: "6/5/26" },
+      { service: "Rank Boost", username: "sai***", text: "Very communicative and got it done quick.", date: "6/4/26" },
+      { service: "Rank Boost", username: "vFa***", text: "Helpful and responsive", date: "6/4/26" },
+      { service: "Rank Boost", username: "Rob***", text: "Great service really recommend did more then he should've great", date: "6/3/26" },
+      { service: "Net Wins", username: "bal***", text: "THIS GUY IS JUST THE BEST, he will get the job done 100%!", date: "6/3/26" },
+      { service: "Net Wins", username: "bal***", text: "Played really well and it was super fast!", date: "6/2/26" },
+      { service: "Rank Boost", username: "nov***", text: "He was very polite and patient, as well as quick to getting it done", date: "6/2/26" },
+      { service: "Rank Boost", username: "Plu***", text: "A very cool experience! first time ask for a duo make me very nervous but both seller and booster r very nice! good com solve everything guys!", date: "6/1/26" },
+      { service: "Rank Boost", username: "Blu***", text: "Good communication, extremely professional and good prices will recommend", date: "5/31/26" },
+      { service: "Rank Boost", username: "Loy***", text: "Very kind and smashed though every game highly recommend", date: "5/29/26" },
+      { service: "Rank Boost", username: "Nev***", text: "Good price and can play with lots of conditions!", date: "5/29/26" },
+      { service: "Custom Request", username: "Nev***", text: "Good price and Fast, Also you can watch boosters screen!", date: "5/27/26" },
+      { service: "Rank Boost", username: "Nev***", text: "So kind and So nice price. U can tell them lots of conditions cuz they are real PRO", date: "5/25/26" },
+      { service: "Rank Boost", username: "Swe***", text: "Really quick and patient! Good booster", date: "5/25/26" },
+      { service: "Rank Boost", username: "Fas***", text: "Extra mile", date: "5/23/26" },
+      { service: "Rank Boost", username: "Pol***", text: "Match MVP every game, super goated! Definitely recommend their team.", date: "5/22/26" },
+      { service: "Rank Boost", username: "Hig***", text: "Helpful and responsive", date: "5/22/26" },
+      { service: "Rank Boost", username: "Lar***", text: "Good communication", date: "5/22/26" },
+      { service: "Rank Boost", username: "Poa***", text: "Their team provided one of the best experiences I have had and easily stands out as the best boosting service I have come across. From the very beginning, these people showed a level of professionalism, skill, and dedication that is difficult to find. They did not just complete the service and move on. They went above and beyond at every step to make sure everything was handled perfectly and that I was completely satisfied with the experience. What impressed me most was the quality and consistency they delivered. Communication was excellent, updates were clear, and the entire process felt smooth and organized. The people involved were respectful, patient, and genuinely cared about providing the best possible experience rather than treating it like a simple transaction. You can immediately tell that this team takes pride in what they do and values the people they work with. For Valorant, I honestly cannot imagine a better experience. Their skill level, reliability, and attention to detail set them apart from everyone else. Everything was delivered exactly as promised, and the overall process exceeded my expectations. These people are easily among the best out there and have earned my trust completely. I would absolutely rebuy without even thinking twice and would strongly recommend them to anyone looking for the highest quality service possible.", date: "5/21/26" },
+      { service: "Rank Boost", username: "Min***", text: "Big vouch! He helped boost my Valo rank and everything went smoothly. Super chill, trusted, and easy to talk to. Definitely recommend him.", date: "5/20/26" },
+      { service: "Rank Boost", username: "Dro***", text: "Really fast and helpful. I recommend this booster.", date: "5/20/26" },
+      { service: "Gold", username: "Snu***", text: "Good price with very fast response and delivery!", date: "5/18/26" },
+      { service: "Gold", username: "Naw***", text: "Very friendly guy, offers multiple methods and has good pricing. Uses a high level account too", date: "5/16/26" },
+    ];
 
-    function getTierFromRank(rank) {
-      const parts = rank.split(' ');
-      return parts[0];
-    }
+    function renderReviews() {
+      const container = document.querySelector('.reviews-grid');
+      if (!container) return;
 
-    function getTierIndex(rank) {
-      const tier = getTierFromRank(rank);
-      return config.netWins.tiers.indexOf(tier);
-    }
+      // Shuffle reviews for variety
+      const shuffled = [...reviewsData].sort(() => Math.random() - 0.5);
+      // Take a subset (max 12) for the grid
+      const selected = shuffled.slice(0, 12);
 
-    // ─── NET WINS ───
-    function updateNetWins() {
-      const rankSelect = document.getElementById('winsRank');
-      const rank = rankSelect.value;
-      const tierIndex = getTierIndex(rank);
-      if (tierIndex === -1) return;
+      container.innerHTML = '';
+      selected.forEach(review => {
+        const card = document.createElement('div');
+        card.className = 'review-card fade-up';
 
-      let wins = parseInt(document.getElementById('winsCount').value);
-      if (isNaN(wins) || wins < 1) {
-        const customInput = document.querySelector('#customWinsDiv input');
-        if (customInput) wins = parseInt(customInput.value) || 1;
-      }
-      if (wins < 1) wins = 1;
-
-      const costPerWin = config.netWins.costPerWin[tierIndex];
-      const hoursPerWin = config.netWins.hoursPerWin[tierIndex];
-      const totalCost = wins * costPerWin;
-      const totalHours = wins * hoursPerWin;
-
-      // Check Duo/Party
-      let isDuo = false;
-      document.querySelectorAll('#panel-wins .switch-item').forEach(item => {
-        const label = item.querySelector('.switch-label');
-        if (label && label.textContent.trim() === 'Duo/Party') {
-          const sw = item.querySelector('.switch');
-          if (sw && sw.classList.contains('active')) isDuo = true;
+        // Truncate long reviews
+        let displayText = review.text;
+        if (displayText.length > 180) {
+          displayText = displayText.slice(0, 180) + '...';
         }
+
+        card.innerHTML = `
+          <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <div class="review-header">
+            <span class="service-tag">${review.service}</span>
+            <span class="username"><span>${review.username}</span></span>
+          </div>
+          <div class="text">${displayText}</div>
+          <div class="date">${review.date}</div>
+        `;
+        container.appendChild(card);
       });
 
-      let finalPrice = totalCost;
-      if (isDuo) {
-        finalPrice = Math.round((totalCost * 2.5) * 100) / 100;
-        document.getElementById('winsBoostType').textContent = 'Duo/Party 2.5×';
-      } else {
-        document.getElementById('winsBoostType').textContent = 'Solo';
-      }
-
-      const hoursDisplay = totalHours < 1 ? '1h+' : `${totalHours}h+`;
-      document.getElementById('winsPriceAmount').textContent = finalPrice.toFixed(2);
-      document.getElementById('winsPriceETA').textContent = hoursDisplay;
-      document.getElementById('estTimeWins').textContent = hoursDisplay;
+      // Trigger fade animations
+      setTimeout(() => {
+        document.querySelectorAll('.review-card.fade-up').forEach(el => {
+          el.classList.add('visible');
+        });
+      }, 100);
     }
 
-    // ─── COACHING ───
-    function updateCoaching() {
-      let hours = parseInt(document.getElementById('coachingDuration').value);
-      if (isNaN(hours) || hours < 1) {
-        const customInput = document.querySelector('#customHoursDiv input');
-        if (customInput) hours = parseInt(customInput.value) || 1;
-      }
-      if (hours < 1) hours = 1;
-
-      const skillSelect = document.getElementById('coachingSkill');
-      const skill = skillSelect.value;
-      let tierIndex = 0;
-      if (skill.includes('Elite')) tierIndex = 7; // Immortal+
-      else if (skill.includes('Advanced')) tierIndex = 5; // Diamond
-      else if (skill.includes('Intermediate')) tierIndex = 3; // Gold
-      else tierIndex = 0; // Iron
-
-      const costPerHour = config.coaching.costPerGame[tierIndex];
-      const totalCost = hours * costPerHour;
-      const hoursDisplay = `${hours}h+`;
-
-      document.getElementById('coachingPriceAmount').textContent = totalCost.toFixed(2);
-      document.getElementById('coachingPriceETA').textContent = hoursDisplay;
-      document.getElementById('estTimeCoaching').textContent = hoursDisplay;
-    }
-
-    // ─── RANK PRICE LOGIC ───
+    // ─── RANK ORDER ───
     const rankOrder = ['Iron I','Iron II','Iron III','Bronze I','Bronze II','Bronze III','Silver I','Silver II','Silver III','Gold I','Gold II','Gold III','Platinum I','Platinum II','Platinum III','Diamond I','Diamond II','Diamond III','Ascendant I','Ascendant II','Ascendant III','Immortal I','Immortal II','Immortal III','Radiant'];
 
     const stepPrices = {
@@ -1656,12 +1655,12 @@
       }
 
       const steps = desiredIdx - currentIdx;
-      let eta = '12h+';
-      if (steps <= 1) eta = '3h+';
-      else if (steps <= 3) eta = '5h+';
-      else if (steps <= 5) eta = '12h+';
-      else if (steps <= 8) eta = '24h+';
-      else eta = '2 Days+';
+      let eta = '12h';
+      if (steps <= 1) eta = '3h';
+      else if (steps <= 3) eta = '5h';
+      else if (steps <= 5) eta = '12h';
+      else if (steps <= 8) eta = '24h';
+      else eta = '2 Days';
 
       let isDuo = false;
       document.querySelectorAll('#panel-rank .switch-item').forEach(item => {
@@ -1681,46 +1680,33 @@
       }
 
       priceDisplay.textContent = finalPrice.toFixed(2);
-      etaDisplay.textContent = eta;
+      etaDisplay.textContent = `~${eta}`;
       noteDisplay.innerHTML = '';
       multiplierDisplay.innerHTML = 'Stream: <strong>Free</strong> · Offline: <strong>Free</strong>';
     }
 
-    // ─── THEME TOGGLE ───
-    function toggleTheme() {
-      const html = document.documentElement;
-      const currentTheme = html.getAttribute('data-theme');
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      html.setAttribute('data-theme', newTheme);
-      
-      const icon = document.getElementById('themeIcon');
-      const label = document.getElementById('themeLabel');
-      if (newTheme === 'light') {
-        icon.className = 'fas fa-sun';
-        label.textContent = 'Light';
-        localStorage.setItem('theme', 'light');
-      } else {
-        icon.className = 'fas fa-moon';
-        label.textContent = 'Dark';
-        localStorage.setItem('theme', 'dark');
+    // ─── LIVE STATS (Discord Bot API) ───
+    // IMPORTANT: Change this to your actual deployed bot URL (e.g., https://your-bot.onrender.com/api/stats)
+    const STATS_API_URL = 'http://localhost:3000/api/stats';
+
+    async function fetchDiscordStats() {
+      try {
+        const res = await fetch(STATS_API_URL);
+        if (!res.ok) throw new Error(`Stats API returned ${res.status}`);
+        const data = await res.json();
+
+        const onlineEl = document.getElementById('statOnline');
+        const membersEl = document.getElementById('statMembers');
+        if (onlineEl) onlineEl.innerText = data.boostersOnline ?? '—';
+        if (membersEl) membersEl.innerText = data.totalMembers ?? '—';
+      } catch (err) {
+        console.error('Could not fetch live stats:', err);
+        const onlineEl = document.getElementById('statOnline');
+        const membersEl = document.getElementById('statMembers');
+        if (onlineEl) onlineEl.innerText = '—';
+        if (membersEl) membersEl.innerText = '—';
       }
-      playSound('click');
     }
-
-    // Load saved theme
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    const icon = document.getElementById('themeIcon');
-    const label = document.getElementById('themeLabel');
-    if (savedTheme === 'light') {
-      icon.className = 'fas fa-sun';
-      label.textContent = 'Light';
-    } else {
-      icon.className = 'fas fa-moon';
-      label.textContent = 'Dark';
-    }
-
-    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
 
     // ─── PARTICLES ───
     const canvas = document.getElementById('particles-canvas');
@@ -1815,30 +1801,6 @@
       obs.observe(counter);
     });
 
-    // ─── LIVE COUNTER AUTO-UPDATE ───
-    function startLiveUpdates() {
-      setInterval(() => {
-        const boosters = Math.floor(Math.random() * 30) + 15;
-        document.querySelectorAll('.live-panel .number')[0].innerText = boosters;
-        const orders = Math.floor(Math.random() * 40) + 30;
-        document.querySelectorAll('.live-panel .number')[1].innerText = orders;
-        const queue = Math.floor(Math.random() * 10) + 2;
-        document.querySelectorAll('.live-panel .number')[2].innerText = queue;
-        const success = Math.floor(Math.random() * 5) + 94;
-        document.querySelectorAll('.live-panel .number')[3].innerText = success;
-        const members = Math.floor(Math.random() * 200) + 1400;
-        document.querySelectorAll('.live-panel .number')[4].innerText = members;
-
-        ['rank', 'placement', 'wins', 'duo', 'coaching'].forEach(panel => {
-          const liveId = document.getElementById(`liveBoosters${panel.charAt(0).toUpperCase() + panel.slice(1)}`);
-          if (liveId) {
-            liveId.innerText = Math.floor(Math.random() * 30) + 10;
-          }
-        });
-      }, 5000);
-    }
-    document.addEventListener('DOMContentLoaded', startLiveUpdates);
-
     // ─── TAB SWITCHING ───
     const tabBtns = document.querySelectorAll('.tab-btn');
     const panels = document.querySelectorAll('.calc-panel');
@@ -1856,22 +1818,16 @@
           updateDesiredOptions();
           calculateRankPrice();
         }
-        if (target === 'wins') {
-          updateNetWins();
-        }
-        if (target === 'coaching') {
-          updateCoaching();
-        }
       });
     });
 
     function updateEstimates(panel) {
       const estMap = {
-        rank: { time: '2 Days+', queue: '12', live: '18' },
-        placement: { time: '4h+', queue: '8', live: '14' },
-        wins: { time: '10h+', queue: '5', live: '16' },
-        duo: { time: '3h+', queue: '3', live: '22' },
-        coaching: { time: '5h+', queue: '2', live: '10' }
+        rank: { time: '~2 Days', queue: '12', live: '18' },
+        placement: { time: '~4 Hours', queue: '8', live: '14' },
+        wins: { time: '~6 Hours', queue: '5', live: '16' },
+        duo: { time: '~3 Hours', queue: '3', live: '22' },
+        coaching: { time: '5 Hours', queue: '2', live: '10' }
       };
       const data = estMap[panel] || estMap.rank;
       const idMap = {
@@ -1883,31 +1839,22 @@
       };
       const ids = idMap[panel];
       if (ids) {
+        document.getElementById(ids.time).innerText = data.time;
         document.getElementById(ids.queue).innerText = data.queue;
         document.getElementById(ids.live).innerText = data.live;
-        if (panel !== 'wins' && panel !== 'coaching' && panel !== 'rank') {
-          document.getElementById(ids.time).innerText = data.time;
-        }
-        if (panel === 'placement' || panel === 'duo') {
-          document.getElementById(ids.time).innerText = data.time;
-        }
       }
     }
 
-    // ─── SWITCH TOGGLE ───
     function toggleSwitch(el) {
       el.classList.toggle('active');
       playSound('click');
       const panel = el.closest('.calc-panel');
-      if (panel) {
-        if (panel.id === 'panel-rank') setTimeout(calculateRankPrice, 50);
-        if (panel.id === 'panel-wins') setTimeout(updateNetWins, 50);
-        if (panel.id === 'panel-coaching') setTimeout(updateCoaching, 50);
+      if (panel && panel.id === 'panel-rank') {
+        setTimeout(calculateRankPrice, 50);
       }
     }
     window.toggleSwitch = toggleSwitch;
 
-    // ─── CUSTOM INPUT TOGGLE ───
     function toggleCustomInput(select, divId) {
       const div = document.getElementById(divId);
       if (select.value === 'custom') {
@@ -1918,7 +1865,6 @@
     }
     window.toggleCustomInput = toggleCustomInput;
 
-    // ─── COACH INSTRUCTOR SELECT ───
     document.querySelectorAll('.instructor-card').forEach(card => {
       card.addEventListener('click', function() {
         document.querySelectorAll('.instructor-card').forEach(c => c.classList.remove('active'));
@@ -1927,7 +1873,6 @@
       });
     });
 
-    // ─── FAQ ACCORDION ───
     function toggleFaq(el) {
       const item = el.closest('.faq-item');
       const wasOpen = item.classList.contains('open');
@@ -2017,7 +1962,6 @@
       }
     });
 
-    // ─── SOUND EFFECTS ───
     let audioCtx = null;
     function playSound(type) {
       const muted = document.querySelector('#chatSettings input[type="checkbox"]:last-child');
@@ -2042,7 +1986,6 @@
       osc.stop(audioCtx.currentTime + dur);
     }
 
-    // ─── BUTTON RIPPLE ───
     document.querySelectorAll('.btn-primary, .btn-secondary, .nav-btn, .chat-toggle, button').forEach(btn => {
       btn.addEventListener('click', function(e) {
         const rect = this.getBoundingClientRect();
@@ -2074,14 +2017,13 @@
     document.head.appendChild(styleEl);
 
     // ─── INIT ───
-    setTimeout(() => {
+    document.addEventListener('DOMContentLoaded', () => {
+      renderReviews();
+      fetchDiscordStats();
+      setInterval(fetchDiscordStats, 30000);
       updateDesiredOptions();
       calculateRankPrice();
-      updateNetWins();
-      updateCoaching();
-    }, 300);
-
-    console.log('VG Solutions – Premium Boosting Website');
+    });
   </script>
 </body>
 </html>
